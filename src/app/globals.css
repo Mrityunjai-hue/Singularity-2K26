@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+:root {
+  --color-grass: #5D9C43;
+  --color-grass-dark: #3F6F2C;
+  --color-dirt: #7B5231;
+  --color-dirt-dark: #53361E;
+  --color-stone: #6B6B6B;
+  --color-stone-dark: #3C3C3C;
+  --color-obsidian: #0B0014;
+  --color-obsidian-light: #1A0C2E;
+  --color-diamond: #4FD9FF;
+  --color-gold: #FFD34D;
+  --color-redstone: #E14E3D;
+  --color-emerald: #55FF55;
+  --color-text-light: #F5F5F0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+body {
+  background-color: #0B0014;
+  color: var(--color-text-light);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  image-rendering: pixelated;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+  position: relative;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Prevent unwanted dragging, ghosting, or touch shift */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-user-drag: none;
+}
+
+img, svg, canvas, button, a, nav, header, footer {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+}
+
+input, textarea, select {
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+}
+
+/* Typography Classes */
+.font-pixel-title {
+  font-family: var(--font-arcade), var(--font-silkscreen), monospace;
+  letter-spacing: -0.04em;
+  text-shadow: 3px 3px 0px #000000;
+  word-break: break-word;
+}
+
+.font-pixel-heading {
+  font-family: var(--font-pixelify), var(--font-silkscreen), monospace;
+  letter-spacing: 0.02em;
+}
+
+.font-pixel-sub {
+  font-family: var(--font-silkscreen), monospace;
+}
+
+.font-pixel-body {
+  font-family: var(--font-vt323), monospace;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.font-pixel-arcade {
+  font-family: var(--font-arcade), monospace;
+}
+
+/* 3D Chunky Voxel Block Button */
+.btn-voxel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-arcade), monospace;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  padding: 0.75rem 1.25rem;
+  color: #FFFFFF;
+  background-color: #5D9C43;
+  border-top: 3px solid #82C864;
+  border-left: 3px solid #82C864;
+  border-right: 3px solid #3A6229;
+  border-bottom: 5px solid #233C19;
+  box-shadow: 0 4px 0 #101B0B, 0 6px 12px rgba(0,0,0,0.5);
+  transition: all 0.08s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn-voxel:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #101B0B, 0 8px 16px rgba(0,0,0,0.6);
+}
+
+.btn-voxel:active {
+  transform: translateY(4px);
+  border-bottom-width: 2px;
+  box-shadow: 0 1px 0 #101B0B, 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Diamond Cyan Button */
+.btn-voxel-diamond {
+  background-color: #00A6D6;
+  border-top-color: #7BE4FF;
+  border-left-color: #7BE4FF;
+  border-right-color: #007496;
+  border-bottom-color: #004D63;
+  box-shadow: 0 4px 0 #002D3A, 0 0 20px rgba(79, 217, 255, 0.4);
+}
+
+.btn-voxel-diamond:hover {
+  box-shadow: 0 6px 0 #002D3A, 0 0 28px rgba(79, 217, 255, 0.6);
+}
+
+/* Gold Button */
+.btn-voxel-gold {
+  background-color: #E5A800;
+  border-top-color: #FFE680;
+  border-left-color: #FFE680;
+  border-right-color: #A37700;
+  border-bottom-color: #6B4E00;
+  box-shadow: 0 4px 0 #3D2D00, 0 0 18px rgba(255, 211, 77, 0.4);
+  color: #1A0C2E;
+}
+
+/* Redstone Button */
+.btn-voxel-redstone {
+  background-color: #C72C1B;
+  border-top-color: #FF7B6E;
+  border-left-color: #FF7B6E;
+  border-right-color: #8C1C10;
+  border-bottom-color: #591008;
+  box-shadow: 0 4px 0 #2E0804, 0 0 18px rgba(225, 78, 61, 0.5);
+}
+
+/* Stone / Dark Button */
+.btn-voxel-stone {
+  background-color: #4A4A4A;
+  border-top-color: #757575;
+  border-left-color: #757575;
+  border-right-color: #303030;
+  border-bottom-color: #1E1E1E;
+  box-shadow: 0 4px 0 #101010;
+}
+
+/* Minecraft Inventory Slot Card */
+.inventory-slot-card {
+  position: relative;
+  background: #1D1D24;
+  border-top: 3px solid #101015;
+  border-left: 3px solid #101015;
+  border-right: 3px solid #42424E;
+  border-bottom: 3px solid #42424E;
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.8), 0 8px 24px rgba(0,0,0,0.6);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inventory-slot-card:hover {
+  border-color: #4FD9FF;
+  box-shadow: inset 2px 2px 0px rgba(0,0,0,0.8), 0 0 25px rgba(79, 217, 255, 0.35);
+  transform: translateY(-3px);
+}
+
+/* Item Slot Frame (Small item square) */
+.item-slot-frame {
+  width: 56px;
+  height: 56px;
+  background: #141419;
+  border-top: 3px solid #0A0A0D;
+  border-left: 3px solid #0A0A0D;
+  border-right: 3px solid #363640;
+  border-bottom: 3px solid #363640;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Seamless Section Transition Utilities */
+.terrain-divider-clean {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4FD9FF, #55FF55, #FFD34D, transparent);
+  opacity: 0.4;
+}
+
+/* Minecraft XP Bar */
+.xp-bar-container {
+  height: 12px;
+  background: #111111;
+  border: 2px solid #333333;
+  position: relative;
+  overflow: hidden;
+}
+
+.xp-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #55FF55 0%, #82FF82 50%, #4FD9FF 100%);
+  box-shadow: 0 0 10px #55FF55;
+  transition: width 0.4s ease;
+}
+
+/* Retro Scanline Overlay (Optional Aesthetic) */
+.scanline-overlay {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar styled as Minecart Track */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0014;
+  border-left: 2px solid #22222E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5D9C43;
+  border: 2px solid #82C864;
+  border-right-color: #233C19;
+  border-bottom-color: #233C19;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4FD9FF;
+  border-color: #7BE4FF;
+  box-shadow: 0 0 8px #4FD9FF;
+}
+
+/* Pulse Glows */
+.glow-diamond {
+  text-shadow: 0 0 10px #4FD9FF, 0 0 20px rgba(79, 217, 255, 0.5);
+}
+
+.glow-gold {
+  text-shadow: 0 0 10px #FFD34D, 0 0 20px rgba(255, 211, 77, 0.5);
+}
+
+.glow-redstone {
+  text-shadow: 0 0 10px #E14E3D, 0 0 25px rgba(225, 78, 61, 0.6);
+}
+
+.glow-emerald {
+  text-shadow: 0 0 10px #55FF55, 0 0 20px rgba(85, 255, 85, 0.5);
+}
+
+/* Pixel Border Utility */
+.pixel-box {
+  background: #181424;
+  border: 4px solid #3A3250;
+  box-shadow: 
+    -4px 0 0 0 #3A3250,
+    4px 0 0 0 #3A3250,
+    0 -4px 0 0 #3A3250,
+    0 4px 0 0 #3A3250;
+}

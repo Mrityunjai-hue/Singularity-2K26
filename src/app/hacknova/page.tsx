@@ -1,0 +1,562 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { HACKNOVA_DATA, LootChest, HackTrack } from "@/data/hacknova";
+import { useAchievement } from "@/components/ui/AchievementSystem";
+import { soundFx } from "@/lib/soundFx";
+import { spawnBlockBreakParticles } from "@/lib/particles";
+import { VoxelFooter } from "@/components/ui/VoxelFooter";
+import { LavaFlowCanvas } from "@/components/animations/LavaFlowCanvas";
+import {
+  Trophy,
+  Award,
+  Medal,
+  Sparkles,
+  ChevronDown,
+  ChevronUp,
+  Clock,
+  Calendar,
+  Users,
+  MapPin,
+  Bot,
+  Cloud,
+  Shield,
+  TrendingUp,
+  Flame,
+  CheckCircle,
+} from "lucide-react";
+import confetti from "canvas-confetti";
+
+export default function HackNovaPage() {
+  const { gainXp, unlockAchievement } = useAchievement();
+  const [openedChest, setOpenedChest] = useState<string | null>("diamond-chest");
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+
+  // Form State for In-Portal Registration
+  const [teamName, setTeamName] = useState("");
+  const [leaderName, setLeaderName] = useState("");
+  const [leaderEmail, setLeaderEmail] = useState("");
+  const [teamSize, setTeamSize] = useState("3");
+  const [trackInterest, setTrackInterest] = useState("AI & Autonomous Agents");
+  const [regSuccess, setRegSuccess] = useState(false);
+
+  React.useEffect(() => {
+    unlockAchievement("CAVE_EXPLORER");
+  }, [unlockAchievement]);
+
+  const handleChestClick = (chest: LootChest, e: React.MouseEvent) => {
+    soundFx.playChestOpen();
+    spawnBlockBreakParticles(e.clientX, e.clientY, 15);
+    setOpenedChest(chest.id);
+
+    try {
+      confetti({
+        particleCount: 25,
+        spread: 60,
+        origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+        colors: [chest.colorHex, "#FFFFFF"],
+      });
+    } catch {}
+  };
+
+  const handleRegisterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    soundFx.playLevelUp();
+    setRegSuccess(true);
+    gainXp(100);
+    unlockAchievement("TICKET_CRAFTED");
+
+    try {
+      confetti({
+        particleCount: 80,
+        spread: 90,
+        origin: { y: 0.6 },
+        colors: ["#E14E3D", "#4FD9FF", "#FFD34D", "#55FF55"],
+      });
+    } catch {}
+  };
+
+  const getTrackIcon = (iconName: string) => {
+    switch (iconName) {
+      case "bot":
+        return <Bot className="w-6 h-6 text-[#55FF55]" />;
+      case "cloud":
+        return <Cloud className="w-6 h-6 text-[#4FD9FF]" />;
+      case "shield":
+        return <Shield className="w-6 h-6 text-[#E14E3D]" />;
+      case "trending-up":
+        return <TrendingUp className="w-6 h-6 text-[#FFD34D]" />;
+      default:
+        return <Sparkles className="w-6 h-6 text-[#4FD9FF]" />;
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-[#07010C] text-[#F5F5F0]">
+      {/* CAVE / ARENA HERO SECTION */}
+      <section className="relative pt-16 pb-24 px-4 sm:px-6 overflow-hidden">
+        {/* 4K Magma Gorge Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-100 brightness-115 contrast-105 saturate-115"
+          style={{
+            backgroundImage: "url('/images/bg_lava_forge_4k.jpg')",
+          }}
+        />
+
+        {/* Dynamic Animated Flowing Lava Canvas */}
+        <LavaFlowCanvas />
+
+        {/* Soft edge fade allowing the glowing volcanic landscape to be fully visible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#07010C]/40 via-transparent to-[#07010C] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#1A0524]/90 backdrop-blur-md border-2 border-[#E14E3D] shadow-[0_0_20px_rgba(225,78,61,0.5)] mb-4">
+            <span className="w-2 h-2 bg-[#E14E3D] animate-ping inline-block" />
+            <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#E14E3D] uppercase tracking-wider">
+              FLAGSHIP 24H HACKATHON · HBTU KANPUR
+            </span>
+          </div>
+
+          <h1 className="font-pixel-title text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white tracking-wider uppercase drop-shadow-[0_8px_0_#000]">
+            HACKNOVA <span className="text-[#E14E3D]">2.0</span>
+          </h1>
+
+          <p className="font-pixel-heading text-lg sm:text-2xl text-[#FFD34D] mt-3 drop-shadow-[0_2px_4px_#000]">
+            24-HOUR PAN-INDIA DEEP OBSIDIAN PROVING GROUND
+          </p>
+
+          <p className="text-xs sm:text-sm text-[#E0E0EE] font-sans max-w-2xl mx-auto mt-2 leading-relaxed drop-shadow-[0_2px_4px_#000]">
+            Organized by N8N Data Science Community × AWS SBG HBTU × Department of Mathematics, HBTU. Descend into the arena to build autonomous agent swarms, serverless backbones, and mathematical computing algorithms.
+          </p>
+
+          {/* Key Metrics */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto my-8">
+            <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
+              <div className="font-pixel-title text-base sm:text-lg text-[#55FF55]">24 HOURS</div>
+              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">NON-STOP SPRINT</div>
+            </div>
+            <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
+              <div className="font-pixel-title text-base sm:text-lg text-[#4FD9FF]">2–4 BUILDERS</div>
+              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">TEAM SQUAD SIZE</div>
+            </div>
+            <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
+              <div className="font-pixel-title text-base sm:text-lg text-[#FFD34D]">100% FREE</div>
+              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">FOOD & SWAGS INCL.</div>
+            </div>
+            <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
+              <div className="font-pixel-title text-base sm:text-lg text-[#E14E3D]">GRAND LOOT</div>
+              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">CASH & TROPHIES</div>
+            </div>
+          </div>
+
+
+          {/* Primary Action Button */}
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#register-section"
+              onClick={(e) => {
+                soundFx.playClick();
+                spawnBlockBreakParticles(e.clientX, e.clientY, 12);
+              }}
+              className="btn-voxel btn-voxel-redstone text-sm px-6 py-3.5 flex items-center gap-2"
+            >
+              <span>REGISTER SQUAD DIRECTLY IN PORTAL ↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 3D LOOT CHEST PRIZE REVEALS */}
+      <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-10">
+          <span className="font-pixel-arcade text-xs text-[#FFD34D] uppercase">
+            UNCOVER THE BOUNTY
+          </span>
+          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white mt-1">
+            LOOT CHEST REVEALS
+          </h2>
+          <p className="text-xs sm:text-sm text-[#A0A0B0] font-sans max-w-xl mx-auto mt-2">
+            Click on any chest below to inspect its prize tier, obsidian trophies, cloud credits, and perks!
+          </p>
+        </div>
+
+        {/* Chests Selector Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {HACKNOVA_DATA.lootChests.map((chest) => {
+            const isOpened = openedChest === chest.id;
+
+            return (
+              <div
+                key={chest.id}
+                onClick={(e) => handleChestClick(chest, e)}
+                className={`p-6 border-4 transition-all cursor-pointer relative select-none flex flex-col items-center text-center ${
+                  isOpened
+                    ? "bg-[#1C0F28] scale-105 shadow-[0_0_30px_rgba(255,211,77,0.3)]"
+                    : "bg-[#11081A] opacity-80 hover:opacity-100 hover:scale-102"
+                }`}
+                style={{
+                  borderColor: isOpened ? chest.colorHex : "#3A1448",
+                }}
+              >
+                <div
+                  className="w-16 h-16 border-2 flex items-center justify-center text-3xl mb-3"
+                  style={{
+                    backgroundColor: `${chest.colorHex}20`,
+                    borderColor: chest.colorHex,
+                  }}
+                >
+                  {chest.tier === "diamond" ? "💎" : chest.tier === "gold" ? "🟡" : chest.tier === "iron" ? "⚪" : "✨"}
+                </div>
+
+                <span
+                  className="font-pixel-arcade text-[10px] px-2 py-0.5 border mb-1"
+                  style={{
+                    color: chest.colorHex,
+                    borderColor: `${chest.colorHex}60`,
+                    backgroundColor: `${chest.colorHex}15`,
+                  }}
+                >
+                  {chest.rankBadge}
+                </span>
+
+                <h3 className="font-pixel-title text-base text-white mt-1">
+                  {chest.title.split("—")[0]}
+                </h3>
+
+                <div
+                  className="font-pixel-arcade text-sm mt-2 font-bold"
+                  style={{ color: chest.colorHex }}
+                >
+                  {chest.cashAmount}
+                </div>
+
+                <span className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-3">
+                  {isOpened ? "▼ CHEST UNLOCKED" : "CLICK TO UNLOCK"}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Active Chest Details View */}
+        {openedChest && (() => {
+          const activeChest = HACKNOVA_DATA.lootChests.find((c) => c.id === openedChest);
+          if (!activeChest) return null;
+
+          return (
+            <div
+              className="bg-[#14081E] border-4 p-6 sm:p-8 relative shadow-[0_8px_0_#000]"
+              style={{ borderColor: activeChest.colorHex }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#2E123D] pb-4 mb-6">
+                <div>
+                  <span className="font-pixel-arcade text-xs text-[#A0A0B0]">CHEST CONTENTS:</span>
+                  <h3 className="font-pixel-title text-xl sm:text-2xl text-white mt-1">
+                    {activeChest.title}
+                  </h3>
+                </div>
+
+                <span
+                  className="font-pixel-arcade text-xs px-3 py-1 border"
+                  style={{
+                    color: activeChest.colorHex,
+                    borderColor: activeChest.colorHex,
+                  }}
+                >
+                  {activeChest.cashAmount}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {activeChest.perks.map((perk, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 bg-[#0B0212] border border-[#2B1038] flex items-center gap-3 text-xs sm:text-sm font-sans text-[#E0E0EE]"
+                  >
+                    <span className="text-base" style={{ color: activeChest.colorHex }}>
+                      ✓
+                    </span>
+                    <span>{perk}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+      </section>
+
+      {/* TRACKS & PROBLEM STATEMENT PROTOCOL */}
+      <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto bg-[#100618] border-y-4 border-[#3A1448]">
+        <div className="text-center mb-10">
+          <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase">
+            PROBLEM DOMAINS
+          </span>
+          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
+            HACKATHON TRACKS
+          </h2>
+          <div className="p-3 mt-3 inline-block bg-[#1B0524] border border-[#E14E3D] text-xs font-sans text-[#FFD34D]">
+            ⚠️ NOTE: Exact problem statements will be officially unveiled live at T-0 Hours (Event Kickoff).
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {HACKNOVA_DATA.tracks.map((track) => (
+            <div
+              key={track.id}
+              className="p-6 bg-[#14081E] border-2 border-[#3A1448] hover:border-[#4FD9FF] transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-[#0B0212] border border-[#3A1448] flex items-center justify-center">
+                    {getTrackIcon(track.icon)}
+                  </div>
+                  <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] bg-[#4FD9FF]/10 px-2 py-0.5 border border-[#4FD9FF]/30">
+                    {track.tag}
+                  </span>
+                </div>
+
+                <h3 className="font-pixel-heading text-lg font-bold text-white mb-2">
+                  {track.title}
+                </h3>
+                <p className="text-xs text-[#B0B0C8] font-sans leading-relaxed mb-4">
+                  {track.shortDesc}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-[#2A1038] text-[11px] font-sans text-[#FFD34D] italic">
+                {track.problemStatementStatus}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 24-HOUR HACKATHON QUESTLINE TIMELINE */}
+      <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#140822] border-2 border-[#E14E3D] shadow-[0_0_20px_rgba(225,78,61,0.4)] mb-3">
+            <Clock className="w-4 h-4 text-[#E14E3D] animate-pulse" />
+            <span className="font-pixel-arcade text-xs text-[#E14E3D] uppercase tracking-widest font-bold">
+              24-HOUR BATTLE RUNTIME
+            </span>
+          </div>
+          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white mt-1 uppercase drop-shadow-[0_4px_0_#000]">
+            HACKATHON QUESTLINE TIMELINE
+          </h2>
+          <p className="text-sm sm:text-base text-[#E0E2F5] font-sans max-w-2xl mx-auto mt-2 leading-relaxed">
+            From physical spawn check-ins and T-0 problem unveilings to midnight snack raids and the final jury pitch arena.
+          </p>
+        </div>
+
+        {/* Timeline Grid / Path */}
+        <div className="relative pl-0 sm:pl-10">
+          {/* Glowing Vertical Redstone Track */}
+          <div className="hidden sm:block absolute left-3 top-6 bottom-8 w-1 bg-gradient-to-b from-[#E14E3D] via-[#FFD34D] to-[#55FF55] shadow-[0_0_15px_rgba(225,78,61,0.8)]" />
+
+          <div className="space-y-5">
+            {HACKNOVA_DATA.timeline.map((stage, idx) => (
+              <div key={stage.level} className="relative group">
+                {/* Checkpoint Node */}
+                <div className="hidden sm:flex absolute -left-10 top-5 w-8 h-8 bg-[#120524] border-2 border-[#E14E3D] text-[#FFD34D] items-center justify-center font-pixel-arcade text-xs font-bold shadow-[0_0_15px_rgba(225,78,61,0.8)] z-20 group-hover:scale-110 transition-transform">
+                  {stage.level}
+                </div>
+
+                {/* Stage Card */}
+                <div className="p-6 sm:p-7 bg-[#120524]/98 backdrop-blur-2xl border-2 border-[#4A2470] hover:border-[#E14E3D] transition-all shadow-[0_8px_30px_rgba(0,0,0,0.9)] group-hover:translate-x-1 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 relative overflow-hidden">
+                  {/* Left Accent Glow Strip */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#E14E3D] shadow-[0_0_10px_#E14E3D]" />
+
+                  <div className="flex items-center gap-4 min-w-[220px] flex-shrink-0">
+                    <div className="w-10 h-10 bg-[#250A10] border-2 border-[#E14E3D] flex items-center justify-center font-pixel-title text-sm text-[#FFD34D] shadow-[0_0_10px_rgba(225,78,61,0.5)]">
+                      L{stage.level}
+                    </div>
+                    <div>
+                      <div className="font-mono text-sm sm:text-base font-extrabold text-white flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5 text-[#E14E3D]" />
+                        <span>{stage.time}</span>
+                      </div>
+                      <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/15 px-2 py-0.5 border border-[#FFD34D]/40 uppercase mt-1 inline-block">
+                        {stage.dayLabel}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex-1 space-y-1.5">
+                    <h3 className="font-pixel-heading text-lg sm:text-xl font-bold text-white tracking-wide group-hover:text-[#4FD9FF] transition-colors">
+                      {stage.title}
+                    </h3>
+                    <p className="text-sm text-[#F0F2FF] font-sans leading-relaxed font-normal">
+                      {stage.desc}
+                    </p>
+                  </div>
+
+                  <div className="flex-shrink-0 self-end md:self-center">
+                    <span className="text-xs font-pixel-arcade text-[#55FF55] bg-[#55FF55]/15 px-3 py-1.5 border border-[#55FF55] shadow-sm">
+                      STAGE 0{stage.level}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DIRECT IN-PORTAL REGISTRATION SECTION */}
+      <section id="register-section" className="py-20 px-4 sm:px-6 max-w-4xl mx-auto">
+        <div className="bg-[#14081E] border-4 border-[#E14E3D] shadow-[0_10px_0_#000,0_0_50px_rgba(225,78,61,0.3)] p-6 sm:p-10">
+          <div className="text-center mb-8">
+            <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase">
+              OFFICIAL IN-PORTAL ENLISTMENT
+            </span>
+            <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
+              REGISTER YOUR SQUAD FOR HACKNOVA 2.0
+            </h2>
+            <p className="text-xs sm:text-sm text-[#A0A0B0] font-sans mt-2">
+              Registration is 100% free and managed entirely within this official portal.
+            </p>
+          </div>
+
+          <form onSubmit={handleRegisterSubmit} className="space-y-4 font-sans">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
+                  SQUAD / TEAM NAME:
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={teamName}
+                  onChange={(e) => setTeamName(e.target.value)}
+                  placeholder="e.g. VoxelRaiders"
+                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
+                  TEAM LEADER NAME:
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={leaderName}
+                  onChange={(e) => setLeaderName(e.target.value)}
+                  placeholder="Full Name"
+                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
+                  LEADER EMAIL ADDRESS:
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={leaderEmail}
+                  onChange={(e) => setLeaderEmail(e.target.value)}
+                  placeholder="leader@college.edu"
+                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
+                  NUMBER OF SQUAD MEMBERS:
+                </label>
+                <select
+                  value={teamSize}
+                  onChange={(e) => setTeamSize(e.target.value)}
+                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
+                >
+                  <option value="2">2 Hackers</option>
+                  <option value="3">3 Hackers</option>
+                  <option value="4">4 Hackers</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
+                PRIMARY DOMAIN OF INTEREST:
+              </label>
+              <select
+                value={trackInterest}
+                onChange={(e) => setTrackInterest(e.target.value)}
+                className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
+              >
+                <option value="AI & Autonomous Agents">Autonomous AI & Multi-Agent Swarms</option>
+                <option value="Cloud & Serverless">Next-Gen Cloud & Serverless Infrastructure</option>
+                <option value="Web3 & Cryptography">Decentralized Systems & Zero-Knowledge</option>
+                <option value="Mathematical Computing">Mathematical Computing & Quant Models</option>
+                <option value="Open Innovation">Open Innovation / Social Good</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              className="btn-voxel btn-voxel-redstone text-xs w-full py-3.5 mt-4"
+            >
+              ⚔️ SUBMIT SQUAD APPLICATION (+100 XP)
+            </button>
+
+            {regSuccess && (
+              <div className="p-4 bg-[#1B2E15] border-2 border-[#55FF55] text-xs font-pixel-arcade text-[#55FF55] text-center animate-bounce">
+                ✓ SQUAD ENLISTED IN HACKNOVA 2.0 PORTAL! YOU MAY NOW FORGE YOUR ATTENDEE BADGE.
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
+
+      {/* FAQ ACCORDION */}
+      <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase">
+            HACKATHON PROTOCOLS
+          </span>
+          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
+            HACKNOVA 2.0 FAQ
+          </h2>
+        </div>
+
+        <div className="space-y-3">
+          {HACKNOVA_DATA.faqs.map((faq, index) => {
+            const isExpanded = expandedFaq === index;
+
+            return (
+              <div
+                key={index}
+                className="bg-[#14081E] border-2 border-[#3A1448] overflow-hidden"
+              >
+                <button
+                  onClick={() => {
+                    setExpandedFaq(isExpanded ? null : index);
+                    soundFx.playClick();
+                  }}
+                  className="w-full p-4 text-left flex items-center justify-between gap-4 font-pixel-heading text-sm sm:text-base font-bold text-white hover:text-[#4FD9FF] transition-colors"
+                >
+                  <span>{faq.q}</span>
+                  {isExpanded ? <ChevronUp className="w-5 h-5 flex-shrink-0" /> : <ChevronDown className="w-5 h-5 flex-shrink-0" />}
+                </button>
+
+                {isExpanded && (
+                  <div className="px-4 pb-4 font-sans text-xs sm:text-sm text-[#D0D0E0] border-t border-[#2A1038] pt-3 leading-relaxed">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Global Footer */}
+      <VoxelFooter />
+    </main>
+  );
+}
