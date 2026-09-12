@@ -28,10 +28,10 @@ import {
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
-// Default / fallback Google Apps Script Web App URL (can be overridden via ENV)
+// Live Google Apps Script Web App URL for Singularity 2K26 Attendee Database
 const SCRIPT_URL =
   process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL ||
-  "https://script.google.com/macros/s/AKfycbz_singularity2k26_appscript_placeholder/exec";
+  "https://script.google.com/macros/s/AKfycbwMZsilK8DsAE34sLjVnQCDsM6EGFQwDjzgBTdC3F4Q2eGXs3NoBV-XQcB8pqP5rLg/exec";
 
 const TARGET_ATTENDEES = 1500;
 const BASE_SIMULATED_COUNT = 487; // Realistic initial count before first live sheet fetch
