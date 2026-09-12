@@ -11,34 +11,32 @@ import { soundFx } from "@/lib/soundFx";
 import { spawnBlockBreakParticles } from "@/lib/particles";
 import { useAchievement } from "@/components/ui/AchievementSystem";
 import { VoxelFooter } from "@/components/ui/VoxelFooter";
+import { SponsorHoloCanvas } from "@/components/animations/SponsorHoloCanvas";
+import { VoxelOre3D } from "@/components/ui/VoxelOre3D";
 import {
-  Trophy,
   Sparkles,
   Download,
   Mail,
-  CheckCircle2,
   Shield,
   Zap,
-  Users,
   Award,
-  Flame,
   ArrowRight,
-  ExternalLink,
   ChevronDown,
   ChevronUp,
   Sliders,
   Check,
   Building,
   Target,
-  FileText,
   Star,
-  Send,
   X,
+  Radio,
+  Cpu,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
 export default function SponsorsPage() {
   const { unlockAchievement } = useAchievement();
+  const [activeTierId, setActiveTierId] = useState<"diamond" | "gold" | "iron" | "redstone">("diamond");
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
   const [selectedSlotForModal, setSelectedSlotForModal] = useState<{
@@ -57,6 +55,23 @@ export default function SponsorsPage() {
   React.useEffect(() => {
     unlockAchievement("NETHER_PORTAL");
   }, [unlockAchievement]);
+
+  const activeTier = SPONSORS_DATA.tiers.find((t) => t.id === activeTierId) || SPONSORS_DATA.tiers[0];
+
+  const handleTierSwitch = (tierId: "diamond" | "gold" | "iron" | "redstone", e: React.MouseEvent) => {
+    soundFx.playChestOpen();
+    spawnBlockBreakParticles(e.clientX, e.clientY, 15);
+    setActiveTierId(tierId);
+
+    try {
+      confetti({
+        particleCount: tierId === "diamond" ? 35 : tierId === "gold" ? 25 : 15,
+        spread: 60,
+        origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+        colors: [activeTier.colorHex, "#FFD34D", "#4FD9FF", "#55FF55"],
+      });
+    } catch {}
+  };
 
   // Determine matched tier from calculator
   const getMatchedTier = (): "diamond" | "gold" | "iron" | "redstone" => {
@@ -89,7 +104,6 @@ export default function SponsorsPage() {
       });
     } catch {}
 
-    // Simulated prospectus deck generation
     const dummyProspectus = `SINGULARITY 2K26 — SPONSORSHIP PROSPECTUS & CORPORATE PARTNERSHIP DECK
 ========================================================================
 Event: Singularity 2K26 & HackNova 2.0 (Flagship AI Hackathon)
@@ -136,37 +150,40 @@ Portal: https://singularity-2k26.vercel.app/sponsors
   };
 
   return (
-    <main className="min-h-screen pt-24 sm:pt-28 relative bg-[#06010A] text-white">
-      {/* Background Image: 4K Ultra-Vivid Celestial Nether Hall with Full Page Continuity */}
-      <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-90 brightness-110 contrast-105 saturate-110 pointer-events-none"
-        style={{
-          backgroundImage: "url('/images/bg_nether_celestial_4k.jpg')",
-        }}
+    <main className="min-h-screen pt-24 sm:pt-28 relative bg-[#06010A] text-white overflow-hidden">
+      {/* 1. DEDICATED REAL-TIME CYBER GRID & VOLUMETRIC BEACON CANVAS */}
+      <SponsorHoloCanvas
+        activeColor={activeTier.colorHex}
+        intensity={
+          activeTier.id === "diamond"
+            ? "maximum"
+            : activeTier.id === "gold"
+            ? "high"
+            : activeTier.id === "iron"
+            ? "medium"
+            : "subtle"
+        }
       />
-      {/* Balanced contrast backing for vibrant celestial nebula + pristine text contrast */}
-      <div className="fixed inset-0 bg-gradient-to-b from-[#06010A]/75 via-[#0E0318]/70 to-[#06010A]/90 pointer-events-none" />
 
-      {/* 1. HERO LANDMARK SHOWCASE */}
-      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-14">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#140822]/90 backdrop-blur-md border-2 border-[#4FD9FF] shadow-[0_0_25px_rgba(79,217,255,0.35)] mb-4">
-          <Sparkles className="w-4 h-4 text-[#4FD9FF] animate-pulse" />
+      {/* 2. HERO LANDMARK SHOWCASE */}
+      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-12">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#140822]/90 backdrop-blur-md border-2 border-[#4FD9FF] shadow-[0_0_25px_rgba(79,217,255,0.35)] mb-4 animate-pulse">
+          <Sparkles className="w-4 h-4 text-[#4FD9FF]" />
           <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase tracking-widest font-bold">
-            SOVEREIGN PATRON NEXUS // SINGULARITY 2K26
+            3D HOLOGRAPHIC PATRON NEXUS // SINGULARITY 2K26
           </span>
         </div>
 
         <h1 className="font-pixel-title text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-bold tracking-wider uppercase drop-shadow-[0_8px_0_#000] [text-shadow:0_0_45px_rgba(79,217,255,0.6)]">
-          ORE-THEMED <span className="text-[#FFD34D]">SPONSOR SANCTUM</span>
+          SOVEREIGN <span className="text-[#FFD34D]">SPONSOR SANCTUM</span>
         </h1>
 
         <div className="font-pixel-sub text-xs sm:text-sm md:text-base text-[#4FD9FF] font-bold uppercase tracking-widest mt-2 drop-shadow-[0_2px_6px_#000]">
-          EMPOWERING INDIA&apos;S PREMIER PAN-UNIVERSITY BUILDER ODYSSEY
+          SHATABDI BHAVAN · HBTU WEST CAMPUS · OCTOBER 22–24, 2026
         </div>
 
         <p className="text-sm sm:text-base text-[#E0E2F5] font-sans max-w-3xl mx-auto mt-4 leading-relaxed font-normal drop-shadow-[0_2px_8px_#000]">
-          The driving bedrock of Singularity 2K26 and HackNova 2.0 at <strong>Shatabdi Bhavan, HBTU West Campus</strong>.
-          Partner with our collegiate ecosystem to command executive mainstage presence, recruit top-tier AI engineering talent, and sponsor high-stakes challenge tracks.
+          Step onto the central 3D Holo-Projector Stage. Command executive mainstage authority, recruit top-tier collegiate AI engineers, and sponsor flagship challenge tracks.
         </p>
 
         {/* 4 Audience Impact Metrics Telemetry HUD */}
@@ -174,7 +191,7 @@ Portal: https://singularity-2k26.vercel.app/sponsors
           {SPONSOR_IMPACT_METRICS.map((metric, idx) => (
             <div
               key={idx}
-              className="bg-[#120524]/92 backdrop-blur-md border-2 p-4 text-center shadow-[0_6px_20px_rgba(0,0,0,0.85)] hover:translate-y-[-2px] transition-all"
+              className="bg-[#0D041A]/95 backdrop-blur-md border-2 p-3.5 text-center shadow-[0_6px_20px_rgba(0,0,0,0.85)] hover:translate-y-[-2px] transition-all"
               style={{ borderColor: `${metric.color}60` }}
             >
               <div
@@ -203,13 +220,13 @@ Portal: https://singularity-2k26.vercel.app/sponsors
             <span className="text-black">DOWNLOAD SPONSORSHIP DECK (PDF)</span>
           </button>
 
-          <a
-            href="#tier-calculator"
-            className="btn-voxel btn-voxel-diamond text-xs sm:text-sm px-6 py-4 flex items-center gap-2"
+          <button
+            onClick={(e) => handleOpenInquiryModal(activeTier, undefined, e)}
+            className="btn-voxel btn-voxel-diamond text-xs sm:text-sm px-8 py-4 flex items-center gap-2 font-bold shadow-[0_0_35px_rgba(79,217,255,0.5)]"
           >
-            <Sliders className="w-4 h-4" />
-            <span>CALCULATE SPONSORSHIP ROI</span>
-          </a>
+            <Mail className="w-4 h-4" />
+            <span>CLAIM A SPONSOR SLOT</span>
+          </button>
         </div>
 
         {downloadSuccess && (
@@ -219,17 +236,219 @@ Portal: https://singularity-2k26.vercel.app/sponsors
         )}
       </section>
 
-      {/* 2. INTERACTIVE SPONSORSHIP ROI & TIER MATCHER CALCULATOR */}
+      {/* 3. GRAND 3D HOLO-PROJECTOR STAGE (NO GENERIC CARDS) */}
+      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
+        {/* Tier Selector Holo-Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          {SPONSORS_DATA.tiers.map((tier) => {
+            const isSelected = activeTierId === tier.id;
+
+            return (
+              <button
+                key={tier.id}
+                onClick={(e) => handleTierSwitch(tier.id, e)}
+                className={`p-4 border-3 text-left transition-all relative overflow-hidden select-none backdrop-blur-xl ${
+                  isSelected
+                    ? "bg-[#18082C] border-white shadow-[0_0_35px_rgba(255,255,255,0.4),0_6px_0_#000] translate-y-[-2px]"
+                    : "bg-[#0A0214]/90 border-[#3A1E54] hover:border-white hover:bg-[#120520]"
+                }`}
+              >
+                {/* Active Top Glow Bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-1.5"
+                  style={{
+                    backgroundColor: tier.colorHex,
+                    boxShadow: isSelected ? `0 0 15px ${tier.colorHex}` : "none",
+                  }}
+                />
+
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-pixel-title text-base sm:text-lg text-white font-bold">
+                    {tier.name.toUpperCase()}
+                  </span>
+                  <span className="text-xl">
+                    {tier.id === "diamond" ? "💎" : tier.id === "gold" ? "🟡" : tier.id === "iron" ? "⚪" : "🔴"}
+                  </span>
+                </div>
+
+                <div
+                  className="font-pixel-arcade text-[10px] font-bold truncate"
+                  style={{ color: tier.colorHex }}
+                >
+                  {tier.badge}
+                </div>
+
+                <div className="text-[10px] font-sans text-[#A0A0B8] mt-1">
+                  {tier.investmentTier}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* 3D Holo-Chamber Stage Container */}
+        <div
+          className="bg-[#0A0216]/98 backdrop-blur-2xl border-4 p-6 sm:p-12 relative overflow-hidden shadow-[0_15px_60px_rgba(0,0,0,0.95)] transition-all duration-700"
+          style={{ borderColor: activeTier.colorHex, boxShadow: `0 0 50px ${activeTier.colorHex}30` }}
+        >
+          {/* Top Stage Glowing Header Strip */}
+          <div
+            className="absolute top-0 left-0 right-0 h-2 shadow-[0_0_25px_currentColor]"
+            style={{ backgroundColor: activeTier.colorHex, color: activeTier.colorHex }}
+          />
+
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-10 pb-8 border-b-2 border-[#2B1540]">
+            {/* 3D Model Stage Left */}
+            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center relative py-6">
+              {/* Interactive 3D CSS Voxel Ore Model */}
+              <VoxelOre3D
+                tierId={activeTier.id}
+                colorHex={activeTier.colorHex}
+                size={activeTier.id === "diamond" ? 170 : 150}
+              />
+
+              <div className="mt-6 text-center space-y-1">
+                <span
+                  className="font-pixel-arcade text-xs px-3 py-1 border font-bold uppercase tracking-wider inline-block"
+                  style={{
+                    color: activeTier.colorHex,
+                    borderColor: activeTier.colorHex,
+                    backgroundColor: `${activeTier.colorHex}15`,
+                  }}
+                >
+                  {activeTier.badge}
+                </span>
+
+                <div className="font-pixel-title text-xl sm:text-2xl text-white font-bold tracking-wide">
+                  {activeTier.name} Sanctum
+                </div>
+
+                <div className="font-pixel-arcade text-[10px] text-[#A0A0B8]">
+                  INTERACTIVE 3D VOXEL CORE · HOVER / DRAG TO ROTATE
+                </div>
+              </div>
+            </div>
+
+            {/* Stage Right: Projected Holographic Deal Package */}
+            <div className="w-full lg:w-1/2 space-y-4">
+              <div className="inline-flex items-center gap-2 font-pixel-arcade text-xs text-[#FFD34D] bg-[#FFD34D]/15 border border-[#FFD34D]/40 px-3 py-1 uppercase tracking-wider font-bold">
+                <Radio className="w-3.5 h-3.5 text-[#FFD34D] animate-pulse" />
+                PROJECTED DELIVERABLES MATRIX
+              </div>
+
+              <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold leading-tight">
+                {activeTier.dealOverview}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-[#D0D4EC] font-sans leading-relaxed">
+                {activeTier.tagline}
+              </p>
+
+              {/* Deal Checklist */}
+              <div className="space-y-2 pt-2">
+                {activeTier.coreDeliverables.map((deliv, idx) => (
+                  <div
+                    key={idx}
+                    className="p-2.5 bg-[#120524] border border-[#3A1E54] flex items-center gap-3 text-xs sm:text-sm text-[#F0F4FF] font-sans hover:border-[#4FD9FF] transition-colors"
+                  >
+                    <span
+                      className="w-5 h-5 flex items-center justify-center font-bold text-xs flex-shrink-0"
+                      style={{ color: activeTier.colorHex }}
+                    >
+                      ✦
+                    </span>
+                    <span>{deliv}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Holographic Slot Vault Bay (Interactive Slot Selector) */}
+          <div>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <div>
+                <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase tracking-wider font-bold block">
+                  AVAILABLE CORPORATE SLOTS
+                </span>
+                <h3 className="font-pixel-title text-xl sm:text-2xl text-white font-bold">
+                  {activeTier.name} Reservation Terminal
+                </h3>
+              </div>
+
+              <div className="text-xs font-pixel-arcade text-[#A0A0B8]">
+                TOTAL SLOTS IN TIER: {activeTier.slots.length}
+              </div>
+            </div>
+
+            {/* Slots Bay */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {activeTier.slots.map((slot) => (
+                <div
+                  key={slot.slotId}
+                  className="p-5 bg-[#120524] border-2 transition-all relative overflow-hidden flex flex-col justify-between shadow-[0_8px_25px_rgba(0,0,0,0.85)] group hover:translate-y-[-3px]"
+                  style={{ borderColor: `${activeTier.colorHex}70` }}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span
+                        className="font-pixel-arcade text-[10px] px-2.5 py-0.5 border font-bold"
+                        style={{
+                          color: activeTier.colorHex,
+                          borderColor: activeTier.colorHex,
+                          backgroundColor: `${activeTier.colorHex}15`,
+                        }}
+                      >
+                        [{slot.slotCode}]
+                      </span>
+                      <span className="font-pixel-arcade text-[9px] text-[#55FF55] bg-[#55FF55]/15 px-2 py-0.5 border border-[#55FF55]/40 flex items-center gap-1 font-bold">
+                        <span className="w-1.5 h-1.5 bg-[#55FF55] animate-ping" />
+                        {slot.status}
+                      </span>
+                    </div>
+
+                    <div className="text-[10px] font-pixel-arcade text-[#FFD34D] uppercase font-bold tracking-wider mb-1.5">
+                      {slot.domainTag}
+                    </div>
+
+                    <h4 className="font-pixel-heading text-base sm:text-lg font-bold text-white group-hover:text-[#4FD9FF] transition-colors leading-snug mb-3">
+                      {slot.slotTitle}
+                    </h4>
+
+                    <p className="text-xs text-[#C0C0D8] font-sans mb-5 leading-relaxed">
+                      {slot.deliverablesHighlight}
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={(e) => handleOpenInquiryModal(activeTier, slot, e)}
+                    className="w-full btn-voxel text-xs py-3 flex items-center justify-center gap-2 font-bold shadow-md"
+                    style={{
+                      backgroundColor: activeTier.colorHex,
+                      color: "#000",
+                      borderColor: activeTier.colorHex,
+                    }}
+                  >
+                    <span>CLAIM THIS SLOT</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-black" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. INTERACTIVE SPONSORSHIP ROI & TIER MATCHER CALCULATOR */}
       <section id="tier-calculator" className="relative z-10 px-4 sm:px-6 max-w-6xl mx-auto mb-20 scroll-mt-28">
         <div className="bg-[#120524]/95 backdrop-blur-2xl border-4 border-[#4FD9FF] shadow-[0_12px_50px_rgba(0,0,0,0.95),0_0_40px_rgba(79,217,255,0.3)] p-6 sm:p-10 relative overflow-hidden">
-          {/* Top cyan glowing bar */}
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#4FD9FF] shadow-[0_0_20px_#4FD9FF]" />
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#3A1E54] pb-6 mb-8">
             <div>
               <div className="inline-flex items-center gap-2 font-pixel-arcade text-xs text-[#4FD9FF] bg-[#4FD9FF]/15 border border-[#4FD9FF]/40 px-3 py-1 uppercase tracking-wider font-bold mb-2">
                 <Sliders className="w-3.5 h-3.5 text-[#4FD9FF]" />
-                INTERACTIVE ROI ENGINE
+                INTERACTIVE ROI MATCHER
               </div>
               <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold drop-shadow-[0_4px_0_#000]">
                 FIND YOUR BRAND&apos;S <span className="text-[#FFD34D]">OPTIMAL TIER</span>
@@ -381,7 +600,10 @@ Portal: https://singularity-2k26.vercel.app/sponsors
             </div>
 
             <button
-              onClick={(e) => handleOpenInquiryModal(matchedTierObj, undefined, e)}
+              onClick={(e) => {
+                setActiveTierId(matchedTierObj.id);
+                handleOpenInquiryModal(matchedTierObj, undefined, e);
+              }}
               className="btn-voxel text-xs px-5 py-3 whitespace-nowrap flex items-center gap-2 font-bold flex-shrink-0"
               style={{
                 backgroundColor: matchedTierObj.colorHex,
@@ -396,363 +618,7 @@ Portal: https://singularity-2k26.vercel.app/sponsors
         </div>
       </section>
 
-      {/* 3. TIER 1: DIAMOND TIER — MAXIMUM SPECTACLE & ANIMATION (TITLE PATRONS) */}
-      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
-        <div className="p-1 bg-gradient-to-r from-[#00E5FF] via-[#4FD9FF] to-[#D400FF] shadow-[0_0_60px_rgba(79,217,255,0.4)]">
-          <div className="bg-[#0B0218]/98 backdrop-blur-2xl p-6 sm:p-10 relative overflow-hidden">
-            {/* Top Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#3A1E54] pb-6 mb-8">
-              <div className="flex items-center gap-4">
-                {/* 3D Floating Rotating Diamond Gem Effect */}
-                <div className="w-14 h-14 bg-[#0A0118] border-2 border-[#4FD9FF] flex items-center justify-center text-2xl shadow-[0_0_30px_rgba(79,217,255,0.8)] animate-pulse">
-                  💎
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold drop-shadow-[0_4px_0_#000]">
-                      DIAMOND TIER
-                    </h2>
-                    <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] bg-[#4FD9FF]/20 px-2.5 py-0.5 border border-[#4FD9FF] font-bold animate-pulse">
-                      TITLE SOVEREIGN PATRON
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-[#A0E8FF] font-sans mt-0.5">
-                    {SPONSORS_DATA.tiers[0].tagline}
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-left md:text-right">
-                <span className="font-pixel-arcade text-[10px] text-[#55FF55] bg-[#55FF55]/10 px-2.5 py-1 border border-[#55FF55]/40 font-bold block mb-1">
-                  ⚡ ANIMATION LEVEL: MAXIMUM
-                </span>
-                <span className="text-xs font-sans text-[#FFD34D] font-bold">
-                  {SPONSORS_DATA.tiers[0].investmentTier}
-                </span>
-              </div>
-            </div>
-
-            {/* Core Deal Package Ribbon */}
-            <div className="mb-8 p-4 sm:p-5 bg-[#070112] border-2 border-[#4FD9FF]/60 shadow-[0_0_25px_rgba(79,217,255,0.2)]">
-              <div className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase tracking-wider font-bold mb-2 flex items-center gap-2">
-                <Star className="w-4 h-4 text-[#4FD9FF]" />
-                EXCLUSIVE DIAMOND DELIVERABLES PACKAGE:
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                {SPONSORS_DATA.tiers[0].coreDeliverables.map((deliv, dIdx) => (
-                  <div key={dIdx} className="flex items-start gap-2 text-xs text-[#E0F4FF] font-sans">
-                    <span className="text-[#55FF55] font-bold mt-0.5">✓</span>
-                    <span>{deliv}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 2 Grand Diamond Slot Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {SPONSORS_DATA.tiers[0].slots.map((slot) => (
-                <div
-                  key={slot.slotId}
-                  className="bg-[#0D0320] border-3 border-[#00E5FF] p-6 sm:p-8 flex flex-col justify-between relative shadow-[0_0_40px_rgba(0,229,255,0.25),0_10px_30px_rgba(0,0,0,0.9)] hover:scale-[1.01] transition-all group overflow-hidden"
-                >
-                  {/* Holographic sweep ray */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#4FD9FF]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
-
-                  <div>
-                    {/* Slot Header */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="font-pixel-arcade text-xs text-[#4FD9FF] bg-[#4FD9FF]/20 px-3 py-1 border border-[#4FD9FF] font-bold">
-                        [{slot.slotCode}]
-                      </span>
-                      <span className="font-pixel-arcade text-[10px] text-[#55FF55] bg-[#55FF55]/15 px-2.5 py-1 border border-[#55FF55]/50 flex items-center gap-1.5 font-bold">
-                        <span className="w-2 h-2 bg-[#55FF55] animate-ping" />
-                        {slot.status}
-                      </span>
-                    </div>
-
-                    <div className="text-xs font-pixel-arcade text-[#FFD34D] uppercase font-bold tracking-wider mb-2">
-                      {slot.domainTag}
-                    </div>
-
-                    <h3 className="font-pixel-heading text-xl sm:text-2xl font-bold text-white group-hover:text-[#4FD9FF] transition-colors leading-snug mb-3">
-                      {slot.slotTitle}
-                    </h3>
-
-                    <div className="p-3.5 bg-[#06010F] border border-[#3A1E54] space-y-1 mb-6">
-                      <span className="font-pixel-arcade text-[10px] text-[#A0A0B8] block font-bold">
-                        KEY HIGHLIGHTS:
-                      </span>
-                      <p className="text-xs text-[#D8E8F5] font-sans font-semibold">
-                        {slot.deliverablesHighlight}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={(e) => handleOpenInquiryModal(SPONSORS_DATA.tiers[0], slot, e)}
-                    className="w-full btn-voxel btn-voxel-diamond text-xs sm:text-sm py-3.5 flex items-center justify-center gap-2 font-bold shadow-[0_0_20px_rgba(79,217,255,0.4)]"
-                  >
-                    <span>CLAIM TITLE PATRON SLOT</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. TIER 2: GOLD TIER — HIGH SPECTACLE (POWERED BY) */}
-      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
-        <div className="bg-[#120524]/95 backdrop-blur-2xl border-4 border-[#FFAA00] shadow-[0_12px_45px_rgba(0,0,0,0.95),0_0_35px_rgba(255,170,0,0.3)] p-6 sm:p-10 relative overflow-hidden">
-          {/* Top golden glowing bar */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-[#FFD34D] shadow-[0_0_20px_#FFD34D]" />
-
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#3A1E54] pb-6 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#0A0118] border-2 border-[#FFD34D] flex items-center justify-center text-xl shadow-[0_0_20px_rgba(255,211,77,0.6)]">
-                🟡
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold drop-shadow-[0_4px_0_#000]">
-                    GOLD TIER
-                  </h2>
-                  <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/20 px-2.5 py-0.5 border border-[#FFD34D] font-bold">
-                    CO-POWERED PATRON
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-[#E0E2F5] font-sans mt-0.5">
-                  {SPONSORS_DATA.tiers[1].tagline}
-                </p>
-              </div>
-            </div>
-
-            <div className="text-left md:text-right">
-              <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/10 px-2.5 py-1 border border-[#FFD34D]/40 font-bold block mb-1">
-                ⚡ ANIMATION LEVEL: HIGH (GOLDEN RADIANCE)
-              </span>
-              <span className="text-xs font-sans text-[#55FF55] font-bold">
-                {SPONSORS_DATA.tiers[1].investmentTier}
-              </span>
-            </div>
-          </div>
-
-          {/* Deal Package */}
-          <div className="mb-8 p-4 bg-[#080214] border-2 border-[#FFD34D]/50 shadow-[0_0_20px_rgba(255,211,77,0.15)]">
-            <div className="font-pixel-arcade text-xs text-[#FFD34D] uppercase tracking-wider font-bold mb-2 flex items-center gap-2">
-              <Star className="w-4 h-4 text-[#FFD34D]" />
-              GOLD TIER DELIVERABLES PACKAGE:
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-              {SPONSORS_DATA.tiers[1].coreDeliverables.map((deliv, dIdx) => (
-                <div key={dIdx} className="flex items-start gap-2 text-xs text-[#F0E6FF] font-sans">
-                  <span className="text-[#55FF55] font-bold mt-0.5">✓</span>
-                  <span>{deliv}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 3 Gold Slots */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {SPONSORS_DATA.tiers[1].slots.map((slot) => (
-              <div
-                key={slot.slotId}
-                className="bg-[#090214] border-2 border-[#FFD34D]/70 p-6 flex flex-col justify-between relative shadow-[0_6px_20px_rgba(0,0,0,0.85)] hover:border-[#FFD34D] hover:bg-[#120520] transition-all group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/15 px-2.5 py-1 border border-[#FFD34D]/40 font-bold">
-                      [{slot.slotCode}]
-                    </span>
-                    <span className="font-pixel-arcade text-[9px] text-[#55FF55] bg-[#55FF55]/15 px-2 py-0.5 border border-[#55FF55]/40 font-bold">
-                      {slot.status}
-                    </span>
-                  </div>
-
-                  <div className="text-[10px] font-pixel-arcade text-[#4FD9FF] uppercase font-bold tracking-wider mb-2">
-                    {slot.domainTag}
-                  </div>
-
-                  <h3 className="font-pixel-heading text-lg font-bold text-white group-hover:text-[#FFD34D] transition-colors leading-snug mb-3">
-                    {slot.slotTitle}
-                  </h3>
-
-                  <p className="text-xs text-[#C0C0D8] font-sans mb-5">
-                    {slot.deliverablesHighlight}
-                  </p>
-                </div>
-
-                <button
-                  onClick={(e) => handleOpenInquiryModal(SPONSORS_DATA.tiers[1], slot, e)}
-                  className="w-full btn-voxel btn-voxel-gold text-xs py-2.5 flex items-center justify-center gap-1.5 font-bold"
-                >
-                  <span className="text-black">CLAIM GOLD SLOT</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-black" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. TIER 3: IRON TIER — MEDIUM SPECTACLE (ASSOCIATE PATRONS) */}
-      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
-        <div className="bg-[#120524]/95 backdrop-blur-2xl border-4 border-[#9EABB0] shadow-[0_10px_40px_rgba(0,0,0,0.95)] p-6 sm:p-10 relative overflow-hidden">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#3A1E54] pb-6 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#0A0118] border-2 border-[#C4CBCE] flex items-center justify-center text-xl shadow-[0_0_15px_rgba(196,203,206,0.4)]">
-                ⚪
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold drop-shadow-[0_4px_0_#000]">
-                    IRON TIER
-                  </h2>
-                  <span className="font-pixel-arcade text-[10px] text-[#C4CBCE] bg-[#C4CBCE]/20 px-2.5 py-0.5 border border-[#C4CBCE] font-bold">
-                    ASSOCIATE PATRON
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-[#E0E2F5] font-sans mt-0.5">
-                  {SPONSORS_DATA.tiers[2].tagline}
-                </p>
-              </div>
-            </div>
-
-            <div className="text-left md:text-right">
-              <span className="font-pixel-arcade text-[10px] text-[#C4CBCE] bg-[#C4CBCE]/10 px-2.5 py-1 border border-[#C4CBCE]/40 font-bold block mb-1">
-                ⚡ ANIMATION LEVEL: MEDIUM (METALLIC SHEEN)
-              </span>
-              <span className="text-xs font-sans text-[#FFD34D] font-bold">
-                {SPONSORS_DATA.tiers[2].investmentTier}
-              </span>
-            </div>
-          </div>
-
-          {/* 3 Iron Slots */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {SPONSORS_DATA.tiers[2].slots.map((slot) => (
-              <div
-                key={slot.slotId}
-                className="bg-[#090214] border-2 border-[#3A1E54] p-5 flex flex-col justify-between hover:border-[#C4CBCE] hover:bg-[#120520] transition-all group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-pixel-arcade text-[10px] text-[#C4CBCE] bg-[#C4CBCE]/15 px-2 py-0.5 border border-[#C4CBCE]/40 font-bold">
-                      [{slot.slotCode}]
-                    </span>
-                    <span className="font-pixel-arcade text-[9px] text-[#55FF55] bg-[#55FF55]/10 px-2 py-0.5 border border-[#55FF55]/30">
-                      {slot.status}
-                    </span>
-                  </div>
-
-                  <div className="text-[10px] font-pixel-arcade text-[#FFD34D] uppercase font-bold tracking-wider mb-1">
-                    {slot.domainTag}
-                  </div>
-
-                  <h3 className="font-pixel-heading text-base font-bold text-white group-hover:text-[#C4CBCE] transition-colors leading-snug mb-2">
-                    {slot.slotTitle}
-                  </h3>
-
-                  <p className="text-xs text-[#B0B0C8] font-sans mb-4">
-                    {slot.deliverablesHighlight}
-                  </p>
-                </div>
-
-                <button
-                  onClick={(e) => handleOpenInquiryModal(SPONSORS_DATA.tiers[2], slot, e)}
-                  className="w-full btn-voxel btn-voxel-stone text-xs py-2 flex items-center justify-center gap-1.5 font-bold"
-                >
-                  <span>CLAIM ASSOCIATE SLOT</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. TIER 4: REDSTONE TIER — SUBTLE SPECTACLE (COMMUNITY & MEDIA) */}
-      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
-        <div className="bg-[#120524]/95 backdrop-blur-2xl border-4 border-[#FF2A2A] shadow-[0_10px_40px_rgba(0,0,0,0.95)] p-6 sm:p-10 relative overflow-hidden">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#3A1E54] pb-6 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#0A0118] border-2 border-[#E14E3D] flex items-center justify-center text-xl shadow-[0_0_15px_rgba(225,78,61,0.4)]">
-                🔴
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold drop-shadow-[0_4px_0_#000]">
-                    REDSTONE TIER
-                  </h2>
-                  <span className="font-pixel-arcade text-[10px] text-[#E14E3D] bg-[#E14E3D]/20 px-2.5 py-0.5 border border-[#E14E3D] font-bold">
-                    COMMUNITY & MEDIA SIGNAL
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-[#E0E2F5] font-sans mt-0.5">
-                  {SPONSORS_DATA.tiers[3].tagline}
-                </p>
-              </div>
-            </div>
-
-            <div className="text-left md:text-right">
-              <span className="font-pixel-arcade text-[10px] text-[#E14E3D] bg-[#E14E3D]/10 px-2.5 py-1 border border-[#E14E3D]/40 font-bold block mb-1">
-                ⚡ ANIMATION LEVEL: SUBTLE (SIGNAL PULSE)
-              </span>
-              <span className="text-xs font-sans text-[#FFD34D] font-bold">
-                {SPONSORS_DATA.tiers[3].investmentTier}
-              </span>
-            </div>
-          </div>
-
-          {/* 3 Redstone Slots */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {SPONSORS_DATA.tiers[3].slots.map((slot) => (
-              <div
-                key={slot.slotId}
-                className="bg-[#090214] border-2 border-[#3A1E54] p-5 flex flex-col justify-between hover:border-[#E14E3D] hover:bg-[#150408] transition-all group"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-pixel-arcade text-[10px] text-[#E14E3D] bg-[#E14E3D]/15 px-2 py-0.5 border border-[#E14E3D]/40 font-bold">
-                      [{slot.slotCode}]
-                    </span>
-                    <span className="font-pixel-arcade text-[9px] text-[#55FF55] bg-[#55FF55]/10 px-2 py-0.5 border border-[#55FF55]/30">
-                      {slot.status}
-                    </span>
-                  </div>
-
-                  <div className="text-[10px] font-pixel-arcade text-[#FFD34D] uppercase font-bold tracking-wider mb-1">
-                    {slot.domainTag}
-                  </div>
-
-                  <h3 className="font-pixel-heading text-base font-bold text-white group-hover:text-[#E14E3D] transition-colors leading-snug mb-2">
-                    {slot.slotTitle}
-                  </h3>
-
-                  <p className="text-xs text-[#B0B0C8] font-sans mb-4">
-                    {slot.deliverablesHighlight}
-                  </p>
-                </div>
-
-                <button
-                  onClick={(e) => handleOpenInquiryModal(SPONSORS_DATA.tiers[3], slot, e)}
-                  className="w-full btn-voxel btn-voxel-redstone text-xs py-2 flex items-center justify-center gap-1.5 font-bold"
-                >
-                  <span>CLAIM COMMUNITY SLOT</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. FULL DELIVERABLES COMPARISON MATRIX TABLE */}
+      {/* 5. FULL DELIVERABLES COMPARISON MATRIX TABLE */}
       <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
         <div className="bg-[#120524]/95 backdrop-blur-2xl border-4 border-[#FFD34D] shadow-[0_12px_50px_rgba(0,0,0,0.95),0_0_35px_rgba(255,211,77,0.25)] p-6 sm:p-10">
           <div className="text-center mb-8">
@@ -794,7 +660,7 @@ Portal: https://singularity-2k26.vercel.app/sponsors
         </div>
       </section>
 
-      {/* 8. SPONSOR FAQ ACCORDION */}
+      {/* 6. SPONSOR PROTOCOLS & FAQ ACCORDION */}
       <section className="relative z-10 px-4 sm:px-6 max-w-5xl mx-auto mb-20">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 font-pixel-arcade text-xs text-[#55FF55] bg-[#55FF55]/10 border border-[#55FF55]/30 px-3 py-1 uppercase tracking-wider font-bold mb-2">
@@ -840,7 +706,7 @@ Portal: https://singularity-2k26.vercel.app/sponsors
         </div>
       </section>
 
-      {/* 9. INTERACTIVE SPONSOR SLOT CLAIM MODAL */}
+      {/* 7. INTERACTIVE SPONSOR SLOT CLAIM MODAL */}
       {selectedSlotForModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
           <div className="bg-[#120524] border-4 border-[#4FD9FF] shadow-[0_0_60px_rgba(79,217,255,0.5)] p-6 sm:p-8 max-w-xl w-full relative">
