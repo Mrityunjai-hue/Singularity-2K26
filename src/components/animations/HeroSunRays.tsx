@@ -37,46 +37,8 @@ export function HeroSunRays() {
 
     window.addEventListener("resize", handleResize, { passive: true });
 
-    // Interactive mouse ripple tracking on water area
-    let mousePos = { x: -999, y: -999, isMoving: false };
-    let lastRippleTime = 0;
-
-    interface WaterRipple {
-      x: number;
-      y: number;
-      radius: number;
-      maxRadius: number;
-      opacity: number;
-      speed: number;
-    }
-    const ripples: WaterRipple[] = [];
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      mousePos = { x, y, isMoving: true };
-
-      // Spawn ripple if inside water body (bottom-left region)
-      const isOverWater = x < width * 0.44 && y > height * 0.52 && y < height * 0.96;
-      const now = performance.now();
-      if (isOverWater && now - lastRippleTime > 120) {
-        lastRippleTime = now;
-        ripples.push({
-          x,
-          y,
-          radius: 4,
-          maxRadius: Math.random() * 25 + 30,
-          opacity: 0.7,
-          speed: Math.random() * 0.6 + 0.8,
-        });
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-
     // 1. Ambient Sunbeam Dust Motes
-    const particleCount = 32;
+    const particleCount = 36;
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
@@ -87,19 +49,7 @@ export function HeroSunRays() {
       pulse: Math.random() * Math.PI * 2,
     }));
 
-    // 2. Animated Specular Water Sparkles (Sunlight Glints on River/Lake)
-    const waterSparkleCount = 22;
-    const waterSparkles = Array.from({ length: waterSparkleCount }, () => ({
-      normX: Math.random() * 0.36 + 0.02, // left 2% to 38%
-      normY: Math.random() * 0.38 + 0.56, // y: 56% to 94%
-      size: Math.random() * 3 + 2,
-      pulse: Math.random() * Math.PI * 2,
-      pulseSpeed: Math.random() * 0.04 + 0.02,
-      colorType: Math.random() > 0.4 ? "gold" : "cyan",
-      driftSpeed: (Math.random() - 0.2) * 0.15,
-    }));
-
-    // 3. Cabin Chimney Smoke Puffs
+    // 2. Cabin Chimney Smoke Puffs (Chalet on right side)
     interface SmokePuff {
       x: number;
       y: number;
@@ -112,10 +62,10 @@ export function HeroSunRays() {
     const smokePuffs: SmokePuff[] = [];
     let smokeSpawnTimer = 0;
 
-    // 4. Meadow Fireflies & Glowing Flora Particles (Bottom-Right Pasture)
-    const fireflyCount = 14;
+    // 3. Meadow Fireflies & Glowing Flora Particles (Bottom-Right Pasture)
+    const fireflyCount = 16;
     const fireflies = Array.from({ length: fireflyCount }, () => ({
-      normX: Math.random() * 0.32 + 0.66, // right 66% to 98%
+      normX: Math.random() * 0.34 + 0.64, // right 64% to 98%
       normY: Math.random() * 0.28 + 0.68, // y: 68% to 96%
       size: Math.random() * 2.5 + 1.5,
       pulse: Math.random() * Math.PI * 2,
@@ -124,7 +74,7 @@ export function HeroSunRays() {
       hue: Math.random() > 0.5 ? "emerald" : "gold",
     }));
 
-    // 5. Distant Soaring Voxel Birds across Mountain Peaks
+    // 4. Distant Soaring Voxel Birds across Mountain Peaks
     const birds = [
       { x: -50, y: height * 0.18, speed: 1.1, size: 4, wingFrame: 0 },
       { x: -90, y: height * 0.22, speed: 1.25, size: 3.5, wingFrame: 3 },
@@ -188,126 +138,19 @@ export function HeroSunRays() {
       ctx.restore();
 
       // ==========================================
-      // SECTION B: ANIMATED LIVING WATER (LAKE & RIVER SHIMMERS)
-      // ==========================================
-      // Water boundaries in current resolution
-      const waterLeft = 0;
-      const waterRight = width * 0.40;
-      const waterTop = height * 0.55;
-      const waterBottom = height * 0.94;
-      const waterHeight = waterBottom - waterTop;
-
-      // Draw undulating pixel wave strips across the water body
-      const waveBandCount = 18;
-      for (let i = 0; i < waveBandCount; i++) {
-        const normY = i / waveBandCount;
-        const yBase = waterTop + normY * waterHeight;
-        const waveSpeed = 0.03 + (i % 3) * 0.01;
-        const waveOffset = Math.sin(frame * waveSpeed + i * 1.2) * (3 + (i * 0.4));
-        const currentY = yBase + waveOffset;
-
-        // Wave width tapers along lake shoreline
-        const shoreWidth = waterRight * (0.55 + normY * 0.45);
-        const stripLength = shoreWidth * (0.4 + Math.sin(frame * 0.02 + i) * 0.15);
-        const startX = Math.max(0, waterLeft + (i % 4) * (width * 0.02) + Math.cos(frame * 0.015 + i) * 15);
-
-        const waveOpacity = 0.18 + Math.sin(frame * 0.03 + i * 0.8) * 0.12;
-
-        // Alternating vibrant cyan, sun reflection gold, and translucent wave crest colors
-        let waveColor: string;
-        if (i % 3 === 0) {
-          waveColor = `rgba(79, 217, 255, ${waveOpacity * 1.3})`; // Diamond Cyan Shimmer
-        } else if (i % 3 === 1) {
-          waveColor = `rgba(255, 235, 140, ${waveOpacity * 1.2})`; // Sunrise Specular Gold
-        } else {
-          waveColor = `rgba(130, 245, 210, ${waveOpacity * 0.9})`; // Lagoon Emerald
-        }
-
-        ctx.fillStyle = waveColor;
-        // Pixelated stepped wave bars
-        const stepSize = 6;
-        for (let x = startX; x < startX + stripLength && x < shoreWidth; x += stepSize * 2) {
-          const pixelX = Math.floor(x / stepSize) * stepSize;
-          const pixelY = Math.floor(currentY / 2) * 2;
-          const barWidth = Math.min(stepSize * 1.6, startX + stripLength - x);
-          const barHeight = 2 + (i % 2);
-          ctx.fillRect(pixelX, pixelY, barWidth, barHeight);
-        }
-      }
-
-      // Render Sparkling Sunlight Caustic Glints on Water (✨)
-      for (const sparkle of waterSparkles) {
-        sparkle.pulse += sparkle.pulseSpeed;
-        sparkle.normX += sparkle.driftSpeed * 0.0005;
-
-        // Reset if drifted outside water zone
-        if (sparkle.normX > 0.38) sparkle.normX = 0.02;
-        if (sparkle.normX < 0.01) sparkle.normX = 0.36;
-
-        const spkX = sparkle.normX * width;
-        const spkY = sparkle.normY * height;
-
-        const currentAlpha = (Math.sin(sparkle.pulse) * 0.5 + 0.5) * 0.85;
-        if (currentAlpha > 0.05) {
-          const currentSize = sparkle.size * (0.7 + currentAlpha * 0.6);
-          const color =
-            sparkle.colorType === "gold"
-              ? `rgba(255, 240, 160, ${currentAlpha})`
-              : `rgba(160, 240, 255, ${currentAlpha})`;
-
-          ctx.fillStyle = color;
-          // 4-point Diamond Pixel Sparkle
-          const px = Math.floor(spkX);
-          const py = Math.floor(spkY);
-          const s = Math.max(2, Math.floor(currentSize));
-
-          // Center cross
-          ctx.fillRect(px - Math.floor(s / 2), py - 1, s, 2);
-          ctx.fillRect(px - 1, py - Math.floor(s / 2), 2, s);
-          // Bright core
-          ctx.fillStyle = `rgba(255, 255, 255, ${currentAlpha})`;
-          ctx.fillRect(px - 1, py - 1, 2, 2);
-        }
-      }
-
-      // Render Interactive Cursor Ripples
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const r = ripples[i];
-        r.radius += r.speed;
-        r.opacity *= 0.96;
-
-        if (r.radius > r.maxRadius || r.opacity < 0.02) {
-          ripples.splice(i, 1);
-          continue;
-        }
-
-        ctx.strokeStyle = `rgba(120, 230, 255, ${r.opacity})`;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        // Slightly squashed ellipse to match 3D isometric perspective of lake
-        ctx.ellipse(r.x, r.y, r.radius * 1.4, r.radius * 0.6, 0, 0, Math.PI * 2);
-        ctx.stroke();
-
-        ctx.strokeStyle = `rgba(255, 245, 180, ${r.opacity * 0.7})`;
-        ctx.beginPath();
-        ctx.ellipse(r.x, r.y, r.radius * 0.9, r.radius * 0.4, 0, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      // ==========================================
-      // SECTION C: CABIN CHIMNEY SMOKE PUFFS (RIGHT CHALET)
+      // SECTION B: CABIN CHIMNEY SMOKE PUFFS (RIGHT CHALET)
       // ==========================================
       const chimneyBaseX = width * 0.678;
       const chimneyBaseY = height * 0.515;
 
       smokeSpawnTimer++;
-      if (smokeSpawnTimer % 24 === 0) {
+      if (smokeSpawnTimer % 22 === 0) {
         smokePuffs.push({
-          x: chimneyBaseX + (Math.random() - 0.5) * 4,
+          x: chimneyBaseX + (Math.random() - 0.5) * 5,
           y: chimneyBaseY,
-          size: Math.random() * 3 + 3,
-          opacity: 0.42,
-          speedY: -(Math.random() * 0.4 + 0.35),
+          size: Math.random() * 3.5 + 3,
+          opacity: 0.45,
+          speedY: -(Math.random() * 0.45 + 0.35),
           speedX: Math.random() * 0.25 + 0.15, // gentle morning breeze to the right
           wobble: Math.random() * Math.PI * 2,
         });
@@ -316,11 +159,11 @@ export function HeroSunRays() {
       for (let i = smokePuffs.length - 1; i >= 0; i--) {
         const sp = smokePuffs[i];
         sp.y += sp.speedY;
-        sp.x += sp.speedX + Math.sin(sp.wobble + frame * 0.04) * 0.2;
-        sp.size += 0.12;
-        sp.opacity *= 0.985;
+        sp.x += sp.speedX + Math.sin(sp.wobble + frame * 0.04) * 0.25;
+        sp.size += 0.14;
+        sp.opacity *= 0.984;
 
-        if (sp.opacity < 0.02 || sp.y < chimneyBaseY - height * 0.2) {
+        if (sp.opacity < 0.02 || sp.y < chimneyBaseY - height * 0.22) {
           smokePuffs.splice(i, 1);
           continue;
         }
@@ -334,22 +177,22 @@ export function HeroSunRays() {
       }
 
       // ==========================================
-      // SECTION D: MEADOW FIREFLIES & GLOWING POLLEN
+      // SECTION C: MEADOW FIREFLIES & GLOWING POLLEN
       // ==========================================
       for (const fly of fireflies) {
         fly.pulse += 0.04;
         fly.normX += fly.speedX * 0.0003;
         fly.normY += fly.speedY * 0.0003;
 
-        if (fly.normX > 0.98) fly.normX = 0.66;
-        if (fly.normX < 0.66) fly.normX = 0.98;
+        if (fly.normX > 0.98) fly.normX = 0.64;
+        if (fly.normX < 0.64) fly.normX = 0.98;
         if (fly.normY > 0.96) fly.normY = 0.68;
         if (fly.normY < 0.68) fly.normY = 0.96;
 
         const fx = fly.normX * width;
         const fy = fly.normY * height;
 
-        const alpha = (Math.sin(fly.pulse) * 0.4 + 0.6) * 0.8;
+        const alpha = (Math.sin(fly.pulse) * 0.4 + 0.6) * 0.85;
         const glowColor =
           fly.hue === "emerald"
             ? `rgba(160, 255, 120, ${alpha})`
@@ -363,7 +206,7 @@ export function HeroSunRays() {
       }
 
       // ==========================================
-      // SECTION E: DISTANT SOARING VOXEL BIRDS
+      // SECTION D: DISTANT SOARING VOXEL BIRDS
       // ==========================================
       for (const bird of birds) {
         bird.x += bird.speed;
@@ -396,7 +239,7 @@ export function HeroSunRays() {
       }
 
       // ==========================================
-      // SECTION F: FLOATING SUNLIGHT DUST PARTICLES
+      // SECTION E: FLOATING SUNLIGHT DUST PARTICLES
       // ==========================================
       for (const p of particles) {
         p.x += p.speedX;
@@ -423,7 +266,6 @@ export function HeroSunRays() {
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -431,7 +273,7 @@ export function HeroSunRays() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 pointer-events-auto z-[2] mix-blend-screen opacity-95"
+      className="absolute inset-0 pointer-events-none z-[2] mix-blend-screen opacity-95"
     />
   );
 }

@@ -87,8 +87,6 @@ export default function HomePage() {
                 </span>
               </div>
             </div>
-
-            <SingularityLogo size="lg" showText={false} className="mb-2 hover:scale-105 transition-transform" />
           </div>
 
           {/* Giant Pixel Title Lockup with Solid Drop Shadows */}
@@ -189,56 +187,61 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#07010C] via-transparent to-[#07010C] z-[3] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="bg-[#0B0212]/85 backdrop-blur-md border-4 border-[#E14E3D] shadow-[0_12px_0_#000,0_0_50px_rgba(225,78,61,0.55)] p-6 sm:p-10 relative">
+          <div className="bg-[#120308]/92 backdrop-blur-2xl border-4 border-[#E14E3D] shadow-[0_12px_40px_rgba(0,0,0,0.95),0_0_45px_rgba(225,78,61,0.5)] p-6 sm:p-10 relative overflow-hidden">
+            {/* Top Glowing Redstone Accent Bar */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#E14E3D] shadow-[0_0_15px_#E14E3D]" />
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
-                <div className="flex items-center gap-2">
-                  <span className="font-pixel-arcade text-[10px] text-[#E14E3D] bg-[#E14E3D]/20 px-2 py-0.5 border border-[#E14E3D]/40 font-bold">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-pixel-arcade text-[10px] text-[#E14E3D] bg-[#E14E3D]/20 px-2.5 py-1 border-2 border-[#E14E3D]/50 font-bold flex items-center gap-1.5">
+                    <Flame className="w-3.5 h-3.5 text-[#E14E3D] animate-pulse" />
                     FLAGSHIP 24H HACKATHON
                   </span>
-                  <span className="font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">
-                    GRAND LOOT CHESTS & AWARDS
+                  <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/10 px-2.5 py-1 border border-[#FFD34D]/30 font-bold">
+                    🏆 GRAND OBSIDIAN VAULT
                   </span>
                 </div>
 
-                <h2 className="font-pixel-title text-3xl sm:text-5xl text-white font-bold drop-shadow-[0_2px_4px_#000]">
+                <h2 className="font-pixel-title text-3xl sm:text-5xl text-white font-bold drop-shadow-[0_4px_0_#000] [text-shadow:0_0_25px_rgba(225,78,61,0.6)]">
                   HACKNOVA <span className="text-[#E14E3D]">2.0</span> ARENA
                 </h2>
 
-                <p className="text-xs sm:text-sm text-[#E0E0EE] font-sans leading-relaxed">
+                <p className="text-sm text-[#E8E8F5] font-sans leading-relaxed">
                   24 hours of non-stop building, automated evaluations, and mentor raids. Solve live problem statements across Autonomous AI Agents, Serverless Infrastructure, Decentralized Systems, and Mathematical Computing.
                 </p>
 
-                <div className="p-3.5 bg-[#07010C]/90 border border-[#3A1448] text-xs font-sans text-[#FFD34D] flex items-center gap-2 font-medium">
+                <div className="p-4 bg-[#0A0108]/95 border-2 border-[#3A1448] text-xs font-sans text-[#FFD34D] flex items-center gap-2.5 font-medium shadow-sm">
                   <Flame className="w-4 h-4 text-[#E14E3D] flex-shrink-0 animate-pulse" />
                   <span>Problem statements will be officially unveiled live at T-0 Hours (Event Kickoff).</span>
                 </div>
 
-                <div className="flex flex-wrap gap-2 pt-2">
+                <div className="flex flex-wrap gap-2 pt-1">
                   {["AI & MULTI-AGENT SWARMS", "SERVERLESS CLOUDS", "WEB3 & CRYPTO", "QUANT MATHEMATICS", "OPEN INNOVATION"].map((track) => (
-                    <span key={track} className="text-[9px] font-pixel-arcade text-[#4FD9FF] bg-[#4FD9FF]/10 px-2.5 py-1 border border-[#4FD9FF]/30 font-bold">
+                    <span key={track} className="text-[10px] font-pixel-arcade text-[#4FD9FF] bg-[#4FD9FF]/10 px-3 py-1 border border-[#4FD9FF]/30 font-bold shadow-sm">
                       {track}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="lg:col-span-4 flex flex-col items-center justify-center text-center p-6 bg-[#07010C]/95 border-2 border-[#3A1448] shadow-[0_6px_24px_rgba(0,0,0,0.85)]">
+              <div className="lg:col-span-4 flex flex-col items-center justify-center text-center p-6 bg-[#080108]/95 border-3 border-[#E14E3D]/60 shadow-[0_8px_30px_rgba(0,0,0,0.9),0_0_25px_rgba(225,78,61,0.25)] relative group">
                 <div className="text-5xl mb-2 animate-bounce">💎</div>
-                <div className="font-pixel-title text-sm text-[#FFD34D] font-bold">DIAMOND LOOT CHEST</div>
+                <div className="font-pixel-title text-sm sm:text-base text-[#FFD34D] font-bold">DIAMOND LOOT CHEST</div>
                 <div className="font-pixel-arcade text-xs text-[#55FF55] mt-2 font-bold">
                   GRAND OBSIDIAN TROPHY + PERKS
                 </div>
-                <p className="text-[10px] text-[#D0D0E0] font-sans mt-2">
+                <p className="text-xs text-[#D0D0E0] font-sans mt-2">
                   Plus Cloud Credits, Swag Packs & Interview Referrals
                 </p>
 
                 <Link
                   href="/hacknova"
                   onClick={handleClick}
-                  className="btn-voxel btn-voxel-diamond text-xs mt-5 w-full py-3"
+                  className="btn-voxel btn-voxel-redstone text-xs mt-5 w-full py-3.5 flex items-center justify-center gap-2"
                 >
-                  ENTER HACKATHON PORTAL →
+                  <span>ENTER HACKATHON PORTAL</span>
+                  <span>→</span>
                 </Link>
               </div>
             </div>
@@ -264,111 +267,143 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase tracking-widest font-bold">
+            <div className="inline-block font-pixel-arcade text-xs text-[#4FD9FF] bg-[#4FD9FF]/10 border border-[#4FD9FF]/30 px-3 py-1 uppercase tracking-widest font-bold mb-2">
               CHOOSE YOUR TRACK
-            </span>
-            <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold mt-1 drop-shadow-[0_4px_12px_#000]">
+            </div>
+            <h2 className="font-pixel-title text-2xl sm:text-4xl md:text-5xl text-white font-bold mt-1 drop-shadow-[0_6px_0_#000] [text-shadow:0_0_30px_rgba(79,217,255,0.4)]">
               THE FOUR PILLARS OF SINGULARITY
             </h2>
-            <p className="text-xs sm:text-sm text-[#F0F0F8] font-sans max-w-xl mx-auto mt-2 drop-shadow-[0_2px_6px_#000]">
+            <p className="text-sm sm:text-base text-[#F0F0F8] font-sans max-w-2xl mx-auto mt-3 leading-relaxed drop-shadow-[0_2px_6px_#000]">
               Four distinct domains of technical learning across hands-on workshops, expert lectures, the flagship 24-hr hackathon, and community sessions.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Pillar 1 */}
+            {/* Pillar 1: Workshops */}
             <Link
               href="/events"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#4FD9FF]/30 hover:border-[#4FD9FF]"
+              className="p-6 sm:p-7 flex flex-col justify-between group bg-[#110522]/95 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(79,217,255,0.15)] border-3 border-[#4A2470] hover:border-[#4FD9FF] hover:translate-y-[-4px] transition-all relative overflow-hidden"
             >
+              {/* Top Accent Indicator */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#4FD9FF] shadow-[0_0_15px_#4FD9FF]" />
+
               <div>
-                <div className="item-slot-frame mb-4 border-[#4FD9FF]/40 group-hover:border-[#4FD9FF]">
+                <div className="w-14 h-14 bg-[#0A0214] border-2 border-[#4FD9FF]/50 group-hover:border-[#4FD9FF] flex items-center justify-center mb-4 shadow-[0_0_18px_rgba(79,217,255,0.25)] group-hover:scale-105 transition-transform">
                   <Cloud className="w-8 h-8 text-[#4FD9FF]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold">PILLAR 01</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#4FD9FF] transition-colors">
-                  WORKSHOPS
+                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold tracking-wider">PILLAR 01 · HANDS-ON</span>
+                <h3 className="font-pixel-heading text-lg font-bold text-white mt-1 group-hover:text-[#4FD9FF] transition-colors leading-tight">
+                  CLOUD & WORKFLOW CRAFT
                 </h3>
-                <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  Interactive technical sessions on Serverless Cloud Deployments with AWS and AI agent workflows.
+                <p className="text-xs text-[#D8DAEC] font-sans mt-3 leading-relaxed">
+                  Interactive technical sessions on Serverless Cloud Deployments with AWS Lambda and AI agent workflows with n8n.
                 </p>
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  <span className="text-[9px] font-pixel-arcade text-[#4FD9FF] bg-[#4FD9FF]/10 px-2 py-0.5 border border-[#4FD9FF]/30">AWS SBG</span>
+                  <span className="text-[9px] font-pixel-arcade text-[#55FF55] bg-[#55FF55]/10 px-2 py-0.5 border border-[#55FF55]/30">n8n DSC</span>
+                </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold">
+
+              <div className="mt-6 pt-3 border-t-2 border-[#3A1E54] flex items-center justify-between font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold group-hover:text-white">
                 <span>EXPLORE WORKSHOPS</span>
-                <span>→</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </Link>
 
-            {/* Pillar 2 */}
+            {/* Pillar 2: Hands-on Lectures */}
             <Link
               href="/events"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#FFD34D]/30 hover:border-[#FFD34D]"
+              className="p-6 sm:p-7 flex flex-col justify-between group bg-[#110522]/95 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(255,211,77,0.15)] border-3 border-[#4A2470] hover:border-[#FFD34D] hover:translate-y-[-4px] transition-all relative overflow-hidden"
             >
+              {/* Top Accent Indicator */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#FFD34D] shadow-[0_0_15px_#FFD34D]" />
+
               <div>
-                <div className="item-slot-frame mb-4 border-[#FFD34D]/40 group-hover:border-[#FFD34D]">
+                <div className="w-14 h-14 bg-[#0A0214] border-2 border-[#FFD34D]/50 group-hover:border-[#FFD34D] flex items-center justify-center mb-4 shadow-[0_0_18px_rgba(255,211,77,0.25)] group-hover:scale-105 transition-transform">
                   <Brain className="w-8 h-8 text-[#FFD34D]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">PILLAR 02</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#FFD34D] transition-colors">
-                  HANDS-ON LECTURES
+                <span className="font-pixel-arcade text-[10px] text-[#FFD34D] font-bold tracking-wider">PILLAR 02 · COMPUTING</span>
+                <h3 className="font-pixel-heading text-lg font-bold text-white mt-1 group-hover:text-[#FFD34D] transition-colors leading-tight">
+                  MATHLETICS & LECTURES
                 </h3>
-                <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  Expert masterclasses covering Artificial Intelligence, Machine Learning, and Mathematical Computing.
+                <p className="text-xs text-[#D8DAEC] font-sans mt-3 leading-relaxed">
+                  High-stakes mathematical intuition, discrete algorithms, cryptography puzzles, and quantitative problem solving.
                 </p>
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  <span className="text-[9px] font-pixel-arcade text-[#FFD34D] bg-[#FFD34D]/10 px-2 py-0.5 border border-[#FFD34D]/30">QUANT MATH</span>
+                  <span className="text-[9px] font-pixel-arcade text-[#55FF55] bg-[#55FF55]/10 px-2 py-0.5 border border-[#55FF55]/30">ALGORITHMS</span>
+                </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">
+
+              <div className="mt-6 pt-3 border-t-2 border-[#3A1E54] flex items-center justify-between font-pixel-arcade text-[10px] text-[#FFD34D] font-bold group-hover:text-white">
                 <span>VIEW MASTERCLASSES</span>
-                <span>→</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </Link>
 
-            {/* Pillar 3 */}
+            {/* Pillar 3: HackNova 2.0 */}
             <Link
               href="/hacknova"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group border-[#E14E3D]/80 hover:border-[#E14E3D] bg-[#17031D]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)]"
+              className="p-6 sm:p-7 flex flex-col justify-between group bg-[#150410]/95 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(225,78,61,0.25)] border-3 border-[#661622] hover:border-[#E14E3D] hover:translate-y-[-4px] transition-all relative overflow-hidden"
             >
+              {/* Top Accent Indicator */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#E14E3D] shadow-[0_0_15px_#E14E3D]" />
+
               <div>
-                <div className="item-slot-frame mb-4 border-[#E14E3D]/40 group-hover:border-[#E14E3D] bg-[#220710]">
+                <div className="w-14 h-14 bg-[#0A0108] border-2 border-[#E14E3D]/60 group-hover:border-[#E14E3D] flex items-center justify-center mb-4 shadow-[0_0_18px_rgba(225,78,61,0.35)] group-hover:scale-105 transition-transform">
                   <Trophy className="w-8 h-8 text-[#E14E3D]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#E14E3D] font-bold">FLAGSHIP QUEST</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#E14E3D] transition-colors">
-                  HACKNOVA 2.0
+                <span className="font-pixel-arcade text-[10px] text-[#E14E3D] font-bold tracking-wider">PILLAR 03 · 24H SPRINT</span>
+                <h3 className="font-pixel-heading text-lg font-bold text-white mt-1 group-hover:text-[#E14E3D] transition-colors leading-tight">
+                  HACKNOVA 2.0 ARENA
                 </h3>
-                <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  24-Hour Pan-India hackathon with trophies, live problem statements, mentor checkpoints, and rewards.
+                <p className="text-xs text-[#D8DAEC] font-sans mt-3 leading-relaxed">
+                  24-Hour Pan-India hackathon with diamond loot vaults, live problem statements, mentor raids, and obsidian trophies.
                 </p>
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  <span className="text-[9px] font-pixel-arcade text-[#E14E3D] bg-[#E14E3D]/10 px-2 py-0.5 border border-[#E14E3D]/30">24H ARENA</span>
+                  <span className="text-[9px] font-pixel-arcade text-[#FFD34D] bg-[#FFD34D]/10 px-2 py-0.5 border border-[#FFD34D]/30">OBSIDIAN VAULT</span>
+                </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#E14E3D] font-bold">
+
+              <div className="mt-6 pt-3 border-t-2 border-[#4A1018] flex items-center justify-between font-pixel-arcade text-[10px] text-[#E14E3D] font-bold group-hover:text-white">
                 <span>ENTER HACKNOVA</span>
-                <span>→</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </Link>
 
-            {/* Pillar 4 */}
+            {/* Pillar 4: Keynotes & Cultural */}
             <Link
               href="/schedule"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#55FF55]/30 hover:border-[#55FF55]"
+              className="p-6 sm:p-7 flex flex-col justify-between group bg-[#110522]/95 backdrop-blur-2xl shadow-[0_10px_35px_rgba(0,0,0,0.9),0_0_20px_rgba(85,255,85,0.15)] border-3 border-[#4A2470] hover:border-[#55FF55] hover:translate-y-[-4px] transition-all relative overflow-hidden"
             >
+              {/* Top Accent Indicator */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#55FF55] shadow-[0_0_15px_#55FF55]" />
+
               <div>
-                <div className="item-slot-frame mb-4 border-[#55FF55]/40 group-hover:border-[#55FF55]">
+                <div className="w-14 h-14 bg-[#0A0214] border-2 border-[#55FF55]/50 group-hover:border-[#55FF55] flex items-center justify-center mb-4 shadow-[0_0_18px_rgba(85,255,85,0.25)] group-hover:scale-105 transition-transform">
                   <Sparkles className="w-8 h-8 text-[#55FF55]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#55FF55] font-bold">PILLAR 04</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#55FF55] transition-colors">
-                  KEYNOTES & SESSIONS
+                <span className="font-pixel-arcade text-[10px] text-[#55FF55] font-bold tracking-wider">PILLAR 04 · CELEBRATION</span>
+                <h3 className="font-pixel-heading text-lg font-bold text-white mt-1 group-hover:text-[#55FF55] transition-colors leading-tight">
+                  KEYNOTES & PULSE EDM
                 </h3>
-                <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  Tech keynotes, open-source sessions, community networking, and official accreditation ceremony.
+                <p className="text-xs text-[#D8DAEC] font-sans mt-3 leading-relaxed">
+                  Distinguished tech keynotes, campus networking, and the grand PULSE EDM concert finale at the Open Air Theatre.
                 </p>
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  <span className="text-[9px] font-pixel-arcade text-[#55FF55] bg-[#55FF55]/10 px-2 py-0.5 border border-[#55FF55]/30">KEYNOTES</span>
+                  <span className="text-[9px] font-pixel-arcade text-[#FF7BE5] bg-[#FF7BE5]/10 px-2 py-0.5 border border-[#FF7BE5]/30">PULSE EDM</span>
+                </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#55FF55] font-bold">
+
+              <div className="mt-6 pt-3 border-t-2 border-[#3A1E54] flex items-center justify-between font-pixel-arcade text-[10px] text-[#55FF55] font-bold group-hover:text-white">
                 <span>VIEW SCHEDULE</span>
-                <span>→</span>
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </Link>
           </div>
