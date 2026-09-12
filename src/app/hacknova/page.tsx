@@ -146,11 +146,17 @@ export default function HackNovaPage() {
             <div className="font-pixel-arcade text-[9px] sm:text-[10px] text-[#A0A0B8] mt-0.5">SQUAD SIZE</div>
           </div>
           <div className="bg-[#120308]/92 backdrop-blur-md border-2 border-[#E14E3D]/50 p-3.5 text-center shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-            <div className="font-pixel-title text-lg sm:text-xl text-[#FFD34D] font-bold">{HACKNOVA_DATA.entryFee}</div>
+            <div className="flex items-center justify-center gap-1 text-[#FFD34D] font-bold">
+              <span className="font-sans text-lg sm:text-xl font-black">₹</span>
+              <span className="font-pixel-title text-base sm:text-lg">199 / PERSON</span>
+            </div>
             <div className="font-pixel-arcade text-[9px] sm:text-[10px] text-[#A0A0B8] mt-0.5">ENTRY PASS</div>
           </div>
           <div className="bg-[#120308]/92 backdrop-blur-md border-2 border-[#E14E3D]/50 p-3.5 text-center shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-            <div className="font-pixel-title text-lg sm:text-xl text-[#E14E3D] font-bold">{HACKNOVA_DATA.grandPrizePoolFormatted}</div>
+            <div className="flex items-center justify-center gap-1 text-[#E14E3D] font-bold">
+              <span className="font-sans text-lg sm:text-xl font-black">₹</span>
+              <span className="font-pixel-title text-base sm:text-lg">1,XX,XXX.XX+</span>
+            </div>
             <div className="font-pixel-arcade text-[9px] sm:text-[10px] text-[#A0A0B8] mt-0.5">GRAND BOUNTY POOL</div>
           </div>
         </div>
@@ -323,20 +329,27 @@ export default function HackNovaPage() {
           <div className="absolute top-0 left-0 right-0 h-2 bg-[#FFD34D] shadow-[0_0_20px_#FFD34D]" />
 
           {/* Grand Vault Header */}
-          <div className="text-center max-w-3xl mx-auto border-b-2 border-[#3A1E14] pb-8 mb-10">
+          <div className="text-center max-w-4xl mx-auto border-b-2 border-[#3A1E14] pb-8 mb-10">
             <div className="inline-flex items-center gap-2 font-pixel-arcade text-xs text-[#FFD34D] bg-[#FFD34D]/15 border border-[#FFD34D]/40 px-4 py-1.5 uppercase tracking-widest font-bold mb-3 shadow-[0_0_20px_rgba(255,211,77,0.2)]">
               <Trophy className="w-4 h-4 text-[#FFD34D]" />
               GRAND BOUNTY & REWARD MATRIX
             </div>
 
-            <h2 className="font-pixel-title text-3xl sm:text-5xl md:text-6xl text-white font-bold drop-shadow-[0_6px_0_#000]">
-              TOTAL PRIZE POOL:{" "}
-              <span className="text-[#FFD34D] [text-shadow:0_0_30px_rgba(255,211,77,0.8)]">
-                {HACKNOVA_DATA.grandPrizePoolFormatted}
-              </span>
+            <h2 className="font-pixel-title text-2xl sm:text-4xl text-[#F0F0FF] font-bold tracking-wider drop-shadow-[0_4px_0_#000] uppercase mb-4">
+              TOTAL PRIZE POOL
             </h2>
 
-            <p className="text-xs sm:text-sm text-[#E8E8F5] font-sans mt-3 leading-relaxed font-normal">
+            {/* Clean, Non-Overlapping Grand Amount Box */}
+            <div className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3.5 bg-[#090107]/95 border-2 border-[#FFD34D]/70 shadow-[0_0_35px_rgba(255,211,77,0.25)]">
+              <span className="font-sans text-3xl sm:text-5xl md:text-6xl font-black text-[#FFD34D] leading-none select-none drop-shadow-[0_2px_12px_rgba(255,211,77,0.8)]">
+                ₹
+              </span>
+              <span className="font-pixel-title text-3xl sm:text-5xl md:text-6xl text-[#FFD34D] font-bold tracking-wider leading-none drop-shadow-[0_4px_0_#000] [text-shadow:0_0_30px_rgba(255,211,77,0.8)]">
+                1,XX,XXX.XX+
+              </span>
+            </div>
+
+            <p className="text-xs sm:text-sm text-[#E8E8F5] font-sans mt-4 leading-relaxed font-normal max-w-2xl mx-auto">
               Direct cash prizes for podium finishers, handcrafted trophies, official swags, food and beverages provided, and verified certificates for all candidates.
             </p>
           </div>
