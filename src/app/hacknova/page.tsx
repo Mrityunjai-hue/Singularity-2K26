@@ -129,7 +129,7 @@ export default function HackNovaPage() {
           {/* Primary Action Button - Opens External HackNova Portal */}
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href="https://hacknova.tech"
+              href="https://hacknova2-n8n-dsc.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => {
@@ -397,7 +397,7 @@ export default function HackNovaPage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="https://hacknova.tech"
+              href="https://hacknova2-n8n-dsc.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundFx.playClick()}

@@ -232,13 +232,15 @@ function RegisterFormContent() {
               </div>
             </div>
           </div>
-          <Link
-            href="/hacknova"
+          <a
+            href="https://hacknova2-n8n-dsc.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-voxel btn-voxel-redstone text-xs px-4 py-2 flex items-center gap-1.5 flex-shrink-0"
           >
             <span>HACKNOVA PORTAL</span>
-            <span>↗</span>
-          </Link>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
         </div>
       </section>
 
