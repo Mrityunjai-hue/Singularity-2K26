@@ -20,7 +20,7 @@ export const VILLAGER_TRADES: VillagerTrade[] = [
     id: "trade-hackathon-cost",
     question: "How much emeralds (fees) do I need for HackNova 2.0?",
     category: "HackNova",
-    villagerResponse: "Zero emeralds! Hrrrngh! HackNova 2.0 is 100% FREE to participate. We provide complimentary meals, midnight pizza, energy drinks, high-speed WiFi, and ₹1.8L+ in loot chests!",
+    villagerResponse: "Hrrrngh! All fest events and technical workshops are 100% FREE for everyone! For HackNova 2.0 hackathon, the registration is just ₹199 per squad, covering complimentary meals, midnight pizza, AWS sandboxes, and ₹1.8L+ in loot chests!",
     emeraldCost: 2,
     itemGiven: "💎 Diamond Pass Key",
   },

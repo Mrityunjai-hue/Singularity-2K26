@@ -116,7 +116,7 @@ export default function HackNovaPage() {
               <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">TEAM SQUAD SIZE</div>
             </div>
             <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
-              <div className="font-pixel-title text-base sm:text-lg text-[#FFD34D]">100% FREE</div>
+              <div className="font-pixel-title text-base sm:text-lg text-[#FFD34D]">₹199 / SQUAD</div>
               <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">FOOD & SWAGS INCL.</div>
             </div>
             <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">

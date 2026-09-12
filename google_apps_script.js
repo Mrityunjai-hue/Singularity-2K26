@@ -5,17 +5,9 @@
  * Organized by: N8N Data Science Community
  * In collaboration with: AWS SBG HBTU · Department of Mathematics, HBTU Kanpur
  *
- * HOW TO DEPLOY:
- * 1. Open a new Google Sheet (e.g. "Singularity 2K26 Registrations")
- * 2. Go to Extensions -> Apps Script
- * 3. Delete any code and paste this entire file
- * 4. Click Deploy -> New deployment -> Select type: Web app
- * 5. Set:
- *    - Description: "Singularity 2K26 Live Database API"
- *    - Execute as: "Me"
- *    - Who has access: "Anyone"
- * 6. Click Deploy, Authorize access, and copy the Web app URL.
- * 7. Set this URL in your site as NEXT_PUBLIC_GOOGLE_SCRIPT_URL or in the registration component.
+ * PROTOCOL:
+ * - Festival & all technical workshops are 100% FREE for all (Pass is for verification).
+ * - HackNova 2.0 24-hour hackathon registration is ₹199 per squad.
  * =============================================================================
  */
 
@@ -31,12 +23,13 @@ const HEADERS = [
   "College / University",
   "Branch / Department",
   "Academic Year",
-  "Primary Track / Interest",
-  "Pass Tier",
+  "Registration Type",
+  "Amount Paid",
+  "Payment / UTR Reference",
   "Character Class",
   "Gamer / Discord Tag",
   "Team Name",
-  "Form Type",
+  "Primary Track / Interest",
   "Status"
 ];
 
@@ -118,12 +111,13 @@ function doPost(e) {
     var college = data.college || data.collegeName || "";
     var branch = data.branch || "Computer Science / Engineering";
     var year = data.year || "3rd Year";
-    var interest = data.interest || data.primary_track || "All Festival Quests";
-    var passTier = data.pass_tier || data.passTier || "General Overworld Pass";
+    var regType = data.registration_type || "Singularity 2K26 Festival & Workshops Pass (FREE)";
+    var amountPaid = data.amount_paid || (regType.indexOf("199") !== -1 ? "₹199" : "FREE (₹0)");
+    var paymentRef = data.payment_ref || "N/A";
     var charClass = data.character_class || data.characterClass || "Zero-Day Hacker";
     var gamerTag = data.gamer_tag || data.gamerTag || "Builder";
-    var teamName = data.team_name || data.teamName || "Solo Adventurer";
-    var formType = data.form_type || "SINGULARITY_2K26_OFFICIAL_REGISTRATION";
+    var teamName = data.team_name || data.teamName || "Individual Attendee";
+    var interest = data.interest || data.primary_track || "All Festival Quests";
     var status = "CONFIRMED";
     
     // Append entry into spreadsheet
@@ -136,12 +130,13 @@ function doPost(e) {
       college,
       branch,
       year,
-      interest,
-      passTier,
+      regType,
+      amountPaid,
+      paymentRef,
       charClass,
       gamerTag,
       teamName,
-      formType,
+      interest,
       status
     ]);
     
@@ -150,7 +145,7 @@ function doPost(e) {
     // Dispatch stylized confirmation email if valid email is provided
     if (email && email.indexOf("@") !== -1) {
       try {
-        sendFestPassEmail(name, email, token, passTier, charClass, college, gamerTag);
+        sendFestPassEmail(name, email, token, regType, charClass, college, gamerTag, amountPaid);
       } catch (mailErr) {
         Logger.log("Email dispatch note: " + mailErr.toString());
       }
@@ -179,7 +174,7 @@ function doPost(e) {
 /**
  * Sends a themed Voxel Arcade Attendee Credential HTML confirmation email
  */
-function sendFestPassEmail(name, email, token, passTier, charClass, college, gamerTag) {
+function sendFestPassEmail(name, email, token, regType, charClass, college, gamerTag, amountPaid) {
   var subject = "🎟️ [PASS CONFIRMED] Singularity 2K26 Registration — " + name + " (" + token + ")";
   
   var htmlBody = `
@@ -191,8 +186,8 @@ function sendFestPassEmail(name, email, token, passTier, charClass, college, gam
       </div>
 
       <div style="background-color: #120524; border: 2px solid #55FF55; padding: 15px; margin-bottom: 20px; text-align: center;">
-        <p style="color: #55FF55; font-size: 14px; margin: 0 0 6px 0; font-weight: bold;">✓ CREDENTIAL FORGED // WORLD ACCESS GRANTED</p>
-        <p style="font-size: 13px; margin: 0; color: #E0E0EE;">Greetings <strong>${name}</strong> (${gamerTag}), your official festival pass has been confirmed.</p>
+        <p style="color: #55FF55; font-size: 14px; margin: 0 0 6px 0; font-weight: bold;">✓ CREDENTIAL FORGED // ENTRY VERIFIED</p>
+        <p style="font-size: 13px; margin: 0; color: #E0E0EE;">Greetings <strong>${name}</strong> (${gamerTag}), your official festival verification credential is active.</p>
       </div>
 
       <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; color: #FFFFFF; background-color: #0E031A;">
@@ -201,8 +196,8 @@ function sendFestPassEmail(name, email, token, passTier, charClass, college, gam
           <td style="padding: 10px; color: #55FF55; font-family: monospace; font-size: 15px; font-weight: bold;">${token}</td>
         </tr>
         <tr style="border-bottom: 1px solid #2E1546;">
-          <td style="padding: 10px; color: #4FD9FF; font-weight: bold;">PASS TIER:</td>
-          <td style="padding: 10px;">${passTier}</td>
+          <td style="padding: 10px; color: #4FD9FF; font-weight: bold;">ENLISTMENT TYPE:</td>
+          <td style="padding: 10px;">${regType} (${amountPaid})</td>
         </tr>
         <tr style="border-bottom: 1px solid #2E1546;">
           <td style="padding: 10px; color: #4FD9FF; font-weight: bold;">CHARACTER CLASS:</td>
@@ -219,7 +214,7 @@ function sendFestPassEmail(name, email, token, passTier, charClass, college, gam
       </table>
 
       <div style="background-color: #0A0214; border: 1px solid #3A1E54; padding: 12px; font-size: 11px; color: #A0A0B0; line-height: 1.5;">
-        <p style="margin: 0;"><strong>Important Protocol:</strong> Please present this Pass Token ID or your downloaded RFID badge at the Spawn Check-in Desk on Day 1 (Oct 16, 08:30 AM) to claim your physical access badge and official goodie kit.</p>
+        <p style="margin: 0;"><strong>Verification Protocol:</strong> Please present this Pass Token ID or your downloaded badge at the Spawn Check-in Desk at HBTU Nawabganj gate on Oct 16 to claim your physical access badge.</p>
       </div>
 
       <div style="text-align: center; margin-top: 20px; font-size: 10px; color: #606075;">

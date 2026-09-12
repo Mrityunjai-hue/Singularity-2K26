@@ -25,6 +25,8 @@ import {
   ExternalLink,
   Printer,
   Copy,
+  CreditCard,
+  Check,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -34,7 +36,7 @@ const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwMZsilK8DsAE34sLjVnQCDsM6EGFQwDjzgBTdC3F4Q2eGXs3NoBV-XQcB8pqP5rLg/exec";
 
 const TARGET_ATTENDEES = 1500;
-const BASE_SIMULATED_COUNT = 487; // Realistic initial count before first live sheet fetch
+const BASE_SIMULATED_COUNT = 487;
 
 interface CharacterClass {
   id: string;
@@ -54,11 +56,16 @@ const CHARACTER_CLASSES: CharacterClass[] = [
 
 function RegisterFormContent() {
   const searchParams = useSearchParams();
-  const initialTierParam = searchParams.get("tier");
+  const initialTypeParam = searchParams.get("type") || searchParams.get("tier");
 
   const { gainXp, unlockAchievement } = useAchievement();
 
-  // Registration Form State
+  // Registration Type: "fest" (Free festival & workshops verification pass) | "hackathon" (HackNova 2.0 ₹199)
+  const [registrationType, setRegistrationType] = useState<"fest" | "hackathon">(
+    initialTypeParam === "hacker" || initialTypeParam === "hackathon" ? "hackathon" : "fest"
+  );
+
+  // Form State
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -66,12 +73,10 @@ function RegisterFormContent() {
   const [branch, setBranch] = useState("Computer Science & Engineering");
   const [academicYear, setAcademicYear] = useState("3rd Year");
   const [characterClass, setCharacterClass] = useState("hacker");
-  const [passTier, setPassTier] = useState<"general" | "hacker" | "vip">(
-    initialTierParam === "hacker" ? "hacker" : initialTierParam === "vip" ? "vip" : "general"
-  );
   const [gamerTag, setGamerTag] = useState("");
   const [teamName, setTeamName] = useState("");
   const [trackInterest, setTrackInterest] = useState("AI & Autonomous Agents");
+  const [paymentRef, setPaymentRef] = useState("");
 
   // State for submission & ticket generation
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -81,20 +86,19 @@ function RegisterFormContent() {
 
   // Live Attendee Counter State
   const [attendeeCount, setAttendeeCount] = useState(BASE_SIMULATED_COUNT);
-  const [isLiveSynced, setIsLiveSynced] = useState(false);
 
-  // Sync initial tier from URL query if changed
+  // Sync initial type from URL query if changed
   useEffect(() => {
-    if (initialTierParam === "hacker") setPassTier("hacker");
-    else if (initialTierParam === "vip") setPassTier("vip");
-  }, [initialTierParam]);
+    if (initialTypeParam === "hacker" || initialTypeParam === "hackathon") {
+      setRegistrationType("hackathon");
+    }
+  }, [initialTypeParam]);
 
   // Fetch live attendee count from Google Apps Script on mount
   useEffect(() => {
     let isMounted = true;
     async function fetchLiveCount() {
       try {
-        // Read local stored registrations count as baseline increment
         const localSavedCount = Number(localStorage.getItem("sng_attendee_count") || "0");
         if (localSavedCount > 0) {
           setAttendeeCount(BASE_SIMULATED_COUNT + localSavedCount);
@@ -106,13 +110,11 @@ function RegisterFormContent() {
             const data = await res.json();
             if (isMounted && data && typeof data.count === "number") {
               setAttendeeCount(Math.max(data.count, BASE_SIMULATED_COUNT));
-              setIsLiveSynced(true);
             }
           }
         }
       } catch {
-        // Fallback gracefully to simulated count + local stored count
-        if (isMounted) setIsLiveSynced(true);
+        // Fallback safely to simulated + local saved count
       }
     }
 
@@ -122,8 +124,8 @@ function RegisterFormContent() {
     };
   }, []);
 
-  const handleTierSelect = (tier: "general" | "hacker" | "vip") => {
-    setPassTier(tier);
+  const handleTypeSelect = (type: "fest" | "hackathon") => {
+    setRegistrationType(type);
     soundFx.playClick();
   };
 
@@ -142,6 +144,8 @@ function RegisterFormContent() {
     const uniquePassToken = `SNG-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     setGeneratedPassId(uniquePassToken);
 
+    const isHackathon = registrationType === "hackathon";
+
     const payload = {
       pass_token: uniquePassToken,
       name: fullName,
@@ -150,26 +154,23 @@ function RegisterFormContent() {
       college: collegeName,
       branch: branch,
       year: academicYear,
-      pass_tier:
-        passTier === "hacker"
-          ? "HackNova 2.0 Hacker Pass"
-          : passTier === "vip"
-          ? "VIP All-Access Pass"
-          : "General Overworld Pass",
+      registration_type: isHackathon
+        ? "HackNova 2.0 24h Hackathon (₹199 Paid)"
+        : "Singularity 2K26 Festival & Workshops Pass (FREE Verification)",
+      amount_paid: isHackathon ? "₹199" : "FREE (₹0)",
+      payment_ref: isHackathon ? (paymentRef || "Pending / UPI Verification") : "N/A (Free Pass)",
       character_class: CHARACTER_CLASSES.find((c) => c.id === characterClass)?.label || "Zero-Day Hacker",
       gamer_tag: gamerTag || fullName.split(" ")[0] || "Builder",
-      team_name: teamName || "Solo Adventurer",
+      team_name: isHackathon ? (teamName || "Squad") : (teamName || "Individual Attendee"),
       interest: trackInterest,
-      form_type: "SINGULARITY_2K26_OFFICIAL_REGISTRATION",
       timestamp: new Date().toISOString(),
     };
 
     try {
-      // Attempt live POST dispatch to Google Apps Script Web App
       if (SCRIPT_URL && !SCRIPT_URL.includes("placeholder")) {
         await fetch(SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors", // Standard cross-origin web app protocol
+          mode: "no-cors",
           headers: {
             "Content-Type": "text/plain;charset=utf-8",
           },
@@ -238,19 +239,19 @@ function RegisterFormContent() {
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#140822] border-2 border-[#55FF55] shadow-[0_0_20px_rgba(85,255,85,0.3)] mb-3">
           <Zap className="w-4 h-4 text-[#55FF55] animate-pulse" />
           <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase tracking-wider font-bold">
-            OFFICIAL FESTIVAL ENLISTMENT PORTAL
+            OFFICIAL FESTIVAL ENLISTMENT & PASS VERIFICATION
           </span>
         </div>
         <h1 className="font-pixel-title text-3xl sm:text-5xl text-white mt-2 uppercase drop-shadow-[0_4px_0_#000]">
-          REGISTER & FORGE YOUR FESTIVAL PASS
+          FORGE YOUR FESTIVAL PASS
         </h1>
         <p className="text-xs sm:text-sm text-[#F0F2FF] font-sans max-w-2xl mx-auto mt-2 leading-relaxed drop-shadow-[0_2px_4px_#000]">
-          One unified registration for all Singularity 2K26 events, HackNova 2.0 hackathon, workshops, gaming zones, and EDM Night. All entries sync directly to our verified attendee database.
+          All festival events, hands-on workshops, keynotes, and EDM Night gates are <strong>100% FREE for all attendees</strong> (pass is used for campus check-in & verification). HackNova 2.0 hackathon registration is ₹199.
         </p>
       </section>
 
       {/* LIVE ATTENDEE COUNT & PROGRESS HUD */}
-      <section className="px-4 sm:px-6 max-w-5xl mx-auto mb-12">
+      <section className="px-4 sm:px-6 max-w-5xl mx-auto mb-10">
         <div className="bg-[#120524]/95 backdrop-blur-2xl border-4 border-[#FFD34D] p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.9),0_0_25px_rgba(255,211,77,0.2)]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
@@ -263,7 +264,7 @@ function RegisterFormContent() {
                   LIVE ATTENDEE COUNTER
                 </span>
                 <h3 className="font-pixel-title text-lg sm:text-2xl text-white">
-                  {attendeeCount.toLocaleString()} / {TARGET_ATTENDEES.toLocaleString()} BUILDERS ENLISTED
+                  {attendeeCount.toLocaleString()} / {TARGET_ATTENDEES.toLocaleString()} ATTENDEES ENLISTED
                 </h3>
               </div>
             </div>
@@ -273,7 +274,7 @@ function RegisterFormContent() {
                 {countPercentage}% CAPACITY REACHED
               </div>
               <p className="text-[11px] text-[#A0A0B8] font-sans mt-1">
-                ⚡ Slots filling fast across all collegiate tracks
+                ⚡ Free verification passes issuing for all collegiate tracks
               </p>
             </div>
           </div>
@@ -297,87 +298,77 @@ function RegisterFormContent() {
         </div>
       </section>
 
-      {/* PASS TIER SELECTOR */}
-      <section className="px-4 sm:px-6 max-w-7xl mx-auto mb-14">
+      {/* REGISTRATION TYPE SELECTION (FREE FEST PASS vs HACKATHON 199) */}
+      <section className="px-4 sm:px-6 max-w-5xl mx-auto mb-12">
         <div className="text-center mb-6">
           <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase">
-            CHOOSE YOUR ADVENTURE
+            REGISTRATION TYPE
           </span>
           <h2 className="font-pixel-title text-xl sm:text-3xl text-white mt-1">
-            SELECT FESTIVAL PASS TIER
+            SELECT YOUR ENLISTMENT
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* General Pass */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Free Festival & Workshops Verification Pass */}
           <div
-            onClick={() => handleTierSelect("general")}
-            className={`p-6 border-4 cursor-pointer transition-all flex flex-col justify-between backdrop-blur-xl ${
-              passTier === "general"
-                ? "bg-[#0E1A0F]/98 border-[#55FF55] scale-102 shadow-[0_0_35px_rgba(85,255,85,0.4)]"
+            onClick={() => handleTypeSelect("fest")}
+            className={`p-6 border-4 cursor-pointer transition-all flex flex-col justify-between backdrop-blur-xl relative ${
+              registrationType === "fest"
+                ? "bg-[#0E1A0F]/98 border-[#55FF55] shadow-[0_0_35px_rgba(85,255,85,0.45)] scale-102"
                 : "bg-[#090214]/90 border-[#2A1640] hover:border-[#5D9C43]"
             }`}
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="font-pixel-arcade text-[10px] text-[#55FF55]">TIER 01</span>
-                <span className="font-pixel-title text-sm text-[#55FF55]">FREE</span>
+                <span className="font-pixel-arcade text-xs text-[#55FF55] bg-[#55FF55]/15 px-2.5 py-1 border border-[#55FF55]/40 font-bold">
+                  100% FREE FOR ALL
+                </span>
+                <span className="font-pixel-title text-lg text-[#55FF55]">₹0 / FREE</span>
               </div>
-              <h3 className="font-pixel-title text-lg text-white">GENERAL OVERWORLD PASS</h3>
-              <p className="text-xs text-[#E0E0EE] font-sans mt-2 leading-relaxed">
-                Access to all workshops, keynotes, Mathletics Olympiad, RoboClash arenas, exhibition zones, and EDM Night gates.
+              <h3 className="font-pixel-title text-xl text-white">
+                FESTIVAL & WORKSHOPS PASS
+              </h3>
+              <p className="text-xs text-[#D8D8E8] font-sans mt-2 leading-relaxed">
+                Official digital verification credential for campus entry at HBTU Kanpur, all hands-on technical workshops, guest keynotes, Mathletics Olympiad, RoboClash exhibitions, and EDM Night gates.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-[#2A2438] font-pixel-arcade text-[10px] text-[#55FF55]">
-              {passTier === "general" ? "✓ SELECTED TIER" : "SELECT TIER →"}
+            <div className="mt-5 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px]">
+              <span className="text-[#55FF55]">
+                {registrationType === "fest" ? "✓ SELECTED ENLISTMENT" : "CLICK TO SELECT →"}
+              </span>
+              <span className="text-[#A0A0B0]">VERIFICATION BADGE</span>
             </div>
           </div>
 
-          {/* Hacker Pass */}
+          {/* HackNova 2.0 Hackathon (Paid ₹199) */}
           <div
-            onClick={() => handleTierSelect("hacker")}
-            className={`p-6 border-4 cursor-pointer transition-all flex flex-col justify-between backdrop-blur-xl ${
-              passTier === "hacker"
-                ? "bg-[#140624]/98 border-[#4FD9FF] scale-102 shadow-[0_0_35px_rgba(79,217,255,0.45)]"
-                : "bg-[#090214]/90 border-[#2A1640] hover:border-[#4FD9FF]"
+            onClick={() => handleTypeSelect("hackathon")}
+            className={`p-6 border-4 cursor-pointer transition-all flex flex-col justify-between backdrop-blur-xl relative ${
+              registrationType === "hackathon"
+                ? "bg-[#1C081A]/98 border-[#E14E3D] shadow-[0_0_35px_rgba(225,78,61,0.45)] scale-102"
+                : "bg-[#090214]/90 border-[#2A1640] hover:border-[#E14E3D]"
             }`}
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF]">FLAGSHIP</span>
-                <span className="font-pixel-title text-sm text-[#4FD9FF]">FREE (24H ENTRY)</span>
+                <span className="font-pixel-arcade text-xs text-[#FFD34D] bg-[#FFD34D]/15 px-2.5 py-1 border border-[#FFD34D]/40 font-bold">
+                  FLAGSHIP 24H ARENA
+                </span>
+                <span className="font-pixel-title text-lg text-[#FFD34D]">₹199 / SQUAD</span>
               </div>
-              <h3 className="font-pixel-title text-lg text-white">HACKNOVA 2.0 HACKER PASS</h3>
-              <p className="text-xs text-[#E0E0EE] font-sans mt-2 leading-relaxed">
-                Full 24-hour hackathon entry, complimentary meals & midnight snacks, AWS cloud sandboxes, and ₹1.8L+ loot chest eligibility.
+              <h3 className="font-pixel-title text-xl text-white">
+                HACKNOVA 2.0 HACKATHON
+              </h3>
+              <p className="text-xs text-[#D8D8E8] font-sans mt-2 leading-relaxed">
+                Full 24-hour hackathon entry, complimentary food & midnight pizza, AWS cloud sandboxes, mentorship, and eligibility for ₹1.8 Lakh+ loot chests (includes free festival pass).
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-[#2A2438] font-pixel-arcade text-[10px] text-[#4FD9FF]">
-              {passTier === "hacker" ? "✓ SELECTED TIER" : "SELECT TIER →"}
-            </div>
-          </div>
-
-          {/* VIP Pass */}
-          <div
-            onClick={() => handleTierSelect("vip")}
-            className={`p-6 border-4 cursor-pointer transition-all flex flex-col justify-between backdrop-blur-xl ${
-              passTier === "vip"
-                ? "bg-[#1A1405]/98 border-[#FFD34D] scale-102 shadow-[0_0_35px_rgba(255,211,77,0.4)]"
-                : "bg-[#090214]/90 border-[#2A1640] hover:border-[#FFD34D]"
-            }`}
-          >
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="font-pixel-arcade text-[10px] text-[#FFD34D]">EXCLUSIVE</span>
-                <span className="font-pixel-title text-sm text-[#FFD34D]">INVITE / VIP</span>
-              </div>
-              <h3 className="font-pixel-title text-lg text-white">VIP ALL-ACCESS PASS</h3>
-              <p className="text-xs text-[#E0E0EE] font-sans mt-2 leading-relaxed">
-                Front-row keynote seating, VIP networking lounge with speakers, guaranteed physical swag kit, and priority line clearance.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-[#2A2438] font-pixel-arcade text-[10px] text-[#FFD34D]">
-              {passTier === "vip" ? "✓ SELECTED TIER" : "SELECT TIER →"}
+            <div className="mt-5 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px]">
+              <span className="text-[#FFD34D]">
+                {registrationType === "hackathon" ? "✓ SELECTED ENLISTMENT" : "CLICK TO SELECT →"}
+              </span>
+              <span className="text-[#E14E3D]">HACKATHON + PASS</span>
             </div>
           </div>
         </div>
@@ -389,15 +380,24 @@ function RegisterFormContent() {
           {/* Left Column: Official Registration Form */}
           <div className="lg:col-span-7 bg-[#0E041A]/95 backdrop-blur-xl border-4 border-[#3A1E54] shadow-[0_12px_40px_rgba(0,0,0,0.95)] p-6 sm:p-8">
             <div className="flex items-center gap-3 border-b-2 border-[#2E1546] pb-4 mb-6">
-              <div className="w-12 h-12 bg-[#55FF55] border-2 border-black flex items-center justify-center text-2xl shadow-[3px_3px_0_#000]">
-                📋
+              <div
+                className="w-12 h-12 border-2 border-black flex items-center justify-center text-2xl shadow-[3px_3px_0_#000]"
+                style={{
+                  backgroundColor: registrationType === "hackathon" ? "#E14E3D" : "#55FF55",
+                }}
+              >
+                {registrationType === "hackathon" ? "⚔️" : "🎟️"}
               </div>
               <div>
                 <h2 className="font-pixel-title text-xl sm:text-2xl text-white">
-                  ATTENDEE REGISTRATION FORGE
+                  {registrationType === "hackathon"
+                    ? "HACKNOVA 2.0 REGISTRATION & PASS"
+                    : "FESTIVAL VERIFICATION PASS FORGE"}
                 </h2>
                 <p className="text-xs text-[#A0A0B8] font-sans">
-                  Fill in your official credentials to secure your spot and generate your festival pass
+                  {registrationType === "hackathon"
+                    ? "Fill squad/hacker details (₹199 entry) & generate your verified credential"
+                    : "Workshops & fest are free for all. Generate your official verification pass"}
                 </p>
               </div>
             </div>
@@ -407,7 +407,7 @@ function RegisterFormContent() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                    FULL NAME <span className="text-[#E14E3D]">*</span>
+                    FULL ATTENDEE NAME <span className="text-[#E14E3D]">*</span>
                   </label>
                   <input
                     type="text"
@@ -421,7 +421,7 @@ function RegisterFormContent() {
 
                 <div>
                   <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                    GAMER TAG / CALLSIGN <span className="text-[#A0A0B0]">(Optional)</span>
+                    CALLSIGN / GAMER TAG <span className="text-[#A0A0B0]">(Optional)</span>
                   </label>
                   <input
                     type="text"
@@ -475,7 +475,7 @@ function RegisterFormContent() {
                     required
                     value={collegeName}
                     onChange={(e) => setCollegeName(e.target.value)}
-                    placeholder="HBTU Kanpur / IIT Kanpur / etc."
+                    placeholder="HBTU Kanpur / IIT / etc."
                     className="w-full bg-[#140822] border-2 border-[#3A1E54] focus:border-[#55FF55] p-2.5 text-white outline-none transition-colors"
                   />
                 </div>
@@ -516,13 +516,13 @@ function RegisterFormContent() {
 
                 <div>
                   <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                    TEAM / SQUAD NAME:
+                    {registrationType === "hackathon" ? "SQUAD / TEAM NAME:" : "TEAM / GROUP (OPTIONAL):"}
                   </label>
                   <input
                     type="text"
                     value={teamName}
                     onChange={(e) => setTeamName(e.target.value)}
-                    placeholder="e.g. PixelRaiders (if in a team)"
+                    placeholder={registrationType === "hackathon" ? "e.g. VoxelRaiders (Required for Hackathon)" : "e.g. Solo / Club Name"}
                     className="w-full bg-[#140822] border-2 border-[#3A1E54] focus:border-[#4FD9FF] p-2.5 text-white outline-none"
                   />
                 </div>
@@ -531,19 +531,20 @@ function RegisterFormContent() {
               {/* Primary Domain of Interest */}
               <div>
                 <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                  PRIMARY QUEST TRACK / DOMAIN:
+                  PRIMARY WORKSHOP / QUEST TRACK OF INTEREST:
                 </label>
                 <select
                   value={trackInterest}
                   onChange={(e) => setTrackInterest(e.target.value)}
                   className="w-full bg-[#140822] border-2 border-[#3A1E54] focus:border-[#55FF55] p-2.5 text-white outline-none"
                 >
-                  <option value="AI & Autonomous Agents">Autonomous AI & Multi-Agent Swarms</option>
-                  <option value="Cloud & Serverless">Next-Gen Cloud & Serverless Infrastructure</option>
+                  <option value="AI & Autonomous Agents">Autonomous AI & Multi-Agent Swarms Workshop</option>
+                  <option value="Cloud & Serverless">Next-Gen Cloud & Serverless Infrastructure (AWS)</option>
                   <option value="Web3 & Cryptography">Decentralized Systems & Zero-Knowledge</option>
-                  <option value="Mathematical Computing">Mathematical Computing & Quant Models</option>
+                  <option value="Mathematical Computing">Mathematical Computing & Quant Models (HBTU Math)</option>
                   <option value="Game Dev & Creative Tech">Game Dev, Voxel Engines & Creative Tech</option>
-                  <option value="Open Innovation">Open Innovation & Social Impact</option>
+                  <option value="RoboClash & Hardware">RoboClash Battle Arena & Embedded Systems</option>
+                  <option value="All Festival Events">All Festival Tracks & Workshops (Full Access)</option>
                 </select>
               </div>
 
@@ -581,6 +582,38 @@ function RegisterFormContent() {
                 </div>
               </div>
 
+              {/* Hackathon ₹199 Payment Reference Info Box */}
+              {registrationType === "hackathon" && (
+                <div className="p-4 bg-[#1A0815] border-2 border-[#E14E3D] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-[#FFD34D] font-pixel-arcade text-xs">
+                      <CreditCard className="w-4 h-4" />
+                      <span>HACKATHON ENTRY FEE: ₹199 / SQUAD</span>
+                    </div>
+                    <span className="font-pixel-arcade text-[10px] text-[#55FF55] bg-[#55FF55]/15 px-2 py-0.5 border border-[#55FF55]/30">
+                      ₹199 ONLY
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] text-[#D0D0E0] leading-relaxed">
+                    HackNova 2.0 registration fee is ₹199 per squad (covers 24h meals, pizza, cloud labs, and loot chests). General fest & workshops are 100% free.
+                  </p>
+
+                  <div>
+                    <label className="block font-pixel-sub text-[10px] text-[#FFD34D] uppercase mb-1">
+                      UPI TRANSACTION REF / UTR NO. (OPTIONAL AT REGISTRATION):
+                    </label>
+                    <input
+                      type="text"
+                      value={paymentRef}
+                      onChange={(e) => setPaymentRef(e.target.value)}
+                      placeholder="e.g. UTR 426891234567 or Pay on Desk"
+                      className="w-full bg-[#0E0312] border border-[#E14E3D] p-2 text-white outline-none font-mono text-xs"
+                    />
+                  </div>
+                </div>
+              )}
+
               {/* Submit Button */}
               <button
                 type="submit"
@@ -588,11 +621,15 @@ function RegisterFormContent() {
                 className="btn-voxel btn-voxel-gold text-xs w-full py-4 mt-4 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,211,77,0.3)] disabled:opacity-50"
               >
                 {isSubmitting ? (
-                  <span>⏳ SYNCING WITH GOOGLE SHEET DATABASE...</span>
+                  <span>⏳ RECORDING IN ATTENDEE DATABASE...</span>
                 ) : (
                   <>
                     <span>⚒️</span>
-                    <span>CONFIRM REGISTRATION & FORGE PASS (+100 XP)</span>
+                    <span>
+                      {registrationType === "hackathon"
+                        ? "CONFIRM HACKATHON REGISTRATION (₹199) & FORGE PASS"
+                        : "FORGE FREE FESTIVAL VERIFICATION PASS (+100 XP)"}
+                    </span>
                     <span>→</span>
                   </>
                 )}
@@ -618,7 +655,7 @@ function RegisterFormContent() {
                     backgroundColor: `${selectedClassObj.color}15`,
                   }}
                 >
-                  {passTier.toUpperCase()} PASS
+                  {registrationType === "hackathon" ? "HACKNOVA HACKER (₹199)" : "VERIFIED FEST PASS (FREE)"}
                 </span>
               </div>
 
@@ -676,9 +713,9 @@ function RegisterFormContent() {
 
               {/* Holographic Watermark Footer */}
               <div className="mt-4 pt-2.5 border-t border-[#2E1546] flex items-center justify-between text-[8px] font-pixel-arcade text-[#85859E]">
-                <span>DATABASE STATUS: {isForged ? "CONFIRMED" : "READY TO FORGE"}</span>
+                <span>ENTRY PROTOCOL: {registrationType === "hackathon" ? "24H HACKATHON ARENA" : "FREE WORKSHOP & FEST"}</span>
                 <span className={isForged ? "text-[#55FF55]" : "text-[#FFD34D]"}>
-                  {isForged ? "● PASS VERIFIED" : "○ UNCONFIRMED"}
+                  {isForged ? "● PASS VERIFIED" : "○ READY TO FORGE"}
                 </span>
               </div>
             </div>
