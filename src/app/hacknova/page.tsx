@@ -33,14 +33,6 @@ export default function HackNovaPage() {
   const [openedChest, setOpenedChest] = useState<string | null>("diamond-chest");
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
 
-  // Form State for In-Portal Registration
-  const [teamName, setTeamName] = useState("");
-  const [leaderName, setLeaderName] = useState("");
-  const [leaderEmail, setLeaderEmail] = useState("");
-  const [teamSize, setTeamSize] = useState("3");
-  const [trackInterest, setTrackInterest] = useState("AI & Autonomous Agents");
-  const [regSuccess, setRegSuccess] = useState(false);
-
   React.useEffect(() => {
     unlockAchievement("CAVE_EXPLORER");
   }, [unlockAchievement]);
@@ -56,23 +48,6 @@ export default function HackNovaPage() {
         spread: 60,
         origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
         colors: [chest.colorHex, "#FFFFFF"],
-      });
-    } catch {}
-  };
-
-  const handleRegisterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    soundFx.playLevelUp();
-    setRegSuccess(true);
-    gainXp(100);
-    unlockAchievement("TICKET_CRAFTED");
-
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 90,
-        origin: { y: 0.6 },
-        colors: ["#E14E3D", "#4FD9FF", "#FFD34D", "#55FF55"],
       });
     } catch {}
   };
@@ -405,111 +380,28 @@ export default function HackNovaPage() {
 
       {/* DIRECT IN-PORTAL REGISTRATION SECTION */}
       <section id="register-section" className="py-20 px-4 sm:px-6 max-w-4xl mx-auto">
-        <div className="bg-[#14081E] border-4 border-[#E14E3D] shadow-[0_10px_0_#000,0_0_50px_rgba(225,78,61,0.3)] p-6 sm:p-10">
-          <div className="text-center mb-8">
-            <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase">
-              OFFICIAL IN-PORTAL ENLISTMENT
-            </span>
-            <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
-              REGISTER YOUR SQUAD FOR HACKNOVA 2.0
-            </h2>
-            <p className="text-xs sm:text-sm text-[#A0A0B0] font-sans mt-2">
-              Registration is 100% free and managed entirely within this official portal.
-            </p>
-          </div>
+        <div className="bg-[#14081E]/95 backdrop-blur-xl border-4 border-[#E14E3D] shadow-[0_10px_0_#000,0_0_50px_rgba(225,78,61,0.3)] p-6 sm:p-10 text-center">
+          <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase">
+            OFFICIAL FESTIVAL REGISTRATION PORTAL
+          </span>
+          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white mt-2 mb-3">
+            ENLIST FOR HACKNOVA 2.0 & FORGE BADGE
+          </h2>
+          <p className="text-xs sm:text-sm text-[#D0D0E0] font-sans max-w-xl mx-auto mb-8 leading-relaxed">
+            All festival registrations and HackNova 2.0 applications are unified in the central Singularity 2K26 Credential Forge with direct Google Sheet sync and real-time attendee live counting.
+          </p>
 
-          <form onSubmit={handleRegisterSubmit} className="space-y-4 font-sans">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                  SQUAD / TEAM NAME:
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={teamName}
-                  onChange={(e) => setTeamName(e.target.value)}
-                  placeholder="e.g. VoxelRaiders"
-                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                  TEAM LEADER NAME:
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={leaderName}
-                  onChange={(e) => setLeaderName(e.target.value)}
-                  placeholder="Full Name"
-                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                  LEADER EMAIL ADDRESS:
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={leaderEmail}
-                  onChange={(e) => setLeaderEmail(e.target.value)}
-                  placeholder="leader@college.edu"
-                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                  NUMBER OF SQUAD MEMBERS:
-                </label>
-                <select
-                  value={teamSize}
-                  onChange={(e) => setTeamSize(e.target.value)}
-                  className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
-                >
-                  <option value="2">2 Hackers</option>
-                  <option value="3">3 Hackers</option>
-                  <option value="4">4 Hackers</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label className="block font-pixel-sub text-[10px] text-[#A0A0B0] uppercase mb-1">
-                PRIMARY DOMAIN OF INTEREST:
-              </label>
-              <select
-                value={trackInterest}
-                onChange={(e) => setTrackInterest(e.target.value)}
-                className="w-full bg-[#0B0212] border border-[#3A1448] focus:border-[#4FD9FF] p-2.5 text-xs text-white outline-none"
-              >
-                <option value="AI & Autonomous Agents">Autonomous AI & Multi-Agent Swarms</option>
-                <option value="Cloud & Serverless">Next-Gen Cloud & Serverless Infrastructure</option>
-                <option value="Web3 & Cryptography">Decentralized Systems & Zero-Knowledge</option>
-                <option value="Mathematical Computing">Mathematical Computing & Quant Models</option>
-                <option value="Open Innovation">Open Innovation / Social Good</option>
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              className="btn-voxel btn-voxel-redstone text-xs w-full py-3.5 mt-4"
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/register?tier=hacker"
+              onClick={() => soundFx.playClick()}
+              className="btn-voxel btn-voxel-redstone text-xs sm:text-sm py-4 px-8 w-full sm:w-auto flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(225,78,61,0.5)]"
             >
-              ⚔️ SUBMIT SQUAD APPLICATION (+100 XP)
-            </button>
-
-            {regSuccess && (
-              <div className="p-4 bg-[#1B2E15] border-2 border-[#55FF55] text-xs font-pixel-arcade text-[#55FF55] text-center animate-bounce">
-                ✓ SQUAD ENLISTED IN HACKNOVA 2.0 PORTAL! YOU MAY NOW FORGE YOUR ATTENDEE BADGE.
-              </div>
-            )}
-          </form>
+              <span>⚔️</span>
+              <span>ENTER REGISTRATION & FORGE HACKER PASS</span>
+              <span>→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
