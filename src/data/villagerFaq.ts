@@ -1,7 +1,7 @@
 export interface VillagerTrade {
   id: string;
   question: string;
-  category: "General" | "HackNova" | "Passes" | "Travel";
+  category: "General" | "HackNova" | "Passes" | "Sessions";
   villagerResponse: string;
   emeraldCost: number;
   itemGiven: string;
@@ -10,50 +10,50 @@ export interface VillagerTrade {
 export const VILLAGER_TRADES: VillagerTrade[] = [
   {
     id: "trade-what-is",
-    question: "What is Singularity 2K26 and who can attend?",
+    question: "What is Singularity 2K26 and who is organizing it?",
     category: "General",
-    villagerResponse: "Hrrr! Singularity 2K26 is the grand 3-day tech & cultural fest at HBTU Kanpur, organized by N8N Data Science Community, AWS SBG HBTU, and Department of Mathematics. Students from any recognized college or school are welcome to attend!",
+    villagerResponse: "Singularity 2K26 is the annual technical festival of Harcourt Butler Technical University (HBTU), Kanpur. It is organized collaboratively by N8N Data Science Community, AWS SBG HBTU, and the Department of Mathematics.",
     emeraldCost: 1,
-    itemGiven: "📜 Fest Map Scroll",
+    itemGiven: "📜 Fest Intelligence",
+  },
+  {
+    id: "trade-registration-cost",
+    question: "Is fest entry and workshop registration free?",
+    category: "Passes",
+    villagerResponse: "Yes! Fest entry, general attendance, and technical workshops are completely free for all students. You can generate your digital pass directly on the registration portal for verification.",
+    emeraldCost: 1,
+    itemGiven: "🎟️ Free Fest Pass",
   },
   {
     id: "trade-hackathon-info",
-    question: "How do I participate in HackNova 2.0 Hackathon?",
+    question: "How do I register for the HackNova 2.0 Hackathon?",
     category: "HackNova",
-    villagerResponse: "Hrrrngh! Festival access and technical workshops are completely free for all verified attendees! HackNova 2.0 hackathon registration is handled directly through its official portal, providing meals, mentorship, cloud sandboxes, and grand rewards!",
+    villagerResponse: "HackNova 2.0 is the flagship 24-hour hackathon of Singularity 2K26. Team and solo registration is handled directly on its official portal at https://hacknova2-n8n-dsc.netlify.app/.",
     emeraldCost: 2,
-    itemGiven: "💎 Diamond Pass Key",
+    itemGiven: "🏆 Hackathon Badge",
   },
   {
-    id: "trade-accommodation",
-    question: "Will outstation participants get hostel rooms to sleep?",
-    category: "Travel",
-    villagerResponse: "Yes, fellow traveler! Verified outstation participants shortlisted for HackNova or major competitions can request campus hostel accommodation during ticket pass verification.",
+    id: "trade-workshops-lectures",
+    question: "What will happen in Hands-on Lectures & Workshops?",
+    category: "Sessions",
+    villagerResponse: "Industry mentors and professors will lead interactive, hands-on masterclasses covering Artificial Intelligence, Machine Learning, Serverless Cloud Architectures with AWS, and workflow automation.",
     emeraldCost: 1,
-    itemGiven: "🛏️ Cozy Bed Roll",
+    itemGiven: "⚡ Masterclass Scroll",
   },
   {
-    id: "trade-edm-pass",
-    question: "Do I need a separate pass for the PULSE EDM Night?",
-    category: "Passes",
-    villagerResponse: "All registered Singularity 2K26 pass holders get access to the grand EDM Night! Just show your digital QR badge at the Open Air Theatre gates before sundown!",
-    emeraldCost: 1,
-    itemGiven: "✨ Glowstone Wristband",
-  },
-  {
-    id: "trade-bring-items",
-    question: "What items should I equip in my inventory?",
+    id: "trade-who-can-attend",
+    question: "Who is eligible to participate in Singularity 2K26?",
     category: "General",
-    villagerResponse: "Equip your college ID card, your trusty laptop + power brick, extension cords, government photo ID, and lots of hacker curiosity! No harmful items allowed past the iron doors.",
+    villagerResponse: "Students from all recognized colleges, universities, and schools across all branches, departments, and academic years are eligible to participate.",
     emeraldCost: 1,
-    itemGiven: "🎒 Adventure Backpack",
+    itemGiven: "🌐 Access Permit",
   },
   {
     id: "trade-certificates",
     question: "Will all participants get official certificates?",
     category: "General",
-    villagerResponse: "Hrrr! Every verified attendee receives an official certificate of participation, plus exclusive custom pixel badges!",
+    villagerResponse: "Yes! Every verified participant attending workshops, hands-on lectures, and the hackathon will receive an official Certificate of Participation from HBTU Kanpur.",
     emeraldCost: 2,
-    itemGiven: "🏆 Certificate of Valor",
+    itemGiven: "📜 Official Certificate",
   },
 ];

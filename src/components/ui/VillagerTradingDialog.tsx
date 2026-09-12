@@ -106,30 +106,30 @@ export function VillagerTradingDialog() {
         <div className="lg:col-span-7 bg-[#14121F] border-2 border-[#3A3250] p-4 sm:p-6 flex flex-col justify-between">
           <div>
             {/* Trade Exchange Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#2A2438] mb-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#2A2438] mb-4">
               <div className="flex items-center gap-2">
-                <span className="font-pixel-arcade text-[10px] text-[#FFD34D]">
-                  QUESTION OF INQUIRY:
+                <span className="font-pixel-arcade text-[10px] text-[#FFD34D] font-bold uppercase">
+                  TOPIC:
                 </span>
-                <span className="text-[9px] font-pixel-sub text-[#55FF55] bg-[#55FF55]/10 px-1 border border-[#55FF55]/30">
+                <span className="text-[10px] font-pixel-arcade text-[#55FF55] bg-[#55FF55]/15 px-2 py-0.5 border border-[#55FF55]/40 font-bold uppercase">
                   {selectedTrade.category}
                 </span>
               </div>
-              <div className="text-xs font-pixel-arcade text-[#55FF55] flex items-center gap-1">
-                <span>REWARD:</span>
+              <div className="text-[11px] font-pixel-arcade text-[#55FF55] flex items-center gap-1.5 font-bold">
+                <span className="text-[#A0A0B0]">UNLOCKED:</span>
                 <span className="text-[#FFD34D]">{selectedTrade.itemGiven}</span>
               </div>
             </div>
 
-            <h4 className="font-pixel-heading text-sm sm:text-base text-[#FFFFFF] font-bold mb-3">
+            <h4 className="font-pixel-heading text-sm sm:text-base text-[#FFFFFF] font-bold mb-3 leading-snug">
               &quot;{selectedTrade.question}&quot;
             </h4>
 
             {/* Villager Speech Box */}
-            <div className="bg-[#100D1A] border-2 border-[#55FF55]/40 p-4 relative shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)]">
-              <div className="flex items-start gap-3">
-                <span className="text-2xl flex-shrink-0">📜</span>
-                <p className="text-xs sm:text-sm text-[#E0E0EE] font-sans leading-relaxed">
+            <div className="bg-[#0D0A17] border-2 border-[#55FF55]/50 p-4 sm:p-5 relative shadow-[inset_0_2px_8px_rgba(0,0,0,0.85)]">
+              <div className="flex items-start gap-3.5">
+                <span className="text-2xl flex-shrink-0 select-none">📜</span>
+                <p className="text-xs sm:text-sm text-[#F0F0F8] font-sans leading-relaxed">
                   {selectedTrade.villagerResponse}
                 </p>
               </div>

@@ -52,9 +52,9 @@ export default function EventsPage() {
   };
 
   const categories = [
-    { id: "all", label: "All Quests" },
+    { id: "all", label: "All Sessions" },
     { id: "workshop", label: "Workshops" },
-    { id: "competition", label: "Competitions" },
+    { id: "competition", label: "Hands-on Lectures" },
     { id: "technical", label: "Technical" },
     { id: "cultural", label: "Cultural" },
   ];

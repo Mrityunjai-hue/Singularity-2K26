@@ -49,9 +49,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SINGULARITY 2K26 — Minecraft Voxel World × Retro Arcade Fest | HBTU",
+  title: "SINGULARITY 2K26 — Technical Festival | HBTU Kanpur",
   description:
-    "Official 3-Day Tech & Cultural Festival organized by N8N Data Science Community in collaboration with AWS SBG HBTU & Department of Mathematics, HBTU Kanpur. Featuring HackNova 2.0, masterclasses, Mathletics, CTF, and grand EDM Night.",
+    "Official 3-Day Technical Festival organized by N8N Data Science Community in collaboration with AWS SBG HBTU & Department of Mathematics, HBTU Kanpur. Featuring HackNova 2.0, hands-on masterclasses, workshops, and algorithmic computing.",
   keywords: [
     "Singularity 2K26",
     "HackNova 2.0",
@@ -59,14 +59,12 @@ export const metadata: Metadata = {
     "N8N Data Science Community",
     "AWS SBG HBTU",
     "Department of Mathematics HBTU",
-    "Minecraft Techfest",
-    "Retro Arcade UI",
-    "Voxel Techfest",
+    "Techfest HBTU",
   ],
-  authors: [{ name: "N8N × AWS SBG × Dept. of Mathematics HBTU" }],
+  authors: [{ name: "N8N DSC × AWS SBG HBTU × Dept. of Mathematics HBTU" }],
   openGraph: {
-    title: "SINGULARITY 2K26 — Where Code Meets Craft",
-    description: "3 Days. Infinite Blocks of Possibility. Build. Battle. Break the Loop.",
+    title: "SINGULARITY 2K26 — Annual Technical Festival | HBTU Kanpur",
+    description: "3 Days. Infinite Possibilities. Build. Innovate. Learn.",
     siteName: "SINGULARITY 2K26",
     locale: "en_US",
     type: "website",

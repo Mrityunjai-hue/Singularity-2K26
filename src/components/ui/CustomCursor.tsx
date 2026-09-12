@@ -1,51 +1,62 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 export function CustomCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [isClicking, setIsClicking] = useState(false);
-  const [enabled, setEnabled] = useState(true);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Only show on desktop pointers
+    // Only show on desktop fine pointers
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    if (isTouch) {
-      setEnabled(false);
-      return;
-    }
+    if (isTouch) return;
+
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    let rafId: number;
+    let mouseX = -100;
+    let mouseY = -100;
 
     const handleMouseMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     };
 
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+    const updatePosition = () => {
+      if (cursor) {
+        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      }
+      rafId = requestAnimationFrame(updatePosition);
+    };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
+    const handleMouseDown = () => {
+      if (cursor) cursor.classList.add("scale-75");
+    };
+
+    const handleMouseUp = () => {
+      if (cursor) cursor.classList.remove("scale-75");
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mousedown", handleMouseDown, { passive: true });
+    window.addEventListener("mouseup", handleMouseUp, { passive: true });
+    rafId = requestAnimationFrame(updatePosition);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
-  if (!enabled) return null;
-
   return (
     <div
-      className="fixed pointer-events-none z-[999999] transition-transform duration-75 ease-out"
-      style={{
-        left: `${pos.x}px`,
-        top: `${pos.y}px`,
-        transform: "translate(-50%, -50%)",
-      }}
+      ref={cursorRef}
+      className="fixed top-0 left-0 pointer-events-none z-[999999] -ml-2 -mt-2 will-change-transform transition-transform duration-75 ease-out hidden sm:block"
     >
       {/* Minecraft Voxel Crosshair */}
-      <div className={`relative flex items-center justify-center transition-all ${isClicking ? "scale-75" : "scale-100"}`}>
+      <div className="relative flex items-center justify-center">
         {/* Horizontal bar */}
         <div className="w-4 h-1 bg-white border border-black shadow-[0_0_4px_rgba(0,0,0,0.8)]" />
         {/* Vertical bar */}

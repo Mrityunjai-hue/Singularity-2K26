@@ -49,7 +49,7 @@ export function SingularityLogo({ size = "md", showText = true, className = "" }
             </span>
           </div>
           <span className={`font-pixel-arcade text-[#8E8E9F] uppercase tracking-widest mt-1 ${currentSize.fontSub}`}>
-            VOXEL × ARCADE FEST
+            HBTU KANPUR
           </span>
         </div>
       )}

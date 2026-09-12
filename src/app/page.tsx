@@ -65,16 +65,30 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#07010C] z-[3] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto text-center relative z-10 my-auto pt-6">
-          {/* Custom Brand Logo Emblem & Coalition Header */}
+          {/* Custom Brand Logo Emblem & Coalition Header with 3 Separate Boxes */}
           <div className="flex flex-col items-center justify-center mb-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#090214]/90 backdrop-blur-md border-2 border-[#55FF55] shadow-[0_4px_24px_rgba(0,0,0,0.85)] mb-4 animate-bounce">
-              <span className="w-2.5 h-2.5 bg-[#55FF55] border border-black inline-block" />
-              <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#55FF55] uppercase tracking-wider font-bold">
-                N8N DSC · AWS SBG HBTU · DEPT OF MATHEMATICS, HBTU
-              </span>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-5">
+              <div className="px-3.5 py-1 bg-[#090214]/90 backdrop-blur-md border border-[#55FF55]/60 shadow-[0_2px_12px_rgba(85,255,85,0.2)] flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-[#55FF55]" />
+                <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#55FF55] uppercase font-bold tracking-wider">
+                  N8N DSC
+                </span>
+              </div>
+              <div className="px-3.5 py-1 bg-[#090214]/90 backdrop-blur-md border border-[#FFD34D]/60 shadow-[0_2px_12px_rgba(255,211,77,0.2)] flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-[#FFD34D]" />
+                <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#FFD34D] uppercase font-bold tracking-wider">
+                  AWS SBG HBTU
+                </span>
+              </div>
+              <div className="px-3.5 py-1 bg-[#090214]/90 backdrop-blur-md border border-[#4FD9FF]/60 shadow-[0_2px_12px_rgba(79,217,255,0.2)] flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-[#4FD9FF]" />
+                <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#4FD9FF] uppercase font-bold tracking-wider">
+                  DEPT. OF MATHEMATICS, HBTU
+                </span>
+              </div>
             </div>
 
-            <SingularityLogo size="lg" showText={false} className="mb-2 hover:scale-110 transition-transform" />
+            <SingularityLogo size="lg" showText={false} className="mb-2 hover:scale-105 transition-transform" />
           </div>
 
           {/* Giant Pixel Title Lockup with Solid Drop Shadows */}
@@ -86,12 +100,12 @@ export default function HomePage() {
           </div>
 
           {/* Hero Tagline Card */}
-          <div className="mt-4 p-4 bg-[#090214]/85 backdrop-blur-md border-2 border-[#3A1E54] max-w-3xl mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.9)]">
-            <p className="font-pixel-heading text-base sm:text-2xl text-[#4FD9FF] font-bold">
-              WHERE CODE MEETS CRAFT · THREE DAYS. INFINITE BLOCKS OF POSSIBILITY.
+          <div className="mt-4 p-4 sm:p-5 bg-[#090214]/90 backdrop-blur-md border-2 border-[#3A1E54] max-w-3xl mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.9)]">
+            <p className="font-pixel-heading text-base sm:text-xl md:text-2xl text-[#4FD9FF] font-bold tracking-wide">
+              THE ANNUAL TECHNICAL FESTIVAL OF HBTU KANPUR
             </p>
-            <p className="mt-1.5 text-xs sm:text-sm text-[#F5F5F0] font-sans leading-relaxed">
-              Harcourt Butler Technical University, Kanpur. The grand convergence of artificial intelligence, serverless clouds, mathematical computing, and retro arcade culture.
+            <p className="mt-2 text-xs sm:text-sm text-[#E0E0EE] font-sans leading-relaxed">
+              A 3-day immersive technical festival featuring HackNova 2.0, hands-on masterclasses, workshops, and algorithmic computing — organized by N8N Data Science Community, AWS Student Community, and Department of Mathematics, HBTU Kanpur.
             </p>
           </div>
 
@@ -251,13 +265,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase tracking-widest font-bold">
-              CHOOSE YOUR ADVENTURE
+              CHOOSE YOUR TRACK
             </span>
             <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold mt-1 drop-shadow-[0_4px_12px_#000]">
               THE FOUR PILLARS OF SINGULARITY
             </h2>
             <p className="text-xs sm:text-sm text-[#F0F0F8] font-sans max-w-xl mx-auto mt-2 drop-shadow-[0_2px_6px_#000]">
-              Four distinct paths of mastery across workshops, competitive battles, the flagship hackathon, and grand cultural concerts.
+              Four distinct domains of technical learning across hands-on workshops, expert lectures, the flagship 24-hr hackathon, and community sessions.
             </p>
           </div>
 
@@ -266,7 +280,7 @@ export default function HomePage() {
             <Link
               href="/events"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/85 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#4FD9FF]/30 hover:border-[#4FD9FF]"
+              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#4FD9FF]/30 hover:border-[#4FD9FF]"
             >
               <div>
                 <div className="item-slot-frame mb-4 border-[#4FD9FF]/40 group-hover:border-[#4FD9FF]">
@@ -277,11 +291,11 @@ export default function HomePage() {
                   WORKSHOPS
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  Serverless deployments on AWS and autonomous agent loops with n8n workflow graphs.
+                  Interactive technical sessions on Serverless Cloud Deployments with AWS and AI agent workflows.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold">
-                <span>EXPLORE SESSIONS</span>
+                <span>EXPLORE WORKSHOPS</span>
                 <span>→</span>
               </div>
             </Link>
@@ -290,7 +304,7 @@ export default function HomePage() {
             <Link
               href="/events"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/85 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#FFD34D]/30 hover:border-[#FFD34D]"
+              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#FFD34D]/30 hover:border-[#FFD34D]"
             >
               <div>
                 <div className="item-slot-frame mb-4 border-[#FFD34D]/40 group-hover:border-[#FFD34D]">
@@ -298,14 +312,14 @@ export default function HomePage() {
                 </div>
                 <span className="font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">PILLAR 02</span>
                 <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#FFD34D] transition-colors">
-                  COMPETITIONS
+                  HANDS-ON LECTURES
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  Mathletics Olympiad, Zero-Day CTF Cyber Siege, and 1v1 Algorithmic Speed Brawls.
+                  Expert masterclasses covering Artificial Intelligence, Machine Learning, and Mathematical Computing.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">
-                <span>VIEW ARENAS</span>
+                <span>VIEW MASTERCLASSES</span>
                 <span>→</span>
               </div>
             </Link>
@@ -314,7 +328,7 @@ export default function HomePage() {
             <Link
               href="/hacknova"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group border-[#E14E3D]/80 hover:border-[#E14E3D] bg-[#17031D]/85 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)]"
+              className="inventory-slot-card p-6 flex flex-col justify-between group border-[#E14E3D]/80 hover:border-[#E14E3D] bg-[#17031D]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)]"
             >
               <div>
                 <div className="item-slot-frame mb-4 border-[#E14E3D]/40 group-hover:border-[#E14E3D] bg-[#220710]">
@@ -325,20 +339,20 @@ export default function HomePage() {
                   HACKNOVA 2.0
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  24-Hour Pan-India hackathon with trophies, loot rewards, mentor checkpoints, and swags.
+                  24-Hour Pan-India hackathon with trophies, live problem statements, mentor checkpoints, and rewards.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#E14E3D] font-bold">
-                <span>ENTER ARENA</span>
+                <span>ENTER HACKNOVA</span>
                 <span>→</span>
               </div>
             </Link>
 
             {/* Pillar 4 */}
             <Link
-              href="/events"
+              href="/schedule"
               onClick={handleClick}
-              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/85 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#55FF55]/30 hover:border-[#55FF55]"
+              className="inventory-slot-card p-6 flex flex-col justify-between group bg-[#0F041A]/90 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.8)] border border-[#55FF55]/30 hover:border-[#55FF55]"
             >
               <div>
                 <div className="item-slot-frame mb-4 border-[#55FF55]/40 group-hover:border-[#55FF55]">
@@ -346,14 +360,14 @@ export default function HomePage() {
                 </div>
                 <span className="font-pixel-arcade text-[10px] text-[#55FF55] font-bold">PILLAR 04</span>
                 <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#55FF55] transition-colors">
-                  PULSE EDM NIGHT
+                  KEYNOTES & SESSIONS
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
-                  Grand closing concert at HBTU Open Air Theatre. Live DJs, laser beams, and glowing wristbands.
+                  Tech keynotes, open-source sessions, community networking, and official accreditation ceremony.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#55FF55] font-bold">
-                <span>CULTURAL FINALE</span>
+                <span>VIEW SCHEDULE</span>
                 <span>→</span>
               </div>
             </Link>
