@@ -75,13 +75,13 @@ export function VoxelNavbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full px-2 sm:px-6 transition-all duration-200 ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full px-2 sm:px-6 pointer-events-none transition-all duration-200 ${
           isScrolled ? "pt-1 sm:pt-2" : "pt-2 sm:pt-3"
         }`}
       >
         {/* Unified Glassmorphism Voxel HUD Navigation Bar */}
         <div
-          className={`max-w-7xl mx-auto border-2 border-[#2E2840] shadow-[0_8px_24px_rgba(0,0,0,0.85)] px-3 sm:px-5 flex items-center justify-between transition-all duration-200 ${
+          className={`max-w-7xl mx-auto pointer-events-auto border-2 border-[#2E2840] shadow-[0_8px_24px_rgba(0,0,0,0.85)] px-3 sm:px-5 flex items-center justify-between transition-all duration-200 ${
             isScrolled
               ? "h-13 sm:h-14 bg-[#07010C]/95 backdrop-blur-2xl border-[#3A3250]"
               : "h-14 sm:h-16 bg-[#090214]/90 backdrop-blur-xl border-[#2E2840]"

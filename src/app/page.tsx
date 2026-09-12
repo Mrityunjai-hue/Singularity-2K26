@@ -49,7 +49,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#07010C] text-[#F5F5F0] overflow-x-hidden">
       {/* 1. HERO REALM — Bespoke 4K Voxel Alpine Sunrise with Animated Volumetric Sun Rays */}
-      <section className="relative min-h-[94vh] flex flex-col justify-between pt-12 pb-20 px-4 sm:px-6 overflow-hidden">
+      <section className="relative min-h-[96vh] flex flex-col justify-between pt-20 sm:pt-24 pb-20 px-4 sm:px-6 overflow-hidden">
         {/* 4K High-Resolution Sunrise Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-100 brightness-110 contrast-105 saturate-110 transition-transform duration-1000"

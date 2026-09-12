@@ -29,7 +29,7 @@ export default function SpeakersPage() {
   };
 
   return (
-    <main className="min-h-screen pt-8 relative bg-[#07010C]">
+    <main className="min-h-screen pt-20 sm:pt-24 relative bg-[#07010C]">
       {/* Background Image: 4K Ultra-Vivid Synthwave Arcade Atmosphere */}
       <div
         className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-80 brightness-115 pointer-events-none"

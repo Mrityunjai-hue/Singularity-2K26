@@ -197,7 +197,7 @@ function RegisterFormContent() {
   return (
     <>
       {/* HEADER BANNER */}
-      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-8">
+      <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-8 pt-20 sm:pt-24">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#140822] border-2 border-[#55FF55] shadow-[0_0_20px_rgba(85,255,85,0.3)] mb-3">
           <Zap className="w-4 h-4 text-[#55FF55] animate-pulse" />
           <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase tracking-wider font-bold">
