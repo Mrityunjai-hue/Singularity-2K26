@@ -35,7 +35,6 @@ const SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwMZsilK8DsAE34sLjVnQCDsM6EGFQwDjzgBTdC3F4Q2eGXs3NoBV-XQcB8pqP5rLg/exec";
 
 const TARGET_ATTENDEES = 1500;
-const BASE_SIMULATED_COUNT = 487;
 
 interface CharacterClass {
   id: string;
@@ -73,30 +72,25 @@ function RegisterFormContent() {
   const [generatedPassId, setGeneratedPassId] = useState("");
   const [copiedToken, setCopiedToken] = useState(false);
 
-  // Live Attendee Counter State
-  const [attendeeCount, setAttendeeCount] = useState(BASE_SIMULATED_COUNT);
+  // Live Real Attendee Counter State (Synced with Google Sheet)
+  const [attendeeCount, setAttendeeCount] = useState<number>(0);
 
-  // Fetch live attendee count from Google Apps Script on mount
+  // Fetch real live attendee count from Google Apps Script on mount
   useEffect(() => {
     let isMounted = true;
     async function fetchLiveCount() {
       try {
-        const localSavedCount = Number(localStorage.getItem("sng_attendee_count") || "0");
-        if (localSavedCount > 0) {
-          setAttendeeCount(BASE_SIMULATED_COUNT + localSavedCount);
-        }
-
         if (SCRIPT_URL && !SCRIPT_URL.includes("placeholder")) {
           const res = await fetch(SCRIPT_URL, { method: "GET" });
           if (res.ok) {
             const data = await res.json();
             if (isMounted && data && typeof data.count === "number") {
-              setAttendeeCount(Math.max(data.count, BASE_SIMULATED_COUNT));
+              setAttendeeCount(data.count);
             }
           }
         }
       } catch {
-        // Fallback safely to simulated + local saved count
+        // Fallback safely to current recorded count
       }
     }
 
@@ -151,9 +145,7 @@ function RegisterFormContent() {
       console.warn("Apps Script dispatch notice:", err);
     }
 
-    // Update local counter
-    const prevSaved = Number(localStorage.getItem("sng_attendee_count") || "0");
-    localStorage.setItem("sng_attendee_count", String(prevSaved + 1));
+    // Increment real attendee count
     setAttendeeCount((prev) => prev + 1);
 
     // Trigger celebration effects

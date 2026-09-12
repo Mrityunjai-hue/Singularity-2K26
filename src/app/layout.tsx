@@ -6,6 +6,7 @@ import { VoxelHotbar } from "@/components/ui/VoxelHotbar";
 import { AchievementProvider } from "@/components/ui/AchievementSystem";
 import { KonamiModal } from "@/components/ui/KonamiModal";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { VoxelSiteLoader } from "@/components/ui/VoxelSiteLoader";
 
 const pressStart2P = Press_Start_2P({
   weight: "400",
@@ -88,6 +89,9 @@ export default function RootLayout({
     >
       <body className="bg-[#0B0014] text-[#F5F5F0] font-sans antialiased selection:bg-[#4FD9FF]/30 selection:text-[#4FD9FF] overflow-x-hidden min-h-screen pb-24">
         <AchievementProvider>
+          {/* Animated Themed Voxel Site Loader */}
+          <VoxelSiteLoader />
+
           {/* Custom Pixel Crosshair Cursor */}
           <CustomCursor />
 
