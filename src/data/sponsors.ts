@@ -1,163 +1,285 @@
-export interface SponsorTier {
+export interface SponsorSlot {
+  slotId: string;
+  slotCode: string;
+  domainTag: string;
+  slotTitle: string;
+  status: "OPEN FOR INQUIRY" | "RESERVED";
+  deliverablesHighlight: string;
+}
+
+export interface SponsorTierData {
   id: "diamond" | "gold" | "iron" | "redstone";
   name: string;
   badge: string;
   tagline: string;
   colorHex: string;
   borderHex: string;
-  bgGradient: string;
-  sponsors: SponsorItem[];
+  bgGlow: string;
+  animationLevel: "MAXIMUM (PRISMATIC VORTEX & 3D BEACONS)" | "HIGH (GOLDEN RADIANT EMBERS)" | "MEDIUM (METALLIC CYBER SHEEN)" | "SUBTLE (REDSTONE SIGNAL PULSE)";
+  investmentTier: string;
+  dealOverview: string;
+  coreDeliverables: string[];
+  slots: SponsorSlot[];
 }
 
-export interface SponsorItem {
-  name: string;
-  category: string;
-  logoText: string;
-  desc: string;
-  website: string;
-  perksOffered: string[];
+export interface ImpactMetric {
+  value: string;
+  label: string;
+  sub: string;
+  icon: string;
+  color: string;
 }
 
-export const SPONSORS_TIERS: SponsorTier[] = [
+export interface SponsorFaq {
+  q: string;
+  a: string;
+}
+
+export const SPONSOR_IMPACT_METRICS: ImpactMetric[] = [
   {
-    id: "diamond",
-    name: "Diamond Tier",
-    badge: "TITLE SPONSORS",
-    tagline: "The rare foundation powering the core of Singularity 2K26.",
-    colorHex: "#4FD9FF",
-    borderHex: "#00B4D8",
-    bgGradient: "from-[#0B0014] via-[#051824] to-[#0B0014]",
-    sponsors: [
-      {
-        name: "Amazon Web Services",
-        category: "Cloud & AI Title Patron",
-        logoText: "AWS SBG",
-        desc: "World's most comprehensive and broadly adopted cloud platform, powering global developers with scalable compute, storage, and generative AI models.",
-        website: "https://aws.amazon.com",
-        perksOffered: ["$10,000+ in attendee credits", "Direct recruitment interviews", "Exclusive keynote session", "Dedicated booth at HackNova Arena"],
-      },
-      {
-        name: "n8n.io",
-        category: "Workflow Automation & AI Orchestration",
-        logoText: "n8n",
-        desc: "The open-source workflow automation platform that gives technical teams the flexibility to connect anything with custom code and AI agents.",
-        website: "https://n8n.io",
-        perksOffered: ["Enterprise cloud access", "Autonomous agent bounties", "Hackathon mentor track", "Premium developer swag kit"],
-      },
-    ],
+    value: "1,000+",
+    label: "ACTIVE BUILDERS",
+    sub: "Elite collegiate hackers & AI engineers at HBTU",
+    icon: "users",
+    color: "#55FF55",
   },
   {
-    id: "gold",
-    name: "Gold Tier",
-    badge: "POWERED BY",
-    tagline: "Empowering builder infrastructure, computational clusters, and prize chests.",
-    colorHex: "#FFD34D",
-    borderHex: "#FFAA00",
-    bgGradient: "from-[#0B0014] via-[#1E1704] to-[#0B0014]",
-    sponsors: [
-      {
-        name: "Department of Mathematics, HBTU",
-        category: "Academic & Mathematical Patron",
-        logoText: "DoM HBTU",
-        desc: "Premier department cultivating analytical rigor, theoretical computer science, cryptography, and quantitative research since 1921.",
-        website: "https://hbtu.ac.in",
-        perksOffered: ["Mathletics Olympiad funding", "Research fellowship fast-tracks", "Academic keynote sessions"],
-      },
-      {
-        name: "Devfolio",
-        category: "Official Hackathon Platform Partner",
-        logoText: "Devfolio",
-        desc: "India's largest and fastest-growing community of builders, revolutionizing hackathons and developer credentialing.",
-        website: "https://devfolio.co",
-        perksOffered: ["Seamless one-click check-in", "Automated project judging matrix", "Hacker profile badges"],
-      },
-      {
-        name: "GitHub Education",
-        category: "Developer Tools Partner",
-        logoText: "GitHub",
-        desc: "Empowering the next generation of software creators with GitHub Student Developer Pack and Copilot tools.",
-        website: "https://education.github.com",
-        perksOffered: ["GitHub Copilot access", "Octocat collectible swag packs", "Open source workshop kits"],
-      },
-    ],
+    value: "50+",
+    label: "TOP UNIVERSITIES",
+    sub: "Pan-India engineering talent network",
+    icon: "award",
+    color: "#4FD9FF",
   },
   {
-    id: "iron",
-    name: "Iron Tier",
-    badge: "ASSOCIATE PATRONS",
-    tagline: "Solid bedrock providing tools, hardware kits, and developer sandboxes.",
-    colorHex: "#C4CBCE",
-    borderHex: "#8B8B8B",
-    bgGradient: "from-[#0B0014] via-[#121618] to-[#0B0014]",
-    sponsors: [
-      {
-        name: "Postman",
-        category: "API Platform Partner",
-        logoText: "Postman",
-        desc: "API platform for building and using APIs, simplifying each step of the API lifecycle and streamlining collaboration.",
-        website: "https://postman.com",
-        perksOffered: ["API challenge bounties", "Postman Student Expert badges", "Special edition merchandise"],
-      },
-      {
-        name: "Polygon Labs",
-        category: "Web3 & Zero-Knowledge Partner",
-        logoText: "Polygon",
-        desc: "Fundamental blockchain scalability suite delivering fast, low-cost transactions with cutting-edge zero-knowledge technology.",
-        website: "https://polygon.technology",
-        perksOffered: ["Web3 track pool prize", "Devnet gas subsidies", "Mentorship from core devs"],
-      },
-      {
-        name: "NordVPN",
-        category: "Cybersecurity & Privacy Partner",
-        logoText: "Nord Security",
-        desc: "Global leader in digital privacy, network encryption, and next-generation cybersecurity solutions.",
-        website: "https://nordvpn.com",
-        perksOffered: ["CTF prize pool vouchers", "Complimentary 1-year cybersecurity passes"],
-      },
-    ],
+    value: "100K+",
+    label: "DIGITAL IMPRESSIONS",
+    sub: "Multi-channel developer & social broadcast",
+    icon: "zap",
+    color: "#FFD34D",
   },
   {
-    id: "redstone",
-    name: "Redstone Tier",
-    badge: "COMMUNITY & MEDIA",
-    tagline: "The high-voltage wiring connecting 50+ college developer clubs across the subcontinent.",
-    colorHex: "#E14E3D",
-    borderHex: "#FF2A2A",
-    bgGradient: "from-[#0B0014] via-[#1F0707] to-[#0B0014]",
-    sponsors: [
-      {
-        name: "HBTU Alumni Association",
-        category: "Heritage Network",
-        logoText: "HBTU Alumni",
-        desc: "Centennial global alumni network supporting innovation, student startups, and campus excellence.",
-        website: "https://hbtualumni.org",
-        perksOffered: ["Seed mentorship grants", "Alumni connect lounge"],
-      },
-      {
-        name: "Unstop",
-        category: "Student Opportunity Partner",
-        logoText: "Unstop",
-        desc: "Leading early talent engagement and competitive gamification platform.",
-        website: "https://unstop.com",
-        perksOffered: ["Nationwide outreach", "Verified leaderboard hosting"],
-      },
-      {
-        name: "GeeksforGeeks HBTU Chapter",
-        category: "Community Partner",
-        logoText: "GFG Student Chapter",
-        desc: "Student community fostering coding proficiency, algorithm mastery, and interview preparation.",
-        website: "https://geeksforgeeks.org",
-        perksOffered: ["Discounted course vouchers", "CP challenge curation"],
-      },
-    ],
+    value: "24 HOURS",
+    label: "NON-STOP IMMERSION",
+    sub: "Continuous hackathon booth & keynote visibility",
+    icon: "flame",
+    color: "#E14E3D",
   },
 ];
 
-export const SPONSOR_PERKS_MATRIX = [
-  { perk: "Keynote & Stage Announcement Time", diamond: "15 Mins Mainstage", gold: "5 Mins Mainstage", iron: "Logo Slide", redstone: "Mention" },
-  { perk: "Dedicated HackNova Arena Booth", diamond: "Prime Double Slot", gold: "Single Slot", iron: "Shared Desk", redstone: "Brochure Desk" },
-  { perk: "Direct Resume / Hacker Database Access", diamond: "Full Access + Fast Track", gold: "Full Access", iron: "Opt-In List", redstone: "—" },
-  { perk: "Custom Challenge Track & Bounty Naming", diamond: "Yes (Exclusive)", gold: "Yes", iron: "—", redstone: "—" },
-  { perk: "Logo on Festival Shirts & Swags", diamond: "Front Top Prominent", gold: "Back Top", iron: "Sleeve / Pocket", redstone: "Website Only" },
-  { perk: "Social Media & Community Broadcasts", diamond: "Dedicated Video + 10 Posts", gold: "5 Posts + Shoutouts", iron: "2 Posts", redstone: "1 Combined Post" },
-];
+export const SPONSORS_DATA: {
+  tiers: SponsorTierData[];
+  deliverablesMatrix: { perk: string; diamond: string; gold: string; iron: string; redstone: string }[];
+  faqs: SponsorFaq[];
+  contactEmail: string;
+} = {
+  contactEmail: "singularity.sponsors@hbtu.ac.in",
+
+  tiers: [
+    {
+      id: "diamond",
+      name: "Diamond Tier",
+      badge: "TITLE SOVEREIGN PATRON",
+      tagline: "The rare foundation powering the core of Singularity 2K26. Maximum stage presence and executive branding.",
+      colorHex: "#4FD9FF",
+      borderHex: "#00E5FF",
+      bgGlow: "rgba(79, 217, 255, 0.4)",
+      animationLevel: "MAXIMUM (PRISMATIC VORTEX & 3D BEACONS)",
+      investmentTier: "Exclusive Co-Branding Title",
+      dealOverview: "Complete event co-branding, 15-minute mainstage keynote, double-size HackNova arena booth, and full unrestricted access to the 1,000+ hacker resume database.",
+      coreDeliverables: [
+        "15-Minute Prime Mainstage Keynote & Opening Address",
+        "Prime Double-Slot Booth in HackNova 2.0 Grand Arena",
+        "Full Unrestricted Access to 1,000+ Hacker Resumes + Fast-Track Interviews",
+        "Exclusive Naming Rights on Flagship Hackathon Track & Grand Champions Trophy",
+        "Prominent Front-Top Logo on 1,500+ Official Festival T-Shirts, Banners & Passes",
+        "Dedicated Video Showcase + 10 Targeted Pan-India Social Media Broadcasts",
+        "VIP Jury Seat on HackNova Grand Evaluation Panel",
+      ],
+      slots: [
+        {
+          slotId: "diamond-01",
+          slotCode: "TITLE_PATRON_01",
+          domainTag: "CLOUD & GENERATIVE AI INFRASTRUCTURE",
+          slotTitle: "Title Cloud & AI Infrastructure Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "15-Min Keynote + Double Arena Booth + Full Talent Database",
+        },
+        {
+          slotId: "diamond-02",
+          slotCode: "TITLE_PATRON_02",
+          domainTag: "AUTONOMOUS AGENT ORCHESTRATION & COMPUTE",
+          slotTitle: "Title Agentic Computing & Systems Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "Flagship Track Naming + Jury Seat + Prime Banner Placement",
+        },
+      ],
+    },
+    {
+      id: "gold",
+      name: "Gold Tier",
+      badge: "CO-POWERED PATRON",
+      tagline: "Empowering computational clusters, high-dimensional quant tracks, and grand prize vaults.",
+      colorHex: "#FFD34D",
+      borderHex: "#FFAA00",
+      bgGlow: "rgba(255, 211, 77, 0.35)",
+      animationLevel: "HIGH (GOLDEN RADIANT EMBERS)",
+      investmentTier: "Co-Powered Category",
+      dealOverview: "5-minute mainstage address, dedicated arena workstation, co-branded challenge track, back-top t-shirt placement, and talent recruitment access.",
+      coreDeliverables: [
+        "5-Minute Mainstage Address during Opening Ceremony",
+        "Dedicated Single Booth in HackNova 2.0 Arena",
+        "Access to Verified Hacker Resumes & Candidate Profiles",
+        "Co-Branded Hackathon Challenge Track & Track Bounty Placement",
+        "Back-Top Logo on Official Festival T-Shirts & Stage Backdrops",
+        "5 Targeted Social Media Blasts & Discord War Room Announcements",
+        "Dedicated Mentor & Workshop Session Slot",
+      ],
+      slots: [
+        {
+          slotId: "gold-01",
+          slotCode: "POWERED_BY_01",
+          domainTag: "HIGH-DIMENSIONAL QUANT & MATHEMATICS",
+          slotTitle: "Algorithmic & Mathematical Modeling Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "5-Min Address + Dedicated Booth + Challenge Track",
+        },
+        {
+          slotId: "gold-02",
+          slotCode: "POWERED_BY_02",
+          domainTag: "DEVELOPER ECOSYSTEM & PLATFORM",
+          slotTitle: "Official Hackathon Platform & Dev Tools Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "Single HackHub Booth + Resume Access + Swag Drops",
+        },
+        {
+          slotId: "gold-03",
+          slotCode: "POWERED_BY_03",
+          domainTag: "TOOLING & CODE ENGINE",
+          slotTitle: "Developer Productivity & Tooling Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "Workshop Slot + Back-Top Shirt Logo + Discord Blast",
+        },
+      ],
+    },
+    {
+      id: "iron",
+      name: "Iron Tier",
+      badge: "ASSOCIATE PATRON",
+      tagline: "Solid bedrock providing development tools, hardware sandboxes, and API credits.",
+      colorHex: "#C4CBCE",
+      borderHex: "#9EABB0",
+      bgGlow: "rgba(196, 203, 206, 0.25)",
+      animationLevel: "MEDIUM (METALLIC CYBER SHEEN)",
+      investmentTier: "Associate Category",
+      dealOverview: "Shared demo desk, opt-in talent list, logo on t-shirt sleeves & web portal, and tooling prize category sponsorship.",
+      coreDeliverables: [
+        "Shared Demo Desk & Product Showcase in HackNova Arena",
+        "Opt-In Talent Resume List from Hackathon Participants",
+        "Logo on Official Festival T-Shirt Sleeves & Web Portal Roll",
+        "Tooling / API Prize Category Sponsorship",
+        "2 Dedicated Social Media & Discord Announcements",
+        "Product Swag & Sticker Inclusion in All 1,000+ Attendee Kits",
+      ],
+      slots: [
+        {
+          slotId: "iron-01",
+          slotCode: "ASSOCIATE_SLOT_01",
+          domainTag: "API & CLOUD SANDBOX PLATFORM",
+          slotTitle: "API & Developer Sandbox Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "Shared Demo Desk + Opt-in Resume List + Swag Bag",
+        },
+        {
+          slotId: "iron-02",
+          slotCode: "ASSOCIATE_SLOT_02",
+          domainTag: "CYBERSECURITY & ZERO-KNOWLEDGE LABS",
+          slotTitle: "Cybersecurity & Cryptography Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "CTF Bounty Category + Sleeve Logo + Portal Spotlight",
+        },
+        {
+          slotId: "iron-03",
+          slotCode: "ASSOCIATE_SLOT_03",
+          domainTag: "DEVELOPER PRODUCTIVITY NETWORK",
+          slotTitle: "Dev Productivity & Education Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "2x Social Broadcasts + Digital Portal Feature",
+        },
+      ],
+    },
+    {
+      id: "redstone",
+      name: "Redstone Tier",
+      badge: "COMMUNITY & MEDIA",
+      tagline: "The high-voltage signal connecting 50+ college developer clubs across the subcontinent.",
+      colorHex: "#E14E3D",
+      borderHex: "#FF2A2A",
+      bgGlow: "rgba(225, 78, 61, 0.2)",
+      animationLevel: "SUBTLE (REDSTONE SIGNAL PULSE)",
+      investmentTier: "Community & Media Category",
+      dealOverview: "Swag desk distribution, web portal listing, and combined community broadcast across university channels.",
+      coreDeliverables: [
+        "Brochure & Swag Distribution at Attendee Registration Hub",
+        "Logo on Web Portal Partner Roll & Digital Screens",
+        "1 Combined Community Social Broadcast across Fest Channels",
+        "Access to Hackathon Demo Expo",
+      ],
+      slots: [
+        {
+          slotId: "redstone-01",
+          slotCode: "COMMUNITY_SIGNAL_01",
+          domainTag: "CAMPUS DEVELOPER NETWORK",
+          slotTitle: "Collegiate Tech Club Network Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "Brochure Distribution + Digital Screen Roll",
+        },
+        {
+          slotId: "redstone-02",
+          slotCode: "COMMUNITY_SIGNAL_02",
+          domainTag: "MEDIA & TECH OUTREACH PARTNER",
+          slotTitle: "Official Media & Press Broadcast Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "Media Mention + Web Partner Badge",
+        },
+        {
+          slotId: "redstone-03",
+          slotCode: "COMMUNITY_SIGNAL_03",
+          domainTag: "HACKER COMMUNITY ECOSYSTEM",
+          slotTitle: "Student Developer Community Partner",
+          status: "OPEN FOR INQUIRY",
+          deliverablesHighlight: "Combined Social Broadcast + Expo Access",
+        },
+      ],
+    },
+  ],
+
+  deliverablesMatrix: [
+    { perk: "Keynote & Stage Announcement Time", diamond: "15 Mins Prime Mainstage", gold: "5 Mins Mainstage Address", iron: "Logo Slide", redstone: "Mention" },
+    { perk: "Dedicated HackNova Arena Booth", diamond: "Prime Double Slot", gold: "Dedicated Single Slot", iron: "Shared Demo Desk", redstone: "Brochure Desk" },
+    { perk: "Direct Resume & Talent Database Access", diamond: "Full Access + Fast Track", gold: "Full Candidate Access", iron: "Opt-In List", redstone: "—" },
+    { perk: "Custom Challenge Track & Bounty Naming", diamond: "Exclusive Flagship Track", gold: "Co-Branded Track", iron: "Tooling Bounty", redstone: "—" },
+    { perk: "Logo on 1,500+ Official Shirts & Passes", diamond: "Front Top Prominent", gold: "Back Top", iron: "Sleeve / Pocket", redstone: "Web Roll" },
+    { perk: "Dedicated Social Media & Video Blasts", diamond: "Dedicated Video + 10 Posts", gold: "5 Targeted Posts", iron: "2 Posts", redstone: "1 Combined Post" },
+    { perk: "VIP Jury & Evaluation Seat", diamond: "Grand Jury Panel Seat", gold: "Mentor Track Lead", iron: "Invited Observer", redstone: "—" },
+    { perk: "Physical Swag Insertion in Attendee Bags", diamond: "Unlimited Items & Hardware", gold: "Up to 3 Items", iron: "1 Item / Sticker", redstone: "Brochure" },
+  ],
+
+  faqs: [
+    {
+      q: "How can our brand claim an open sponsorship slot?",
+      a: "Click on any open tier slot or use the 'Claim a Sponsor Slot' button to send an instant inquiry to our corporate relations secretariat at singularity.sponsors@hbtu.ac.in. You will receive the detailed commercial prospectus, contract draft, and invoice guidelines within 24 hours.",
+    },
+    {
+      q: "Can sponsors conduct technical workshops or mentor hackathon squads?",
+      a: "Yes! Diamond and Gold tier patrons have dedicated masterclass time slots and round-the-clock mentor raids during HackNova 2.0 to engage directly with builder teams using their developer tools or APIs.",
+    },
+    {
+      q: "Can custom sponsorship packages or in-kind hardware grants be arranged?",
+      a: "Absolutely. We offer tailored agreements for cloud credit grants, hardware testbed sponsorships (e.g. FPGAs, microcontrollers, GPUs), and bespoke track bounty funding.",
+    },
+    {
+      q: "What is the timeline to finalize sponsorship agreements?",
+      a: "Due to print deadlines for 1,500+ official attendee shirts, ID cards, and stage backdrops, Diamond and Gold slots must be finalized at least 2 weeks prior to the festival start date (October 22, 2026).",
+    },
+  ],
+};
