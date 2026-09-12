@@ -342,14 +342,14 @@ export default function HackNovaPage() {
                   {/* Left Accent Glow Strip */}
                   <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#E14E3D] shadow-[0_0_10px_#E14E3D]" />
 
-                  <div className="flex items-center gap-4 min-w-[220px] flex-shrink-0">
-                    <div className="w-10 h-10 bg-[#250A10] border-2 border-[#E14E3D] flex items-center justify-center font-pixel-title text-sm text-[#FFD34D] shadow-[0_0_10px_rgba(225,78,61,0.5)]">
+                  <div className="flex items-center gap-3 sm:gap-4 w-full md:w-56 flex-shrink-0">
+                    <div className="w-10 h-10 bg-[#250A10] border-2 border-[#E14E3D] flex items-center justify-center font-pixel-title text-sm text-[#FFD34D] shadow-[0_0_10px_rgba(225,78,61,0.5)] flex-shrink-0">
                       L{stage.level}
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <div className="font-mono text-sm sm:text-base font-extrabold text-white flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-[#E14E3D]" />
-                        <span>{stage.time}</span>
+                        <Clock className="w-3.5 h-3.5 text-[#E14E3D] flex-shrink-0" />
+                        <span className="truncate">{stage.time}</span>
                       </div>
                       <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/15 px-2 py-0.5 border border-[#FFD34D]/40 uppercase mt-1 inline-block">
                         {stage.dayLabel}
