@@ -111,8 +111,8 @@ export function VoxelFooter() {
             </h4>
             <div className="text-xs font-sans space-y-1 text-[#B0B0C0]">
               <p className="font-semibold text-white">Harcourt Butler Technical University</p>
-              <p>East Campus, Nawabganj, Kanpur, Uttar Pradesh, 208002</p>
-              <p className="text-[#4FD9FF] pt-1">singularity@hbtu.ac.in</p>
+              <p>Shatabdi Bhavan, West Campus, Kanpur, UP 208002</p>
+              <p className="text-[#4FD9FF] pt-1">n8ndatasciencecommunityevents@gmail.com</p>
             </div>
 
             <button

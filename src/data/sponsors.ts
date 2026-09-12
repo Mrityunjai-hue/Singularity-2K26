@@ -72,7 +72,7 @@ export const SPONSORS_DATA: {
   faqs: SponsorFaq[];
   contactEmail: string;
 } = {
-  contactEmail: "singularity.sponsors@hbtu.ac.in",
+  contactEmail: "n8ndatasciencecommunityevents@gmail.com",
 
   tiers: [
     {
@@ -267,7 +267,7 @@ export const SPONSORS_DATA: {
   faqs: [
     {
       q: "How can our brand claim an open sponsorship slot?",
-      a: "Click on any open tier slot or use the 'Claim a Sponsor Slot' button to send an instant inquiry to our corporate relations secretariat at singularity.sponsors@hbtu.ac.in. You will receive the detailed commercial prospectus, contract draft, and invoice guidelines within 24 hours.",
+      a: "Click on any open tier slot or use the 'Claim a Sponsor Slot' button to send an instant inquiry to our corporate relations secretariat at n8ndatasciencecommunityevents@gmail.com. You will receive the detailed commercial prospectus, contract draft, and invoice guidelines within 24 hours.",
     },
     {
       q: "Can sponsors conduct technical workshops or mentor hackathon squads?",

@@ -104,7 +104,7 @@ TIER DELIVERABLES SUMMARY:
 4. Redstone Relay Tier (Community): Swag Distribution Desk, Web Portal Feature, Community Social Blast.
 
 CONTACT SECRETARIAT:
-Email: singularity.sponsors@hbtu.ac.in
+Email: n8ndatasciencecommunityevents@gmail.com
 Portal: https://singularity-2k26.vercel.app/sponsors
 `;
 
