@@ -14,14 +14,11 @@ import {
   Sun,
   Moon,
   Sparkles,
-  CheckCircle,
   Shield,
-  Zap,
   Filter,
   Trophy,
   Code,
   Music,
-  Users,
   Flame,
 } from "lucide-react";
 
@@ -50,7 +47,7 @@ export default function SchedulePage() {
     spawnBlockBreakParticles(e.clientX, e.clientY, 15);
     setCalendarToast(true);
 
-    // Generate .ics text payload
+    // Generate .ics text payload with October 22-24, 2026 & Shatabdi Bhavan venue
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Singularity 2K26 HBTU//Fest Schedule//EN
@@ -60,11 +57,11 @@ X-WR-CALNAME:Singularity 2K26 Festival Schedule
 X-WR-TIMEZONE:Asia/Kolkata
 BEGIN:VEVENT
 UID:singularity-2026-spawn@hbtu.ac.in
-DTSTART:20261016T083000
-DTEND:20261018T233000
+DTSTART:20261022T103000
+DTEND:20261024T233000
 SUMMARY:Singularity 2K26 — HBTU Kanpur
 DESCRIPTION:Flagship 3-day Techfest organized by N8N DSC, AWS SBG HBTU and Dept of Mathematics.
-LOCATION:Harcourt Butler Technical University, Kanpur
+LOCATION:Shatabdi Bhavan, HBTU West Campus, Kanpur
 STATUS:CONFIRMED
 END:VEVENT
 END:VCALENDAR`;
@@ -96,16 +93,16 @@ END:VCALENDAR`;
   ];
 
   return (
-    <main className="min-h-screen pt-8 relative bg-[#06010A] text-[#FFFFFF]">
-      {/* Background Image: High-Definition Nether Celestial Backdrop with High Visibility Overlay */}
+    <main className="min-h-screen pt-24 sm:pt-28 relative bg-[#06010A] text-[#FFFFFF]">
+      {/* Background Image: High-Definition Nether Celestial Backdrop with Full Page Continuity */}
       <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-40 brightness-90 pointer-events-none"
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-85 brightness-105 contrast-105 pointer-events-none"
         style={{
           backgroundImage: "url('/images/bg_nether_celestial_4k.jpg')",
         }}
       />
-      {/* Heavy contrast backing for pristine text visibility */}
-      <div className="fixed inset-0 bg-gradient-to-b from-[#06010A]/95 via-[#0A0214]/90 to-[#06010A] pointer-events-none" />
+      {/* Balanced contrast backing for vibrant artwork visibility + text clarity */}
+      <div className="fixed inset-0 bg-gradient-to-b from-[#06010A]/80 via-[#0E0318]/75 to-[#06010A]/90 pointer-events-none" />
 
       {/* 1. HEADER HERO SECTION */}
       <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-10">
@@ -121,7 +118,7 @@ END:VCALENDAR`;
         </h1>
 
         <p className="text-sm sm:text-base text-[#E0E2F5] font-sans max-w-3xl mx-auto mt-3 leading-relaxed font-normal drop-shadow-[0_2px_8px_#000]">
-          Step-by-step chronological roadmap spanning all 3 days at Harcourt Butler Technical University, Kanpur.
+          Step-by-step chronological roadmap spanning all 3 days at <strong>Shatabdi Bhavan, HBTU West Campus</strong>.
           Explore keynote addresses, 24-hour HackNova checkpoints, hands-on masterclasses, gaming tournaments, and the grand PULSE EDM concert.
         </p>
 
@@ -394,4 +391,3 @@ END:VCALENDAR`;
     </main>
   );
 }
-
