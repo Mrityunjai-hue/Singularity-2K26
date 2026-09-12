@@ -30,10 +30,10 @@ export default function SponsorsPage() {
 
       {/* Header Banner */}
       <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-12">
-        <span className="font-pixel-arcade text-xs text-[#55FF55] bg-[#55FF55]/10 px-3 py-1 border border-[#55FF55]/30 uppercase">
+        <span className="font-pixel-arcade text-xs text-[#55FF55] bg-[#55FF55]/10 px-3 py-1 border border-[#55FF55]/30 uppercase font-bold">
           COSMIC PATRONS & INDUSTRY PARTNERS
         </span>
-        <h1 className="font-pixel-title text-3xl sm:text-5xl text-white mt-3 uppercase drop-shadow-[0_4px_0_#000]">
+        <h1 className="font-pixel-title text-3xl sm:text-5xl text-white font-bold mt-3 uppercase drop-shadow-[0_4px_0_#000]">
           ORE-THEMED SPONSOR HALL
         </h1>
         <p className="text-xs sm:text-sm text-[#F0F0F8] font-sans max-w-2xl mx-auto mt-2 leading-relaxed drop-shadow-[0_2px_4px_#000]">
@@ -59,7 +59,7 @@ export default function SponsorsPage() {
         </div>
 
         {downloadSuccess && (
-          <div className="mt-4 inline-block bg-[#1B2E15] border-2 border-[#55FF55] px-4 py-2 text-xs font-pixel-arcade text-[#55FF55] animate-bounce">
+          <div className="mt-4 inline-block bg-[#1B2E15] border-2 border-[#55FF55] px-4 py-2 text-xs font-pixel-arcade text-[#55FF55] animate-bounce font-bold">
             ✓ BROCHURE PROSPECTUS DOWNLOAD INITIATED!
           </div>
         )}
@@ -89,7 +89,7 @@ export default function SponsorsPage() {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-pixel-title text-base sm:text-lg text-white">
+                    <h3 className="font-pixel-title text-base sm:text-lg text-white font-bold">
                       {tier.name}
                     </h3>
                     <span
@@ -102,7 +102,7 @@ export default function SponsorsPage() {
                       {tier.badge}
                     </span>
                   </div>
-                  <p className="text-xs text-[#A0A0B0] font-sans mt-0.5">
+                  <p className="text-xs text-[#D8D8EE] font-sans mt-0.5">
                     {tier.tagline}
                   </p>
                 </div>
@@ -122,11 +122,11 @@ export default function SponsorsPage() {
                   <div>
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4">
-                      <div className="px-3 py-2 bg-[#0E0617] border-2 border-[#2B163B] font-pixel-title text-xs text-white">
+                      <div className="px-3 py-2 bg-[#0E0617] border-2 border-[#2B163B] font-pixel-title text-xs text-white font-bold">
                         {sponsor.logoText}
                       </div>
                       <span
-                        className="font-pixel-arcade text-[9px] px-1.5 py-0.5 border"
+                        className="font-pixel-arcade text-[9px] px-1.5 py-0.5 border font-bold"
                         style={{
                           color: tier.colorHex,
                           borderColor: `${tier.colorHex}40`,
@@ -140,17 +140,17 @@ export default function SponsorsPage() {
                       {sponsor.name}
                     </h4>
 
-                    <p className="text-xs text-[#A0A0B0] font-sans leading-relaxed mb-4">
+                    <p className="text-xs text-[#D8D8EE] font-sans leading-relaxed mb-4">
                       {sponsor.desc}
                     </p>
 
                     {/* Perks Offered */}
                     <div className="space-y-1.5 mb-4">
-                      <span className="font-pixel-arcade text-[9px] text-[#A0A0B0] block">
+                      <span className="font-pixel-arcade text-[9px] text-[#A0A0C0] block font-bold">
                         PARTNER PERKS:
                       </span>
                       {sponsor.perksOffered.map((p, pidx) => (
-                        <div key={pidx} className="flex items-center gap-1.5 text-xs text-[#D0D0E0] font-sans">
+                        <div key={pidx} className="flex items-center gap-1.5 text-xs text-[#E0E0EE] font-sans">
                           <span className="text-[#55FF55] text-[10px]">✓</span>
                           <span>{p}</span>
                         </div>
@@ -166,7 +166,7 @@ export default function SponsorsPage() {
                       soundFx.playClick();
                       spawnBlockBreakParticles(e.clientX, e.clientY, 8);
                     }}
-                    className="pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#4FD9FF] hover:text-white transition-colors"
+                    className="pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#4FD9FF] hover:text-white transition-colors font-bold"
                   >
                     <span>VISIT PARTNER PORTAL</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -182,10 +182,10 @@ export default function SponsorsPage() {
       <section className="px-4 sm:px-6 max-w-7xl mx-auto mb-20">
         <div className="bg-[#140C20] border-4 border-[#3A3250] shadow-[0_8px_0_#000] p-6 sm:p-8">
           <div className="text-center mb-8">
-            <span className="font-pixel-arcade text-xs text-[#FFD34D] uppercase">
+            <span className="font-pixel-arcade text-xs text-[#FFD34D] uppercase font-bold">
               TIER COMPARISON MATRIX
             </span>
-            <h2 className="font-pixel-title text-xl sm:text-2xl text-white mt-1">
+            <h2 className="font-pixel-title text-xl sm:text-2xl text-white font-bold mt-1 drop-shadow-[0_2px_4px_#000]">
               SPONSORSHIP DELIVERABLES BY ORE TIER
             </h2>
           </div>
@@ -194,11 +194,11 @@ export default function SponsorsPage() {
             <table className="w-full text-left font-sans text-xs border-collapse">
               <thead>
                 <tr className="border-b-2 border-[#3A3250] bg-[#1B102B]">
-                  <th className="p-3 font-pixel-arcade text-[10px] text-[#A0A0B0]">DELIVERABLE / PERK</th>
-                  <th className="p-3 font-pixel-arcade text-[10px] text-[#4FD9FF]">💎 DIAMOND</th>
-                  <th className="p-3 font-pixel-arcade text-[10px] text-[#FFD34D]">🟡 GOLD</th>
-                  <th className="p-3 font-pixel-arcade text-[10px] text-[#C4CBCE]">⚪ IRON</th>
-                  <th className="p-3 font-pixel-arcade text-[10px] text-[#E14E3D]">🔴 REDSTONE</th>
+                  <th className="p-3 font-pixel-arcade text-[10px] text-[#E0E0EE] font-bold">DELIVERABLE / PERK</th>
+                  <th className="p-3 font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold">💎 DIAMOND</th>
+                  <th className="p-3 font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">🟡 GOLD</th>
+                  <th className="p-3 font-pixel-arcade text-[10px] text-[#C4CBCE] font-bold">⚪ IRON</th>
+                  <th className="p-3 font-pixel-arcade text-[10px] text-[#E14E3D] font-bold">🔴 REDSTONE</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#2B1B3F]">

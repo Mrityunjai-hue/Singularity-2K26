@@ -41,14 +41,14 @@ export default function SpeakersPage() {
 
       {/* Page Header */}
       <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-12">
-        <span className="font-pixel-arcade text-xs text-[#FFD34D] bg-[#FFD34D]/10 px-3 py-1 border border-[#FFD34D]/30 uppercase">
+        <span className="font-pixel-arcade text-xs text-[#FFD34D] bg-[#FFD34D]/10 px-3 py-1 border border-[#FFD34D]/30 uppercase font-bold">
           CELESTIAL ARCHITECTS & MENTORS
         </span>
-        <h1 className="font-pixel-title text-3xl sm:text-5xl text-white mt-3 uppercase drop-shadow-[0_4px_0_#000]">
+        <h1 className="font-pixel-title text-3xl sm:text-5xl text-white font-bold mt-3 uppercase drop-shadow-[0_4px_0_#000]">
           DISTINGUISHED GUESTS & KEYNOTES
         </h1>
         <p className="text-xs sm:text-sm text-[#F0F0F8] font-sans max-w-2xl mx-auto mt-2 leading-relaxed drop-shadow-[0_2px_4px_#000]">
-          Learn directly from global technology leaders, AI researchers, open-source maintainers, and distinguished mathematical computing professors.
+          Learn directly from technology leaders, researchers, open-source architects, and distinguished mathematical computing faculty.
         </p>
       </section>
 
@@ -61,22 +61,22 @@ export default function SpeakersPage() {
               <div className="w-36 h-36 bg-[#10071C] border-4 border-[#FFD34D] shadow-[0_0_25px_#FFD34D] flex items-center justify-center text-6xl mb-4 relative">
                 {getAvatarIcon(featuredSpeaker.avatarStyle)}
                 <span className="absolute -bottom-2 px-2 py-0.5 bg-[#FFD34D] text-black font-pixel-arcade text-[9px] font-bold">
-                  KEYNOTE MASTER
+                  KEYNOTE SPEAKER
                 </span>
               </div>
 
-              <h3 className="font-pixel-title text-xl text-white mt-1">
+              <h3 className="font-pixel-title text-xl text-white font-bold mt-1 drop-shadow-[0_2px_4px_#000]">
                 {featuredSpeaker.name}
               </h3>
-              <p className="text-xs text-[#4FD9FF] font-sans mt-0.5">
+              <p className="text-xs text-[#4FD9FF] font-sans mt-0.5 font-medium">
                 {featuredSpeaker.role}
               </p>
-              <p className="text-xs text-[#A0A0B0] font-sans">
+              <p className="text-xs text-[#D8D8EE] font-sans">
                 {featuredSpeaker.organization}
               </p>
 
               <div className="mt-4">
-                <span className="px-3 py-1 bg-[#1A1426] border border-[#3A3250] text-[#55FF55] font-pixel-arcade text-[10px]">
+                <span className="px-3 py-1 bg-[#1A1426] border border-[#3A3250] text-[#55FF55] font-pixel-arcade text-[10px] font-bold">
                   ★ INAUGURAL KEYNOTE
                 </span>
               </div>
@@ -85,10 +85,10 @@ export default function SpeakersPage() {
             {/* Right: Keynote Abstract & Meta */}
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center gap-2">
-                <span className="font-pixel-arcade text-[10px] text-[#55FF55] bg-[#55FF55]/10 px-2 py-0.5 border border-[#55FF55]/30">
+                <span className="font-pixel-arcade text-[10px] text-[#55FF55] bg-[#55FF55]/10 px-2 py-0.5 border border-[#55FF55]/30 font-bold">
                   GRAND INAUGURAL KEYNOTE
                 </span>
-                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF]">
+                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold">
                   DAY {featuredSpeaker.day} · {featuredSpeaker.time}
                 </span>
               </div>
@@ -97,11 +97,11 @@ export default function SpeakersPage() {
                 &quot;{featuredSpeaker.keynoteTopic}&quot;
               </h2>
 
-              <p className="text-xs sm:text-sm text-[#D0D0E0] font-sans leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#E0E0EE] font-sans leading-relaxed">
                 {featuredSpeaker.sessionAbstract}
               </p>
 
-              <div className="p-4 bg-[#10071C] border border-[#2E1644] text-xs font-sans text-[#A0A0B0] space-y-1">
+              <div className="p-4 bg-[#10071C] border border-[#2E1644] text-xs font-sans text-[#D8D8EE] space-y-1">
                 <div className="font-semibold text-white">SPEAKER BIO:</div>
                 <p>{featuredSpeaker.bio}</p>
               </div>
@@ -110,7 +110,7 @@ export default function SpeakersPage() {
                 {featuredSpeaker.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[9px] font-pixel-arcade text-[#FFD34D] bg-[#FFD34D]/10 px-2 py-1 border border-[#FFD34D]/30"
+                    className="text-[9px] font-pixel-arcade text-[#FFD34D] bg-[#FFD34D]/10 px-2 py-1 border border-[#FFD34D]/30 font-bold"
                   >
                     {tag}
                   </span>
@@ -124,10 +124,10 @@ export default function SpeakersPage() {
       {/* OTHER SPEAKERS & MENTORS GRID */}
       <section className="px-4 sm:px-6 max-w-7xl mx-auto mb-20">
         <div className="text-center mb-10">
-          <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase">
+          <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase font-bold">
             PARALLEL SESSIONS & PANELS
           </span>
-          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
+          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold mt-1 drop-shadow-[0_2px_4px_#000]">
             DISTINGUISHED SPEAKER ROSTER
           </h2>
         </div>
@@ -145,7 +145,7 @@ export default function SpeakersPage() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-pixel-arcade text-[9px] text-[#FFD34D] bg-[#FFD34D]/10 px-1.5 py-0.5 border border-[#FFD34D]/30">
+                      <span className="font-pixel-arcade text-[9px] text-[#FFD34D] bg-[#FFD34D]/10 px-1.5 py-0.5 border border-[#FFD34D]/30 font-bold">
                         {speaker.badgeLevel}
                       </span>
                     </div>
@@ -155,7 +155,7 @@ export default function SpeakersPage() {
                     <p className="text-xs text-[#4FD9FF] font-sans font-medium">
                       {speaker.role}
                     </p>
-                    <p className="text-xs text-[#A0A0B0] font-sans">
+                    <p className="text-xs text-[#D8D8EE] font-sans">
                       {speaker.organization}
                     </p>
                   </div>
@@ -163,31 +163,31 @@ export default function SpeakersPage() {
 
                 {/* Session Box */}
                 <div className="p-3.5 bg-[#120D1F] border border-[#2B203C] mb-4 space-y-1.5">
-                  <div className="flex items-center justify-between text-[10px] font-pixel-arcade text-[#55FF55]">
+                  <div className="flex items-center justify-between text-[10px] font-pixel-arcade text-[#55FF55] font-bold">
                     <span>SESSION TALK</span>
                     <span>DAY {speaker.day} · {speaker.time}</span>
                   </div>
                   <h4 className="font-pixel-heading text-sm font-bold text-white">
                     &quot;{speaker.keynoteTopic}&quot;
                   </h4>
-                  <p className="text-xs text-[#B0B0C4] font-sans leading-relaxed">
+                  <p className="text-xs text-[#D8D8EE] font-sans leading-relaxed">
                     {speaker.sessionAbstract}
                   </p>
                 </div>
 
-                <p className="text-xs text-[#808098] font-sans leading-relaxed mb-4">
+                <p className="text-xs text-[#D8D8EE] font-sans leading-relaxed mb-4">
                   {speaker.bio}
                 </p>
               </div>
 
               {/* Footer */}
               <div className="pt-3 border-t border-[#2A2438] flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs font-sans text-[#A0A0B0]">
+                <div className="flex items-center gap-2 text-xs font-sans text-[#D8D8EE]">
                   <MapPin className="w-3.5 h-3.5 text-[#FFD34D]" />
                   <span>{speaker.venue}</span>
                 </div>
 
-                <span className="font-pixel-arcade text-[9px] text-[#4FD9FF] bg-[#4FD9FF]/10 px-2 py-0.5 border border-[#4FD9FF]/30">
+                <span className="font-pixel-arcade text-[9px] text-[#4FD9FF] bg-[#4FD9FF]/10 px-2 py-0.5 border border-[#4FD9FF]/30 font-bold">
                   DISTINGUISHED SPEAKER
                 </span>
               </div>

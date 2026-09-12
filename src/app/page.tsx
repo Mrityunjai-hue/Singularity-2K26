@@ -69,7 +69,7 @@ export default function HomePage() {
           <div className="flex flex-col items-center justify-center mb-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#090214]/90 backdrop-blur-md border-2 border-[#55FF55] shadow-[0_4px_24px_rgba(0,0,0,0.85)] mb-4 animate-bounce">
               <span className="w-2.5 h-2.5 bg-[#55FF55] border border-black inline-block" />
-              <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#55FF55] uppercase tracking-wider">
+              <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#55FF55] uppercase tracking-wider font-bold">
                 N8N DSC · AWS SBG HBTU · DEPT OF MATHEMATICS, HBTU
               </span>
             </div>
@@ -77,17 +77,17 @@ export default function HomePage() {
             <SingularityLogo size="lg" showText={false} className="mb-2 hover:scale-110 transition-transform" />
           </div>
 
-          {/* Giant Pixel Title Lockup with Contrast Drop Shadows */}
-          <h1 className="font-pixel-title text-3xl min-[400px]:text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white tracking-normal sm:tracking-wider uppercase drop-shadow-[0_8px_0_#000] [text-shadow:0_4px_28px_rgba(0,0,0,0.95)]">
+          {/* Giant Pixel Title Lockup with Solid Drop Shadows */}
+          <h1 className="font-pixel-title text-3xl min-[400px]:text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-bold tracking-normal sm:tracking-wider uppercase drop-shadow-[0_8px_0_#000] [text-shadow:0_4px_28px_rgba(0,0,0,0.95)]">
             SINGULARITY
           </h1>
-          <div className="font-pixel-title text-xl min-[400px]:text-2xl sm:text-4xl md:text-5xl text-[#FFD34D] tracking-wider sm:tracking-widest mt-1 drop-shadow-[0_6px_0_#000] [text-shadow:0_4px_24px_rgba(0,0,0,0.9)]">
+          <div className="font-pixel-title text-xl min-[400px]:text-2xl sm:text-4xl md:text-5xl text-[#FFD34D] font-bold tracking-wider sm:tracking-widest mt-1 drop-shadow-[0_6px_0_#000] [text-shadow:0_4px_24px_rgba(0,0,0,0.9)]">
             2K26
           </div>
 
           {/* Hero Tagline Card */}
           <div className="mt-4 p-4 bg-[#090214]/85 backdrop-blur-md border-2 border-[#3A1E54] max-w-3xl mx-auto shadow-[0_8px_32px_rgba(0,0,0,0.9)]">
-            <p className="font-pixel-heading text-base sm:text-2xl text-[#4FD9FF]">
+            <p className="font-pixel-heading text-base sm:text-2xl text-[#4FD9FF] font-bold">
               WHERE CODE MEETS CRAFT · THREE DAYS. INFINITE BLOCKS OF POSSIBILITY.
             </p>
             <p className="mt-1.5 text-xs sm:text-sm text-[#F5F5F0] font-sans leading-relaxed">
@@ -97,7 +97,7 @@ export default function HomePage() {
 
           {/* Retro 7-Segment Countdown Scoreboard */}
           <div className="my-6 inline-block w-full max-w-sm sm:max-w-md bg-[#090214]/90 backdrop-blur-md border-2 sm:border-4 border-[#3A1E54] shadow-[0_8px_0_#000,0_0_35px_rgba(79,217,255,0.3)] p-3 sm:p-5">
-            <div className="font-pixel-sub text-[9px] sm:text-[10px] text-[#A0A0B0] uppercase tracking-widest mb-2 text-center">
+            <div className="font-pixel-sub text-[9px] sm:text-[10px] text-[#E0E0EE] uppercase tracking-widest mb-2 text-center font-bold">
               ⏳ COUNTDOWN TO WORLD SPAWN
             </div>
             <div className="grid grid-cols-4 gap-1.5 sm:gap-4">
@@ -108,10 +108,10 @@ export default function HomePage() {
                 { label: "SECS", value: String(timeLeft.seconds).padStart(2, "0") },
               ].map((t) => (
                 <div key={t.label} className="bg-[#05010B] border border-[#2A1640] p-1.5 sm:p-3 text-center min-w-0">
-                  <div className="font-pixel-title text-base min-[400px]:text-lg sm:text-3xl text-[#55FF55] tracking-tight">
+                  <div className="font-pixel-title text-base min-[400px]:text-lg sm:text-3xl text-[#55FF55] font-bold tracking-tight">
                     {t.value}
                   </div>
-                  <div className="font-pixel-arcade text-[7px] min-[400px]:text-[8px] sm:text-[9px] text-[#A0A0B0] mt-1">
+                  <div className="font-pixel-arcade text-[7px] min-[400px]:text-[8px] sm:text-[9px] text-[#D0D0E0] mt-1 font-bold">
                     {t.label}
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default function HomePage() {
 
         {/* Realm Transition Scroll Indicator */}
         <div className="relative z-10 text-center animate-bounce mt-8">
-          <span className="font-pixel-arcade text-[10px] text-[#FFD34D] tracking-widest uppercase">
+          <span className="font-pixel-arcade text-[10px] text-[#FFD34D] tracking-widest uppercase font-bold">
             SCROLL TO DESCEND INTO THE ARENAS
           </span>
           <ChevronDown className="w-5 h-5 mx-auto text-[#FFD34D] mt-1" />
@@ -179,15 +179,15 @@ export default function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="font-pixel-arcade text-[10px] text-[#E14E3D] bg-[#E14E3D]/20 px-2 py-0.5 border border-[#E14E3D]/40">
+                  <span className="font-pixel-arcade text-[10px] text-[#E14E3D] bg-[#E14E3D]/20 px-2 py-0.5 border border-[#E14E3D]/40 font-bold">
                     FLAGSHIP 24H HACKATHON
                   </span>
-                  <span className="font-pixel-arcade text-[10px] text-[#FFD34D]">
+                  <span className="font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">
                     GRAND LOOT CHESTS & AWARDS
                   </span>
                 </div>
 
-                <h2 className="font-pixel-title text-3xl sm:text-5xl text-white">
+                <h2 className="font-pixel-title text-3xl sm:text-5xl text-white font-bold drop-shadow-[0_2px_4px_#000]">
                   HACKNOVA <span className="text-[#E14E3D]">2.0</span> ARENA
                 </h2>
 
@@ -195,14 +195,14 @@ export default function HomePage() {
                   24 hours of non-stop building, automated evaluations, and mentor raids. Solve live problem statements across Autonomous AI Agents, Serverless Infrastructure, Decentralized Systems, and Mathematical Computing.
                 </p>
 
-                <div className="p-3.5 bg-[#07010C]/90 border border-[#3A1448] text-xs font-sans text-[#FFD34D] flex items-center gap-2">
+                <div className="p-3.5 bg-[#07010C]/90 border border-[#3A1448] text-xs font-sans text-[#FFD34D] flex items-center gap-2 font-medium">
                   <Flame className="w-4 h-4 text-[#E14E3D] flex-shrink-0 animate-pulse" />
                   <span>Problem statements will be officially unveiled live at T-0 Hours (Event Kickoff).</span>
                 </div>
 
                 <div className="flex flex-wrap gap-2 pt-2">
                   {["AI & MULTI-AGENT SWARMS", "SERVERLESS CLOUDS", "WEB3 & CRYPTO", "QUANT MATHEMATICS", "OPEN INNOVATION"].map((track) => (
-                    <span key={track} className="text-[9px] font-pixel-arcade text-[#4FD9FF] bg-[#4FD9FF]/10 px-2.5 py-1 border border-[#4FD9FF]/30">
+                    <span key={track} className="text-[9px] font-pixel-arcade text-[#4FD9FF] bg-[#4FD9FF]/10 px-2.5 py-1 border border-[#4FD9FF]/30 font-bold">
                       {track}
                     </span>
                   ))}
@@ -211,11 +211,11 @@ export default function HomePage() {
 
               <div className="lg:col-span-4 flex flex-col items-center justify-center text-center p-6 bg-[#07010C]/95 border-2 border-[#3A1448] shadow-[0_6px_24px_rgba(0,0,0,0.85)]">
                 <div className="text-5xl mb-2 animate-bounce">💎</div>
-                <div className="font-pixel-title text-sm text-[#FFD34D]">DIAMOND LOOT CHEST</div>
-                <div className="font-pixel-arcade text-xs text-[#55FF55] mt-2">
-                  GRAND TROPHY + CASH BOUNTY
+                <div className="font-pixel-title text-sm text-[#FFD34D] font-bold">DIAMOND LOOT CHEST</div>
+                <div className="font-pixel-arcade text-xs text-[#55FF55] mt-2 font-bold">
+                  GRAND OBSIDIAN TROPHY + PERKS
                 </div>
-                <p className="text-[10px] text-[#A0A0B0] font-sans mt-2">
+                <p className="text-[10px] text-[#D0D0E0] font-sans mt-2">
                   Plus Cloud Credits, Swag Packs & Interview Referrals
                 </p>
 
@@ -250,10 +250,10 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase tracking-widest">
+            <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase tracking-widest font-bold">
               CHOOSE YOUR ADVENTURE
             </span>
-            <h2 className="font-pixel-title text-2xl sm:text-4xl text-white mt-1 drop-shadow-[0_4px_12px_#000]">
+            <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold mt-1 drop-shadow-[0_4px_12px_#000]">
               THE FOUR PILLARS OF SINGULARITY
             </h2>
             <p className="text-xs sm:text-sm text-[#F0F0F8] font-sans max-w-xl mx-auto mt-2 drop-shadow-[0_2px_6px_#000]">
@@ -272,15 +272,15 @@ export default function HomePage() {
                 <div className="item-slot-frame mb-4 border-[#4FD9FF]/40 group-hover:border-[#4FD9FF]">
                   <Cloud className="w-8 h-8 text-[#4FD9FF]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF]">PILLAR 01</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white mt-1 group-hover:text-[#4FD9FF] transition-colors">
+                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold">PILLAR 01</span>
+                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#4FD9FF] transition-colors">
                   WORKSHOPS
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
                   Serverless deployments on AWS and autonomous agent loops with n8n workflow graphs.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#4FD9FF]">
+              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#4FD9FF] font-bold">
                 <span>EXPLORE SESSIONS</span>
                 <span>→</span>
               </div>
@@ -296,15 +296,15 @@ export default function HomePage() {
                 <div className="item-slot-frame mb-4 border-[#FFD34D]/40 group-hover:border-[#FFD34D]">
                   <Brain className="w-8 h-8 text-[#FFD34D]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#FFD34D]">PILLAR 02</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white mt-1 group-hover:text-[#FFD34D] transition-colors">
+                <span className="font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">PILLAR 02</span>
+                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#FFD34D] transition-colors">
                   COMPETITIONS
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
                   Mathletics Olympiad, Zero-Day CTF Cyber Siege, and 1v1 Algorithmic Speed Brawls.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#FFD34D]">
+              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#FFD34D] font-bold">
                 <span>VIEW ARENAS</span>
                 <span>→</span>
               </div>
@@ -320,15 +320,15 @@ export default function HomePage() {
                 <div className="item-slot-frame mb-4 border-[#E14E3D]/40 group-hover:border-[#E14E3D] bg-[#220710]">
                   <Trophy className="w-8 h-8 text-[#E14E3D]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#E14E3D]">FLAGSHIP QUEST</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white mt-1 group-hover:text-[#E14E3D] transition-colors">
+                <span className="font-pixel-arcade text-[10px] text-[#E14E3D] font-bold">FLAGSHIP QUEST</span>
+                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#E14E3D] transition-colors">
                   HACKNOVA 2.0
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
                   24-Hour Pan-India hackathon with trophies, loot rewards, mentor checkpoints, and swags.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#E14E3D]">
+              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#E14E3D] font-bold">
                 <span>ENTER ARENA</span>
                 <span>→</span>
               </div>
@@ -344,15 +344,15 @@ export default function HomePage() {
                 <div className="item-slot-frame mb-4 border-[#55FF55]/40 group-hover:border-[#55FF55]">
                   <Sparkles className="w-8 h-8 text-[#55FF55]" />
                 </div>
-                <span className="font-pixel-arcade text-[10px] text-[#55FF55]">PILLAR 04</span>
-                <h3 className="font-pixel-title text-sm sm:text-base text-white mt-1 group-hover:text-[#55FF55] transition-colors">
+                <span className="font-pixel-arcade text-[10px] text-[#55FF55] font-bold">PILLAR 04</span>
+                <h3 className="font-pixel-title text-sm sm:text-base text-white font-bold mt-1 group-hover:text-[#55FF55] transition-colors">
                   PULSE EDM NIGHT
                 </h3>
                 <p className="text-xs text-[#D0D0E0] font-sans mt-2 leading-relaxed">
                   Grand closing concert at HBTU Open Air Theatre. Live DJs, laser beams, and glowing wristbands.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#55FF55]">
+              <div className="mt-4 pt-3 border-t border-[#2A2438] flex items-center justify-between font-pixel-arcade text-[10px] text-[#55FF55] font-bold">
                 <span>CULTURAL FINALE</span>
                 <span>→</span>
               </div>
@@ -373,11 +373,11 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#07010C] via-transparent to-[#07010C] z-[3] pointer-events-none" />
 
         <div className="max-w-5xl mx-auto relative z-10 text-center space-y-6">
-          <span className="font-pixel-arcade text-xs text-[#FF7BE5] bg-[#0E0318]/90 backdrop-blur-md px-3.5 py-1.5 border border-[#FF7BE5]/60 uppercase tracking-widest inline-block shadow-[0_0_15px_rgba(255,123,229,0.4)]">
+          <span className="font-pixel-arcade text-xs text-[#FF7BE5] bg-[#0E0318]/90 backdrop-blur-md px-3.5 py-1.5 border border-[#FF7BE5]/60 uppercase tracking-widest inline-block shadow-[0_0_15px_rgba(255,123,229,0.4)] font-bold">
             RETRO ARCADE × CULTURAL SYNTHESIS
           </span>
 
-          <h2 className="font-pixel-title text-3xl sm:text-5xl text-white uppercase drop-shadow-[0_4px_16px_rgba(255,123,229,0.7)] [text-shadow:0_4px_24px_#000]">
+          <h2 className="font-pixel-title text-3xl sm:text-5xl text-white font-bold uppercase drop-shadow-[0_4px_16px_rgba(255,123,229,0.7)] [text-shadow:0_4px_24px_#000]">
             WE ARE THE INNOVATION
           </h2>
 
@@ -389,15 +389,15 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             <div className="p-4 bg-[#0F0220]/90 backdrop-blur-md border-2 border-[#FF7BE5]/60 shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-              <div className="font-pixel-title text-base text-[#FF7BE5]">RETRO LAN BRAWL</div>
+              <div className="font-pixel-title text-base text-[#FF7BE5] font-bold">RETRO LAN BRAWL</div>
               <p className="text-xs text-[#D0D0E0] font-sans mt-1">Street Fighter, Tekken & Bedwars</p>
             </div>
             <div className="p-4 bg-[#0F0220]/90 backdrop-blur-md border-2 border-[#4FD9FF]/60 shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-              <div className="font-pixel-title text-base text-[#4FD9FF]">PULSE EDM FINALE</div>
+              <div className="font-pixel-title text-base text-[#4FD9FF] font-bold">PULSE EDM FINALE</div>
               <p className="text-xs text-[#D0D0E0] font-sans mt-1">HBTU Open Air Theatre (OAT)</p>
             </div>
             <div className="p-4 bg-[#0F0220]/90 backdrop-blur-md border-2 border-[#FFD34D]/60 shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-              <div className="font-pixel-title text-base text-[#FFD34D]">ARCADE TROPHIES</div>
+              <div className="font-pixel-title text-base text-[#FFD34D] font-bold">ARCADE TROPHIES</div>
               <p className="text-xs text-[#D0D0E0] font-sans mt-1">Custom Laser-Cut Voxel Medals</p>
             </div>
           </div>
@@ -417,13 +417,13 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase">
+            <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase font-bold">
               COMMUNITY INTELLIGENCE
             </span>
-            <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
+            <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold mt-1 drop-shadow-[0_2px_4px_#000]">
               TRADE WITH THE VILLAGER
             </h2>
-            <p className="text-xs sm:text-sm text-[#A0A0B0] font-sans mt-2">
+            <p className="text-xs sm:text-sm text-[#D8D8EE] font-sans mt-2">
               Click questions below to trade knowledge with the village elder and unlock sacred fest secrets!
             </p>
           </div>

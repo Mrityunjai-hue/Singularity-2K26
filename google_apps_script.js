@@ -1,13 +1,17 @@
 /**
  * =============================================================================
- * 🌌 SINGULARITY 2K26 - FESTIVAL REGISTRATION & ATTENDEE DATABASE ENGINE
+ * 🌌 SINGULARITY 2K26 - FESTIVAL ATTENDEE & PASS VERIFICATION DATABASE
  * =============================================================================
  * Organized by: N8N Data Science Community
  * In collaboration with: AWS SBG HBTU · Department of Mathematics, HBTU Kanpur
  *
- * PROTOCOL:
- * - Festival & all technical workshops are 100% FREE for all (Pass is for verification).
- * - HackNova 2.0 24-hour hackathon registration is ₹199 per squad.
+ * ⚠️ CRITICAL DEPLOYMENT SETTING:
+ * When deploying this Google Apps Script as a Web App:
+ * 1. Click "Deploy" > "New deployment" (or "Manage deployments" > Edit)
+ * 2. Select type: "Web app"
+ * 3. Execute as: "Me (your email)"
+ * 4. Who has access: "Anyone"  <--- MUST BE "Anyone" (NOT "Only myself")
+ * 5. Click "Deploy" and copy the Web App URL!
  * =============================================================================
  */
 
@@ -18,19 +22,15 @@ const HEADERS = [
   "Timestamp",
   "Pass Token ID",
   "Full Name",
+  "Callsign / Gamer Tag",
   "Email Address",
   "WhatsApp / Phone",
   "College / University",
   "Branch / Department",
   "Academic Year",
-  "Registration Type",
-  "Amount Paid",
-  "Payment / UTR Reference",
   "Character Class",
-  "Gamer / Discord Tag",
-  "Team Name",
-  "Primary Track / Interest",
-  "Status"
+  "Domain / Workshop Interest",
+  "Verification Status"
 ];
 
 function getOrCreateSheet(ss) {
@@ -57,7 +57,7 @@ function getOrCreateSheet(ss) {
 }
 
 /**
- * GET Request: Returns live attendee count and progress metrics
+ * GET Request: Returns live attendee count and metrics
  */
 function doGet(e) {
   try {
@@ -85,7 +85,7 @@ function doGet(e) {
 }
 
 /**
- * POST Request: Records registration and returns confirmation
+ * POST Request: Records festival pass registration into Google Sheet
  */
 function doPost(e) {
   try {
@@ -93,67 +93,59 @@ function doPost(e) {
     var sheet = getOrCreateSheet(ss);
     
     var data = {};
-    if (e.postData && e.postData.contents) {
+    if (e && e.postData && e.postData.contents) {
       try {
         data = JSON.parse(e.postData.contents);
-      } catch (err) {
+      } catch (jsonErr) {
         data = e.parameter || {};
       }
-    } else {
-      data = e.parameter || {};
+    } else if (e && e.parameter) {
+      data = e.parameter;
     }
     
     var timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
     var token = data.pass_token || data.token || ("SNG-2026-" + Math.floor(1000 + Math.random() * 9000));
-    var name = data.name || data.fullName || "Anonymous Builder";
+    var name = data.name || data.fullName || "Attendee";
+    var gamerTag = data.gamer_tag || data.gamerTag || "Builder";
     var email = data.email || "";
     var phone = data.phone || "";
-    var college = data.college || data.collegeName || "";
-    var branch = data.branch || "Computer Science / Engineering";
-    var year = data.year || "3rd Year";
-    var regType = data.registration_type || "Singularity 2K26 Festival & Workshops Pass (FREE)";
-    var amountPaid = data.amount_paid || (regType.indexOf("199") !== -1 ? "₹199" : "FREE (₹0)");
-    var paymentRef = data.payment_ref || "N/A";
+    var college = data.college || data.collegeName || "HBTU Kanpur";
+    var branch = data.branch || "Engineering / Science";
+    var year = data.year || data.academicYear || "3rd Year";
     var charClass = data.character_class || data.characterClass || "Zero-Day Hacker";
-    var gamerTag = data.gamer_tag || data.gamerTag || "Builder";
-    var teamName = data.team_name || data.teamName || "Individual Attendee";
-    var interest = data.interest || data.primary_track || "All Festival Quests";
-    var status = "CONFIRMED";
+    var interest = data.interest || data.trackInterest || "Festival & Technical Workshops";
+    var status = "VERIFIED PASS";
     
-    // Append entry into spreadsheet
+    // Append attendee entry into spreadsheet
     sheet.appendRow([
       timestamp,
       token,
       name,
+      gamerTag,
       email,
       phone,
       college,
       branch,
       year,
-      regType,
-      amountPaid,
-      paymentRef,
       charClass,
-      gamerTag,
-      teamName,
       interest,
       status
     ]);
     
-    var currentCount = sheet.getLastRow() - 1;
+    var currentCount = Math.max(0, sheet.getLastRow() - 1);
     
-    // Dispatch stylized confirmation email if valid email is provided
+    // Dispatch confirmation email if valid email address is provided
     if (email && email.indexOf("@") !== -1) {
       try {
-        sendFestPassEmail(name, email, token, regType, charClass, college, gamerTag, amountPaid);
+        sendFestPassEmail(name, email, token, charClass, college, gamerTag);
       } catch (mailErr) {
-        Logger.log("Email dispatch note: " + mailErr.toString());
+        Logger.log("Email dispatch notice: " + mailErr.toString());
       }
     }
     
     var result = {
       status: "success",
-      message: "Registration recorded into Singularity 2K26 database successfully.",
+      message: "Attendee pass recorded into Singularity 2K26 database successfully.",
       token: token,
       count: currentCount,
       target: TARGET_ATTENDEES,
@@ -172,10 +164,10 @@ function doPost(e) {
 }
 
 /**
- * Sends a themed Voxel Arcade Attendee Credential HTML confirmation email
+ * Sends a themed Voxel Attendee Credential HTML confirmation email
  */
-function sendFestPassEmail(name, email, token, regType, charClass, college, gamerTag, amountPaid) {
-  var subject = "🎟️ [PASS CONFIRMED] Singularity 2K26 Registration — " + name + " (" + token + ")";
+function sendFestPassEmail(name, email, token, charClass, college, gamerTag) {
+  var subject = "🎟️ [PASS CONFIRMED] Singularity 2K26 Festival Pass — " + name + " (" + token + ")";
   
   var htmlBody = `
     <div style="background-color: #07010C; color: #FFFFFF; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 25px; border: 3px solid #55FF55; max-width: 600px; margin: auto;">
@@ -186,18 +178,14 @@ function sendFestPassEmail(name, email, token, regType, charClass, college, game
       </div>
 
       <div style="background-color: #120524; border: 2px solid #55FF55; padding: 15px; margin-bottom: 20px; text-align: center;">
-        <p style="color: #55FF55; font-size: 14px; margin: 0 0 6px 0; font-weight: bold;">✓ CREDENTIAL FORGED // ENTRY VERIFIED</p>
-        <p style="font-size: 13px; margin: 0; color: #E0E0EE;">Greetings <strong>${name}</strong> (${gamerTag}), your official festival verification credential is active.</p>
+        <p style="color: #55FF55; font-size: 14px; margin: 0 0 6px 0; font-weight: bold;">✓ FESTIVAL PASS FORGED // ENTRY VERIFIED</p>
+        <p style="font-size: 13px; margin: 0; color: #E0E0EE;">Greetings <strong>${name}</strong> (${gamerTag}), your official festival verification pass is confirmed.</p>
       </div>
 
       <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; color: #FFFFFF; background-color: #0E031A;">
         <tr style="border-bottom: 1px solid #2E1546;">
           <td style="padding: 10px; color: #FFD34D; font-weight: bold;">PASS TOKEN ID:</td>
           <td style="padding: 10px; color: #55FF55; font-family: monospace; font-size: 15px; font-weight: bold;">${token}</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #2E1546;">
-          <td style="padding: 10px; color: #4FD9FF; font-weight: bold;">ENLISTMENT TYPE:</td>
-          <td style="padding: 10px;">${regType} (${amountPaid})</td>
         </tr>
         <tr style="border-bottom: 1px solid #2E1546;">
           <td style="padding: 10px; color: #4FD9FF; font-weight: bold;">CHARACTER CLASS:</td>

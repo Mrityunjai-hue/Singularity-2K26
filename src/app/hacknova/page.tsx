@@ -25,6 +25,7 @@ import {
   TrendingUp,
   Flame,
   CheckCircle,
+  ExternalLink,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -82,13 +83,13 @@ export default function HackNovaPage() {
         {/* Dynamic Animated Flowing Lava Canvas */}
         <LavaFlowCanvas />
 
-        {/* Soft edge fade allowing the glowing volcanic landscape to be fully visible */}
+        {/* Soft edge fade allowing glowing volcanic landscape to be fully visible */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#07010C]/40 via-transparent to-[#07010C] pointer-events-none" />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#1A0524]/90 backdrop-blur-md border-2 border-[#E14E3D] shadow-[0_0_20px_rgba(225,78,61,0.5)] mb-4">
             <span className="w-2 h-2 bg-[#E14E3D] animate-ping inline-block" />
-            <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#E14E3D] uppercase tracking-wider">
+            <span className="font-pixel-arcade text-[10px] sm:text-xs text-[#E14E3D] uppercase tracking-wider font-bold">
               FLAGSHIP 24H HACKATHON · HBTU KANPUR
             </span>
           </div>
@@ -97,46 +98,49 @@ export default function HackNovaPage() {
             HACKNOVA <span className="text-[#E14E3D]">2.0</span>
           </h1>
 
-          <p className="font-pixel-heading text-lg sm:text-2xl text-[#FFD34D] mt-3 drop-shadow-[0_2px_4px_#000]">
+          <p className="font-pixel-heading text-lg sm:text-2xl text-[#FFD34D] mt-3 font-bold drop-shadow-[0_2px_4px_#000]">
             24-HOUR PAN-INDIA DEEP OBSIDIAN PROVING GROUND
           </p>
 
           <p className="text-xs sm:text-sm text-[#E0E0EE] font-sans max-w-2xl mx-auto mt-2 leading-relaxed drop-shadow-[0_2px_4px_#000]">
-            Organized by N8N Data Science Community × AWS SBG HBTU × Department of Mathematics, HBTU. Descend into the arena to build autonomous agent swarms, serverless backbones, and mathematical computing algorithms.
+            Organized by N8N Data Science Community × AWS SBG HBTU × Department of Mathematics, HBTU Kanpur. Descend into the arena to construct cutting-edge software solutions.
           </p>
 
-          {/* Key Metrics */}
+          {/* Key Metrics - Zero Money Figures */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto my-8">
             <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
-              <div className="font-pixel-title text-base sm:text-lg text-[#55FF55]">24 HOURS</div>
-              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">NON-STOP SPRINT</div>
+              <div className="font-pixel-title text-base sm:text-lg text-[#55FF55] font-bold">24 HOURS</div>
+              <div className="font-pixel-arcade text-[9px] text-[#D0D0E0] mt-0.5">NON-STOP SPRINT</div>
             </div>
             <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
-              <div className="font-pixel-title text-base sm:text-lg text-[#4FD9FF]">2–4 BUILDERS</div>
-              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">TEAM SQUAD SIZE</div>
+              <div className="font-pixel-title text-base sm:text-lg text-[#4FD9FF] font-bold">2–4 BUILDERS</div>
+              <div className="font-pixel-arcade text-[9px] text-[#D0D0E0] mt-0.5">SQUAD SIZE</div>
             </div>
             <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
-              <div className="font-pixel-title text-base sm:text-lg text-[#FFD34D]">₹199 / SQUAD</div>
-              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">FOOD & SWAGS INCL.</div>
+              <div className="font-pixel-title text-base sm:text-lg text-[#FFD34D] font-bold">MEALS & SWAGS</div>
+              <div className="font-pixel-arcade text-[9px] text-[#D0D0E0] mt-0.5">FOOD & REFRESHMENTS</div>
             </div>
             <div className="p-3 bg-[#11031A]/85 backdrop-blur-md border-2 border-[#3A1448]">
-              <div className="font-pixel-title text-base sm:text-lg text-[#E14E3D]">GRAND LOOT</div>
-              <div className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-0.5">CASH & TROPHIES</div>
+              <div className="font-pixel-title text-base sm:text-lg text-[#E14E3D] font-bold">GRAND LOOT</div>
+              <div className="font-pixel-arcade text-[9px] text-[#D0D0E0] mt-0.5">TROPHIES & PERKS</div>
             </div>
           </div>
 
-
-          {/* Primary Action Button */}
+          {/* Primary Action Button - Opens External HackNova Portal */}
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href="#register-section"
+              href="https://hacknova.tech"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={(e) => {
                 soundFx.playClick();
                 spawnBlockBreakParticles(e.clientX, e.clientY, 12);
               }}
-              className="btn-voxel btn-voxel-redstone text-sm px-6 py-3.5 flex items-center gap-2"
+              className="btn-voxel btn-voxel-redstone text-sm px-7 py-3.5 flex items-center gap-2 shadow-[0_0_25px_rgba(225,78,61,0.5)]"
             >
-              <span>REGISTER SQUAD DIRECTLY IN PORTAL ↓</span>
+              <span>⚔️</span>
+              <span>REGISTER ON HACKNOVA OFFICIAL PORTAL</span>
+              <ExternalLink className="w-4 h-4" />
             </a>
           </div>
         </div>
@@ -145,14 +149,14 @@ export default function HackNovaPage() {
       {/* 3D LOOT CHEST PRIZE REVEALS */}
       <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <span className="font-pixel-arcade text-xs text-[#FFD34D] uppercase">
+          <span className="font-pixel-arcade text-xs text-[#FFD34D] uppercase font-bold">
             UNCOVER THE BOUNTY
           </span>
-          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white mt-1">
+          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold mt-1 drop-shadow-[0_2px_4px_#000]">
             LOOT CHEST REVEALS
           </h2>
-          <p className="text-xs sm:text-sm text-[#A0A0B0] font-sans max-w-xl mx-auto mt-2">
-            Click on any chest below to inspect its prize tier, obsidian trophies, cloud credits, and perks!
+          <p className="text-xs sm:text-sm text-[#D8D8EE] font-sans max-w-xl mx-auto mt-2">
+            Click on any chest below to inspect its prize tier, handcrafted obsidian trophies, cloud credits, and perks!
           </p>
         </div>
 
@@ -168,7 +172,7 @@ export default function HackNovaPage() {
                 className={`p-6 border-4 transition-all cursor-pointer relative select-none flex flex-col items-center text-center ${
                   isOpened
                     ? "bg-[#1C0F28] scale-105 shadow-[0_0_30px_rgba(255,211,77,0.3)]"
-                    : "bg-[#11081A] opacity-80 hover:opacity-100 hover:scale-102"
+                    : "bg-[#11081A] hover:scale-102"
                 }`}
                 style={{
                   borderColor: isOpened ? chest.colorHex : "#3A1448",
@@ -185,7 +189,7 @@ export default function HackNovaPage() {
                 </div>
 
                 <span
-                  className="font-pixel-arcade text-[10px] px-2 py-0.5 border mb-1"
+                  className="font-pixel-arcade text-[10px] px-2 py-0.5 border mb-1 font-bold"
                   style={{
                     color: chest.colorHex,
                     borderColor: `${chest.colorHex}60`,
@@ -195,18 +199,18 @@ export default function HackNovaPage() {
                   {chest.rankBadge}
                 </span>
 
-                <h3 className="font-pixel-title text-base text-white mt-1">
+                <h3 className="font-pixel-title text-base text-white font-bold mt-1">
                   {chest.title.split("—")[0]}
                 </h3>
 
                 <div
-                  className="font-pixel-arcade text-sm mt-2 font-bold"
+                  className="font-pixel-arcade text-xs mt-2 font-bold"
                   style={{ color: chest.colorHex }}
                 >
-                  {chest.cashAmount}
+                  {chest.awardLabel}
                 </div>
 
-                <span className="font-pixel-arcade text-[9px] text-[#A0A0B0] mt-3">
+                <span className="font-pixel-arcade text-[9px] text-[#A0A0C0] mt-3 font-bold">
                   {isOpened ? "▼ CHEST UNLOCKED" : "CLICK TO UNLOCK"}
                 </span>
               </div>
@@ -226,20 +230,20 @@ export default function HackNovaPage() {
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-2 border-[#2E123D] pb-4 mb-6">
                 <div>
-                  <span className="font-pixel-arcade text-xs text-[#A0A0B0]">CHEST CONTENTS:</span>
-                  <h3 className="font-pixel-title text-xl sm:text-2xl text-white mt-1">
+                  <span className="font-pixel-arcade text-xs text-[#D8D8EE] font-bold">CHEST CONTENTS:</span>
+                  <h3 className="font-pixel-title text-xl sm:text-2xl text-white font-bold mt-1">
                     {activeChest.title}
                   </h3>
                 </div>
 
                 <span
-                  className="font-pixel-arcade text-xs px-3 py-1 border"
+                  className="font-pixel-arcade text-xs px-3 py-1 border font-bold"
                   style={{
                     color: activeChest.colorHex,
                     borderColor: activeChest.colorHex,
                   }}
                 >
-                  {activeChest.cashAmount}
+                  {activeChest.awardLabel}
                 </span>
               </div>
 
@@ -264,14 +268,14 @@ export default function HackNovaPage() {
       {/* TRACKS & PROBLEM STATEMENT PROTOCOL */}
       <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto bg-[#100618] border-y-4 border-[#3A1448]">
         <div className="text-center mb-10">
-          <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase">
+          <span className="font-pixel-arcade text-xs text-[#4FD9FF] uppercase font-bold">
             PROBLEM DOMAINS
           </span>
-          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
+          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold mt-1 drop-shadow-[0_2px_4px_#000]">
             HACKATHON TRACKS
           </h2>
-          <div className="p-3 mt-3 inline-block bg-[#1B0524] border border-[#E14E3D] text-xs font-sans text-[#FFD34D]">
-            ⚠️ NOTE: Exact problem statements will be officially unveiled live at T-0 Hours (Event Kickoff).
+          <div className="p-3 mt-3 inline-block bg-[#1B0524] border border-[#E14E3D] text-xs font-sans text-[#FFD34D] font-medium">
+            ⚠️ NOTE: Problem statements will be officially unveiled live at T-0 Hours (Event Kickoff).
           </div>
         </div>
 
@@ -286,7 +290,7 @@ export default function HackNovaPage() {
                   <div className="w-12 h-12 bg-[#0B0212] border border-[#3A1448] flex items-center justify-center">
                     {getTrackIcon(track.icon)}
                   </div>
-                  <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] bg-[#4FD9FF]/10 px-2 py-0.5 border border-[#4FD9FF]/30">
+                  <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] bg-[#4FD9FF]/10 px-2 py-0.5 border border-[#4FD9FF]/30 font-bold">
                     {track.tag}
                   </span>
                 </div>
@@ -294,7 +298,7 @@ export default function HackNovaPage() {
                 <h3 className="font-pixel-heading text-lg font-bold text-white mb-2">
                   {track.title}
                 </h3>
-                <p className="text-xs text-[#B0B0C8] font-sans leading-relaxed mb-4">
+                <p className="text-xs text-[#D8D8EE] font-sans leading-relaxed mb-4">
                   {track.shortDesc}
                 </p>
               </div>
@@ -316,10 +320,10 @@ export default function HackNovaPage() {
               24-HOUR BATTLE RUNTIME
             </span>
           </div>
-          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white mt-1 uppercase drop-shadow-[0_4px_0_#000]">
+          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold mt-1 uppercase drop-shadow-[0_4px_0_#000]">
             HACKATHON QUESTLINE TIMELINE
           </h2>
-          <p className="text-sm sm:text-base text-[#E0E2F5] font-sans max-w-2xl mx-auto mt-2 leading-relaxed">
+          <p className="text-sm sm:text-base text-[#F0F2FF] font-sans max-w-2xl mx-auto mt-2 leading-relaxed">
             From physical spawn check-ins and T-0 problem unveilings to midnight snack raids and the final jury pitch arena.
           </p>
         </div>
@@ -343,7 +347,7 @@ export default function HackNovaPage() {
                   <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#E14E3D] shadow-[0_0_10px_#E14E3D]" />
 
                   <div className="flex items-center gap-3 sm:gap-4 w-full md:w-56 flex-shrink-0">
-                    <div className="w-10 h-10 bg-[#250A10] border-2 border-[#E14E3D] flex items-center justify-center font-pixel-title text-sm text-[#FFD34D] shadow-[0_0_10px_rgba(225,78,61,0.5)] flex-shrink-0">
+                    <div className="w-10 h-10 bg-[#250A10] border-2 border-[#E14E3D] flex items-center justify-center font-pixel-title text-sm text-[#FFD34D] font-bold shadow-[0_0_10px_rgba(225,78,61,0.5)] flex-shrink-0">
                       L{stage.level}
                     </div>
                     <div className="min-w-0">
@@ -351,7 +355,7 @@ export default function HackNovaPage() {
                         <Clock className="w-3.5 h-3.5 text-[#E14E3D] flex-shrink-0" />
                         <span className="truncate">{stage.time}</span>
                       </div>
-                      <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/15 px-2 py-0.5 border border-[#FFD34D]/40 uppercase mt-1 inline-block">
+                      <span className="font-pixel-arcade text-[10px] text-[#FFD34D] bg-[#FFD34D]/15 px-2 py-0.5 border border-[#FFD34D]/40 uppercase mt-1 inline-block font-bold">
                         {stage.dayLabel}
                       </span>
                     </div>
@@ -367,7 +371,7 @@ export default function HackNovaPage() {
                   </div>
 
                   <div className="flex-shrink-0 self-end md:self-center">
-                    <span className="text-xs font-pixel-arcade text-[#55FF55] bg-[#55FF55]/15 px-3 py-1.5 border border-[#55FF55] shadow-sm">
+                    <span className="text-xs font-pixel-arcade text-[#55FF55] bg-[#55FF55]/15 px-3 py-1.5 border border-[#55FF55] shadow-sm font-bold">
                       STAGE 0{stage.level}
                     </span>
                   </div>
@@ -378,28 +382,39 @@ export default function HackNovaPage() {
         </div>
       </section>
 
-      {/* DIRECT IN-PORTAL REGISTRATION SECTION */}
-      <section id="register-section" className="py-20 px-4 sm:px-6 max-w-4xl mx-auto">
+      {/* EXTERNAL REGISTRATION ROUTING BANNER */}
+      <section className="py-20 px-4 sm:px-6 max-w-4xl mx-auto">
         <div className="bg-[#14081E]/95 backdrop-blur-xl border-4 border-[#E14E3D] shadow-[0_10px_0_#000,0_0_50px_rgba(225,78,61,0.3)] p-6 sm:p-10 text-center">
-          <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase">
-            OFFICIAL FESTIVAL REGISTRATION PORTAL
+          <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase font-bold">
+            OFFICIAL HACKATHON APPLICATION
           </span>
-          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white mt-2 mb-3">
-            ENLIST FOR HACKNOVA 2.0 & FORGE BADGE
+          <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold mt-2 mb-3 drop-shadow-[0_2px_4px_#000]">
+            REGISTER ON HACKNOVA PORTAL
           </h2>
-          <p className="text-xs sm:text-sm text-[#D0D0E0] font-sans max-w-xl mx-auto mb-8 leading-relaxed">
-            All festival registrations and HackNova 2.0 applications are unified in the central Singularity 2K26 Credential Forge with direct Google Sheet sync and real-time attendee live counting.
+          <p className="text-xs sm:text-sm text-[#D8D8EE] font-sans max-w-xl mx-auto mb-8 leading-relaxed">
+            HackNova 2.0 squad submissions and team management are handled on its dedicated official portal. Click below to access registration.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/register?tier=hacker"
+            <a
+              href="https://hacknova.tech"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => soundFx.playClick()}
               className="btn-voxel btn-voxel-redstone text-xs sm:text-sm py-4 px-8 w-full sm:w-auto flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(225,78,61,0.5)]"
             >
               <span>⚔️</span>
-              <span>ENTER REGISTRATION & FORGE HACKER PASS</span>
-              <span>→</span>
+              <span>PROCEED TO HACKNOVA OFFICIAL PORTAL</span>
+              <ExternalLink className="w-4 h-4" />
+            </a>
+
+            <Link
+              href="/register"
+              onClick={() => soundFx.playClick()}
+              className="btn-voxel btn-voxel-diamond text-xs sm:text-sm py-4 px-8 w-full sm:w-auto flex items-center justify-center gap-2"
+            >
+              <span>🎟️</span>
+              <span>GET FESTIVAL ATTENDEE PASS</span>
             </Link>
           </div>
         </div>
@@ -408,10 +423,10 @@ export default function HackNovaPage() {
       {/* FAQ ACCORDION */}
       <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase">
+          <span className="font-pixel-arcade text-xs text-[#55FF55] uppercase font-bold">
             HACKATHON PROTOCOLS
           </span>
-          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white mt-1">
+          <h2 className="font-pixel-title text-2xl sm:text-3xl text-white font-bold mt-1 drop-shadow-[0_2px_4px_#000]">
             HACKNOVA 2.0 FAQ
           </h2>
         </div>
@@ -437,7 +452,7 @@ export default function HackNovaPage() {
                 </button>
 
                 {isExpanded && (
-                  <div className="px-4 pb-4 font-sans text-xs sm:text-sm text-[#D0D0E0] border-t border-[#2A1038] pt-3 leading-relaxed">
+                  <div className="px-4 pb-4 font-sans text-xs sm:text-sm text-[#D8D8EE] border-t border-[#2A1038] pt-3 leading-relaxed">
                     {faq.a}
                   </div>
                 )}
