@@ -32,6 +32,7 @@ import {
   Crown,
   Calendar,
 } from "lucide-react";
+import { HeroSunRays } from "@/components/animations/HeroSunRays";
 import Link from "next/link";
 
 export default function EventsPage() {
@@ -117,16 +118,19 @@ export default function EventsPage() {
   };
 
   return (
-    <main className="min-h-screen pt-8 relative bg-[#06010A] text-white">
-      {/* Background Image: 4K Overworld Sunrise with High Contrast Backdrop */}
+    <main className="min-h-screen pt-8 relative bg-[#07010C] text-white">
+      {/* Background Image: 4K Overworld Alpine Sunrise */}
       <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-45 brightness-95 pointer-events-none"
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-95 brightness-110 contrast-105 saturate-110 pointer-events-none"
         style={{
           backgroundImage: "url('/images/bg_overworld_sunrise_4k.jpg')",
         }}
       />
-      {/* Deep Contrast Vignette & Dark Backplate for 100% Readable Text */}
-      <div className="fixed inset-0 bg-gradient-to-b from-[#06010A]/95 via-[#0A0214]/90 to-[#06010A] pointer-events-none" />
+      {/* Dynamic Animated Volumetric Sun Rays */}
+      <HeroSunRays />
+
+      {/* Atmospheric Vignette (Soft top/bottom fade while keeping center sunrise fully clear) */}
+      <div className="fixed inset-0 bg-gradient-to-b from-[#07010C]/60 via-transparent to-[#07010C] pointer-events-none" />
 
       {/* 1. Header Banner */}
       <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto text-center mb-10">
