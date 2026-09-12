@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
-import { HACKNOVA_DATA, HackRewardPillar, EncryptedTrack, HackTimelineStage } from "@/data/hacknova";
+import { HACKNOVA_DATA, HackRewardPillar, EncryptedTrack } from "@/data/hacknova";
 import { useAchievement } from "@/components/ui/AchievementSystem";
 import { soundFx } from "@/lib/soundFx";
 import { spawnBlockBreakParticles } from "@/lib/particles";
@@ -11,54 +10,39 @@ import { LavaFlowCanvas } from "@/components/animations/LavaFlowCanvas";
 import {
   Trophy,
   Award,
-  Medal,
   Sparkles,
   ChevronDown,
   ChevronUp,
-  Clock,
-  Calendar,
-  Users,
-  MapPin,
   Bot,
   Cloud,
   Shield,
   TrendingUp,
-  Flame,
-  CheckCircle,
   ExternalLink,
   Lock,
   Wallet,
   Package,
   Utensils,
-  FileText,
-  Zap,
   HelpCircle,
-  AlertTriangle,
-  Mail,
   ArrowRight,
-  Code2,
   Terminal,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
 export default function HackNovaPage() {
-  const { gainXp, unlockAchievement } = useAchievement();
-  const [activeRewardTab, setActiveRewardTab] = useState<string>("cash-prizes");
+  const { unlockAchievement } = useAchievement();
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
 
   React.useEffect(() => {
     unlockAchievement("CAVE_EXPLORER");
   }, [unlockAchievement]);
 
-  const handleRewardPillarClick = (pillar: HackRewardPillar, e: React.MouseEvent) => {
+  const handleCardInteract = (e: React.MouseEvent) => {
     soundFx.playChestOpen();
     spawnBlockBreakParticles(e.clientX, e.clientY, 15);
-    setActiveRewardTab(pillar.id);
-
     try {
       confetti({
-        particleCount: 25,
-        spread: 60,
+        particleCount: 20,
+        spread: 50,
         origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
         colors: ["#FF3B00", "#FFD34D", "#4FD9FF", "#55FF55"],
       });
@@ -86,7 +70,7 @@ export default function HackNovaPage() {
     }
   };
 
-  const getRewardIcon = (iconName: string, className = "w-8 h-8") => {
+  const getRewardIcon = (iconName: string, className = "w-7 h-7") => {
     switch (iconName) {
       case "wallet":
         return <Wallet className={className} />;
@@ -102,10 +86,6 @@ export default function HackNovaPage() {
         return <Sparkles className={className} />;
     }
   };
-
-  const selectedPillar =
-    HACKNOVA_DATA.rewardPillars.find((p) => p.id === activeRewardTab) ||
-    HACKNOVA_DATA.rewardPillars[0];
 
   return (
     <main className="min-h-screen pt-24 sm:pt-28 relative bg-[#07010C] text-white">
@@ -166,8 +146,8 @@ export default function HackNovaPage() {
             <div className="font-pixel-arcade text-[9px] sm:text-[10px] text-[#A0A0B8] mt-0.5">SQUAD SIZE</div>
           </div>
           <div className="bg-[#120308]/92 backdrop-blur-md border-2 border-[#E14E3D]/50 p-3.5 text-center shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-            <div className="font-pixel-title text-lg sm:text-xl text-[#FFD34D] font-bold">100% FREE</div>
-            <div className="font-pixel-arcade text-[9px] sm:text-[10px] text-[#A0A0B8] mt-0.5">MEALS & SWAGS</div>
+            <div className="font-pixel-title text-lg sm:text-xl text-[#FFD34D] font-bold">{HACKNOVA_DATA.entryFee}</div>
+            <div className="font-pixel-arcade text-[9px] sm:text-[10px] text-[#A0A0B8] mt-0.5">ENTRY PASS</div>
           </div>
           <div className="bg-[#120308]/92 backdrop-blur-md border-2 border-[#E14E3D]/50 p-3.5 text-center shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
             <div className="font-pixel-title text-lg sm:text-xl text-[#E14E3D] font-bold">{HACKNOVA_DATA.grandPrizePoolFormatted}</div>
@@ -191,7 +171,7 @@ export default function HackNovaPage() {
             href="#rewards-vault"
             className="btn-voxel btn-voxel-gold text-xs sm:text-sm px-6 py-4 flex items-center gap-2"
           >
-            <span>EXPLORE GRAND BOUNTIES</span>
+            <span>EXPLORE REWARD MATRIX</span>
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
@@ -267,75 +247,76 @@ export default function HackNovaPage() {
         </div>
       </section>
 
-      {/* 3. ENCRYPTED PROBLEM STATEMENTS TERMINAL */}
+      {/* 3. STRICTLY ENCRYPTED PROBLEM STATEMENTS TERMINAL */}
       <section className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-16">
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 font-pixel-arcade text-xs text-[#E14E3D] bg-[#E14E3D]/15 border border-[#E14E3D]/50 px-3.5 py-1 uppercase tracking-widest font-bold mb-2 animate-pulse">
             <Lock className="w-3.5 h-3.5 text-[#E14E3D]" />
-            CLASSIFIED // QUANTUM ENCRYPTED
+            QUANTUM ENCRYPTED MATRIX
           </div>
           <h2 className="font-pixel-title text-2xl sm:text-4xl text-white font-bold drop-shadow-[0_4px_0_#000]">
-            HACKATHON CHALLENGE DOMAINS
+            HACKATHON CHALLENGE TRACKS
           </h2>
           <p className="text-xs sm:text-sm text-[#E0E0EE] font-sans max-w-2xl mx-auto mt-2">
-            To ensure zero pre-built code and 100% fair competition, specific challenge statements remain encrypted until the live countdown reaches T-00:00:00 at the Opening Ceremony.
+            To guarantee 100% fair play and zero pre-built codebases, all challenge statements remain strictly encrypted. Problem statements will be decrypted and revealed live at the Opening Ceremony.
           </p>
         </div>
 
-        {/* 5 Encrypted Domain Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* 5 Strictly Encrypted Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {HACKNOVA_DATA.encryptedTracks.map((track) => (
             <div
               key={track.id}
-              className="bg-[#120308]/92 backdrop-blur-2xl border-3 border-[#4A141E] hover:border-[#FFD34D] transition-all p-6 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.9)] relative group"
+              className="bg-[#120308]/92 backdrop-blur-2xl border-2 border-[#4A141E] hover:border-[#E14E3D] transition-all p-6 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.9)] relative overflow-hidden group"
             >
-              {/* Top lock bar */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-pixel-arcade text-[10px] text-[#4FD9FF] bg-[#4FD9FF]/10 px-2.5 py-1 border border-[#4FD9FF]/30 font-bold">
-                  {track.trackNumber}
-                </span>
+              {/* Scanline & subtle animated amber glow effect */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(225,78,61,0.12)_0%,_transparent_70%)] pointer-events-none" />
 
-                <span className="font-pixel-arcade text-[9px] text-[#E14E3D] bg-[#E14E3D]/20 px-2.5 py-1 border border-[#E14E3D]/50 flex items-center gap-1 font-bold">
-                  <Lock className="w-3 h-3 text-[#E14E3D]" />
-                  ENCRYPTED
-                </span>
-              </div>
+              <div>
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-pixel-arcade text-[11px] text-[#4FD9FF] bg-[#4FD9FF]/10 px-3 py-1 border border-[#4FD9FF]/30 font-bold tracking-wider">
+                    {track.trackNumber}
+                  </span>
 
-              {/* Title & Domain */}
-              <div className="space-y-2 mb-4">
-                <span className="text-[10px] font-pixel-arcade text-[#FFD34D] uppercase font-bold tracking-wider block">
-                  {track.domain}
-                </span>
-                <h3 className="font-pixel-heading text-lg font-bold text-white group-hover:text-[#4FD9FF] transition-colors leading-snug">
-                  {track.title}
-                </h3>
-                <p className="text-xs text-[#C0C2D8] font-sans leading-relaxed">
-                  {track.teaser}
-                </p>
-              </div>
-
-              {/* Recommended Stack Chips */}
-              <div className="pt-4 border-t border-[#3A141E]">
-                <span className="font-pixel-arcade text-[9px] text-[#A0A0B8] block mb-2 font-bold">
-                  COMPATIBLE STACKS:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {track.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-[9px] font-pixel-arcade text-white bg-[#0A0108] px-2 py-0.5 border border-[#3A141E]"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                  <span className="font-pixel-arcade text-[9px] text-[#E14E3D] bg-[#E14E3D]/20 px-2.5 py-1 border border-[#E14E3D]/50 flex items-center gap-1.5 font-bold tracking-wider">
+                    <Lock className="w-3 h-3 text-[#E14E3D] animate-pulse" />
+                    ENCRYPTED
+                  </span>
                 </div>
+
+                {/* Encrypted Visual Chamber */}
+                <div className="bg-[#080106] border border-[#3A141E] p-4 text-center my-3 space-y-2">
+                  <div className="w-12 h-12 mx-auto bg-[#14020A] border border-[#E14E3D]/40 flex items-center justify-center shadow-[0_0_15px_rgba(225,78,61,0.25)]">
+                    <Lock className="w-6 h-6 text-[#E14E3D]" />
+                  </div>
+
+                  <div className="font-pixel-title text-sm sm:text-base text-[#FFD34D] tracking-widest pt-1">
+                    [CLASSIFIED]
+                  </div>
+
+                  <div className="font-pixel-arcade text-[10px] text-[#A0A0B8] tracking-widest font-mono">
+                    HASH: {track.cipherHash}
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Footer */}
+              <div className="pt-3 border-t border-[#3A141E] flex items-center justify-between">
+                <span className="font-pixel-arcade text-[9px] text-[#55FF55] flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-[#55FF55] animate-ping" />
+                  UNLOCKS AT T-0
+                </span>
+                <span className="font-pixel-arcade text-[9px] text-[#A0A0B8]">
+                  OPENING CEREMONY
+                </span>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 4. GRAND BOUNTY & REWARDS VAULT (₹ 1,XX,XXX.XX+) */}
+      {/* 4. GRAND BOUNTY & REWARDS MATRIX (₹ 1,XX,XXX.XX+) */}
       <section id="rewards-vault" className="relative z-10 px-4 sm:px-6 max-w-7xl mx-auto mb-16 scroll-mt-28">
         <div className="bg-[#120308]/95 backdrop-blur-2xl border-4 border-[#FFD34D] shadow-[0_12px_50px_rgba(0,0,0,0.95),0_0_50px_rgba(255,211,77,0.35)] p-6 sm:p-10 relative overflow-hidden">
           {/* Top golden glowing bar */}
@@ -356,21 +337,17 @@ export default function HackNovaPage() {
             </h2>
 
             <p className="text-xs sm:text-sm text-[#E8E8F5] font-sans mt-3 leading-relaxed font-normal">
-              High-stakes bounties, handcrafted obsidian trophies, physical swag kits, complimentary catering, and verifiable certificates. Every single participant receives tangible value.
+              Direct cash prizes for podium finishers, handcrafted trophies, official swags, food and beverages provided, and verified certificates for all candidates.
             </p>
           </div>
 
-          {/* 5 Distinct Reward Pillars Grid */}
+          {/* 5 Distinct Clean Reward Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {HACKNOVA_DATA.rewardPillars.map((pillar) => (
               <div
                 key={pillar.id}
-                onClick={(e) => handleRewardPillarClick(pillar, e)}
-                className={`p-6 border-3 transition-all cursor-pointer select-none flex flex-col justify-between relative group ${
-                  activeRewardTab === pillar.id
-                    ? "bg-[#1C0510] border-white shadow-[0_0_30px_rgba(255,255,255,0.35),0_8px_0_#000] translate-y-[-2px]"
-                    : "bg-[#090107]/95 border-[#3A141E] hover:border-[#FFD34D] hover:bg-[#14030B]"
-                }`}
+                onClick={handleCardInteract}
+                className="p-6 border-2 bg-[#090107]/95 border-[#3A141E] hover:border-[#FFD34D] hover:bg-[#14030B] transition-all flex flex-col justify-between relative shadow-[0_8px_24px_rgba(0,0,0,0.8)] cursor-pointer select-none group"
               >
                 {/* Top Accent Strip */}
                 <div
@@ -392,7 +369,7 @@ export default function HackNovaPage() {
                     </span>
 
                     <div
-                      className="w-11 h-11 border-2 flex items-center justify-center flex-shrink-0 shadow-sm"
+                      className="w-12 h-12 border-2 flex items-center justify-center flex-shrink-0 shadow-sm"
                       style={{
                         borderColor: pillar.accentColor,
                         color: pillar.accentColor,
@@ -403,7 +380,7 @@ export default function HackNovaPage() {
                     </div>
                   </div>
 
-                  <h3 className="font-pixel-heading text-lg font-bold text-white group-hover:text-[#FFD34D] transition-colors leading-tight mb-1">
+                  <h3 className="font-pixel-heading text-xl font-bold text-white group-hover:text-[#FFD34D] transition-colors leading-tight mb-1">
                     {pillar.title}
                   </h3>
 
@@ -411,22 +388,16 @@ export default function HackNovaPage() {
                     Target: {pillar.recipient}
                   </div>
 
-                  <p className="text-xs text-[#D0D0E0] font-sans leading-relaxed mb-4">
+                  <p className="text-xs sm:text-sm text-[#D0D0E0] font-sans leading-relaxed">
                     {pillar.description}
                   </p>
-
-                  <ul className="space-y-1.5 text-xs text-[#E0E0F0] font-sans list-disc list-inside">
-                    {pillar.perks.map((perk, idx) => (
-                      <li key={idx} className="leading-tight">
-                        {perk}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-[#3A141E] flex items-center justify-between text-[10px] font-pixel-arcade font-bold">
+                <div className="mt-6 pt-3 border-t border-[#3A141E] flex items-center justify-between text-[10px] font-pixel-arcade font-bold">
                   <span style={{ color: pillar.accentColor }}>{pillar.badge}</span>
-                  <span className="text-white group-hover:translate-x-1 transition-transform">INSPECT →</span>
+                  <span className="text-[#A0A0B8] group-hover:text-white transition-colors">
+                    HACKNOVA 2.0
+                  </span>
                 </div>
               </div>
             ))}
@@ -480,7 +451,7 @@ export default function HackNovaPage() {
         </div>
       </section>
 
-      {/* 6. OFFICIAL FAQ ACCORDION (Imported from hacknova2-n8n-dsc.netlify.app/faq) */}
+      {/* 6. OFFICIAL FAQ ACCORDION (Updated with ₹199 registration & extension cord requirement) */}
       <section className="relative z-10 px-4 sm:px-6 max-w-5xl mx-auto mb-16">
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 font-pixel-arcade text-xs text-[#55FF55] bg-[#55FF55]/10 border border-[#55FF55]/30 px-3 py-1 uppercase tracking-wider font-bold mb-2">
@@ -491,7 +462,7 @@ export default function HackNovaPage() {
             HACKNOVA 2.0 PROTOCOLS & FAQ
           </h2>
           <p className="text-xs sm:text-sm text-[#E0E0EE] font-sans max-w-xl mx-auto mt-2">
-            Everything you need to know about registration, team formation, code originality, free meals, and accommodation.
+            Everything you need to know about registration fee (₹199), team formation, workstation equipment, food, and prizes.
           </p>
         </div>
 

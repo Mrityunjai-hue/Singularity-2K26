@@ -7,18 +7,13 @@ export interface HackRewardPillar {
   accentColor: string;
   bgGlow: string;
   description: string;
-  perks: string[];
 }
 
 export interface EncryptedTrack {
   id: string;
   trackNumber: string;
-  title: string;
-  domain: string;
-  icon: string;
-  status: "ENCRYPTED" | "UNLOCKED";
-  teaser: string;
-  techStack: string[];
+  cipherHash: string;
+  status: "QUANTUM ENCRYPTED";
 }
 
 export interface HackTimelineStage {
@@ -52,6 +47,7 @@ export const HACKNOVA_DATA = {
   duration: "24 Hours Non-Stop",
   format: "Offline (In-Person Grand Arena at HBTU Kanpur)",
   teamSize: "2 to 4 Builders",
+  entryFee: "₹199 / Person",
   targetDevelopers: "1000+ Developers Across India",
   portalUrl: "https://hacknova2-n8n-dsc.netlify.app/",
   registrationNote:
@@ -93,140 +89,91 @@ export const HACKNOVA_DATA = {
     },
   ],
 
-  // 5 Distinct Reward Pillars (Explicit Breakdown)
+  // 5 Distinct Reward Pillars (Exact specifications: Cash for Top 3, Trophies for Top 5, Swags for all registered, Food & beverages provided, Certificates for all)
   rewardPillars: [
     {
       id: "cash-prizes",
-      title: "Direct Cash Bounty Pool",
+      title: "Cash Prize Pool",
       badge: "TOP 3 TEAMS",
-      recipient: "1st, 2nd & 3rd Place Finishers",
+      recipient: "Top 3 Finishers",
       icon: "wallet",
       accentColor: "#FFD34D",
       bgGlow: "rgba(255, 211, 77, 0.3)",
-      description: "Direct cash grant prizes transferred to the top 3 contending hackathon teams.",
-      perks: [
-        "1st Place: Champion Cash Bounty + Fast-Track Partner Interviews",
-        "2nd Place: 1st Runner-Up Cash Bounty + Cloud Credits",
-        "3rd Place: 2nd Runner-Up Cash Bounty + Tooling Subscriptions",
-      ],
+      description: "Direct cash grant prize pool awarded to the top 3 contending hackathon teams (1st, 2nd, and 3rd place winners).",
     },
     {
       id: "obsidian-trophies",
-      title: "3D Voxel Obsidian Trophies",
+      title: "Trophies",
       badge: "TOP 5 TEAMS",
-      recipient: "Top 5 Grand Finalist Teams",
+      recipient: "Top 5 Finishers",
       icon: "trophy",
       accentColor: "#E14E3D",
       bgGlow: "rgba(225, 78, 61, 0.3)",
-      description: "Custom handcrafted 3D Voxel Obsidian & Gold Champions Trophies permanently commemorating your victory.",
-      perks: [
-        "Handcrafted Obsidian Champions Trophy (1st)",
-        "Obsidian & Gold Runner Trophies (2nd & 3rd)",
-        "Obsidian Merit Plaques for 4th & 5th Finalists",
-        "Permanent Hall of Fame inductee on Singularity & N8N DSC channels",
-      ],
+      description: "Official bespoke handcrafted trophies commemorating victory for the top 5 finishing teams.",
     },
     {
-      id: "swag-kits",
-      title: "Exclusive Developer Swag Kits",
+      id: "swags",
+      title: "Swags",
       badge: "ALL PARTICIPANTS",
-      recipient: "Every Registered Attendee",
+      recipient: "All Registered Participants",
       icon: "package",
       accentColor: "#4FD9FF",
       bgGlow: "rgba(79, 217, 255, 0.3)",
-      description: "Exclusive physical swag bags packed with custom Singularity 2K26 gear.",
-      perks: [
-        "Custom Heavyweight Singularity 2K26 Hacker Graphic Tee",
-        "Custom Die-Cut Laptop Decals & Holographic Pixel Stickers",
-        "Developer Sandbox Cloud Credits & API Tooling Passes",
-        "Collector Enamel Pins & HackNova Wristbands",
-      ],
+      description: "Exclusive official hackathon swags provided for every registered candidate.",
     },
     {
       id: "meals-fuel",
-      title: "100% Free Meals & Refreshments",
+      title: "Food & Beverages Provided",
       badge: "ALL PARTICIPANTS",
-      recipient: "All In-Person Builders at HBTU",
+      recipient: "All Registered Candidates",
       icon: "utensils",
       accentColor: "#55FF55",
       bgGlow: "rgba(85, 255, 85, 0.3)",
-      description: "Complete complimentary catering throughout the entire 24-hour sprint window.",
-      perks: [
-        "Complimentary Breakfast, Lunch & Grand Dinner",
-        "Midnight Hot Snacks & Redstone Energy Reloads",
-        "24/7 Unlimited Coffee, Tea & Refreshment Hydration Bars",
-        "Dedicated resting zones & sleeping arrangements on campus",
-      ],
+      description: "Food and beverages provided for all registered candidates throughout the entire 24-hour hackathon.",
     },
     {
       id: "certificates",
-      title: "Verified Digital Certificates",
+      title: "Certificates",
       badge: "ALL PARTICIPANTS",
-      recipient: "Every Valid Project Submission",
+      recipient: "All Candidates",
       icon: "award",
       accentColor: "#A855F7",
       bgGlow: "rgba(168, 85, 247, 0.3)",
-      description: "Cryptographically verifiable digital credential recognized across industry partners.",
-      perks: [
-        "Official Certificate of Participation for all active builders",
-        "Winner & Runner Certificates of Exceptional Merit",
-        "Endorsed by N8N DSC, AWS SBG HBTU & Dept of Mathematics, HBTU",
-        "Direct shareable verification link for LinkedIn & resumes",
-      ],
+      description: "Official digital certificates of participation and merit for all hackathon candidates.",
     },
   ] as HackRewardPillar[],
 
-  // Encrypted Challenge Statements
+  // Purely Encrypted Challenge Statements (No leaked titles, domains, descriptions or tech stacks)
   encryptedTracks: [
     {
       id: "track-01",
       trackNumber: "TRACK 01",
-      title: "Autonomous Multi-Agent AI Swarms",
-      domain: "AI / Multi-Agent / LLMs",
-      icon: "bot",
-      status: "ENCRYPTED",
-      teaser: "Autonomous reasoning loops, multi-agent collaboration networks, and self-healing software agents.",
-      techStack: ["LangGraph", "CrewAI", "n8n", "OpenAI / Anthropic APIs"],
+      cipherHash: "0x8F4A9C2E7B1D04A3",
+      status: "QUANTUM ENCRYPTED",
     },
     {
       id: "track-02",
       trackNumber: "TRACK 02",
-      title: "Next-Gen Cloud & Serverless Infrastructure",
-      domain: "Cloud / DevOps / Microservices",
-      icon: "cloud",
-      status: "ENCRYPTED",
-      teaser: "Event-driven serverless architectures, real-time streaming pipelines, and fault-tolerant cloud backends.",
-      techStack: ["AWS Lambda", "DynamoDB", "Docker", "Kubernetes"],
+      cipherHash: "0x3D7E81FA62C9B508",
+      status: "QUANTUM ENCRYPTED",
     },
     {
       id: "track-03",
       trackNumber: "TRACK 03",
-      title: "Decentralized Systems & Cryptography",
-      domain: "Web3 / Cryptography / Zero-Knowledge",
-      icon: "shield",
-      status: "ENCRYPTED",
-      teaser: "Smart contract security protocols, zero-knowledge proofs, and decentralized data storage systems.",
-      techStack: ["Solidity", "Rust", "IPFS", "ZK-Rollups"],
+      cipherHash: "0x9B1C5F0742E8DA31",
+      status: "QUANTUM ENCRYPTED",
     },
     {
       id: "track-04",
       trackNumber: "TRACK 04",
-      title: "Mathematical Computing & Algorithmic Optimization",
-      domain: "Quant Math / Graph Theory / Algorithms",
-      icon: "brain",
-      status: "ENCRYPTED",
-      teaser: "High-dimensional quantitative models, combinatorial search optimizations, and numerical computing testbeds.",
-      techStack: ["Python", "C++", "NumPy", "NetworkX"],
+      cipherHash: "0x4A6B2D8E1F7C9350",
+      status: "QUANTUM ENCRYPTED",
     },
     {
       id: "track-05",
       trackNumber: "TRACK 05",
-      title: "Open Innovation & Societal Tech Impact",
-      domain: "Open Innovation / Civic Tech / Healthcare",
-      icon: "sparkles",
-      status: "ENCRYPTED",
-      teaser: "Bespoke high-impact solutions addressing accessibility, healthcare, education, and climate resilience.",
-      techStack: ["Next.js", "FastAPI", "TensorFlow", "IoT Sandboxes"],
+      cipherHash: "0x1E5A7D3C9F8B2046",
+      status: "QUANTUM ENCRYPTED",
     },
   ] as EncryptedTrack[],
 
@@ -266,10 +213,10 @@ export const HACKNOVA_DATA = {
     },
     {
       level: 5,
-      title: "Late Night Hacker Activity & Redstone Energy Reload",
+      title: "Late Night Hacker Activity & Energy Reload",
       time: "Day 1 · 10:00 PM",
       dayLabel: "Midnight Raid",
-      desc: "Hot dinner, midnight coffee sprint, mini speed-coding challenges, and energy reloads.",
+      desc: "Hot dinner, midnight snacks & beverages sprint, mini speed-coding challenges, and energy reloads.",
       icon: "zap",
     },
     {
@@ -306,15 +253,19 @@ export const HACKNOVA_DATA = {
     },
   ] as HackTimelineStage[],
 
-  // Official FAQs imported from hacknova2-n8n-dsc.netlify.app/faq
+  // Official FAQs (Updated with ₹199 registration fee & mandatory extension cord)
   faqs: [
     {
       q: "How do I register for HackNova 2.0?",
-      a: "Step 1: Complete registration on the official portal (create a team, join an existing team, or register solo for matchmaking). Step 2: Receive your Virtual Hacker Pass, unique team code & confirmation email. Step 3: Join the Discord war room & WhatsApp communication channels to stay updated until hackathon kickoff!",
+      a: "Step 1: Complete registration on the official portal (create a team, join an existing team, or register solo for matchmaking). Step 2: Pay the ₹199 per person entry fee and receive your Virtual Hacker Pass, unique team code & confirmation email. Step 3: Join the Discord war room & WhatsApp communication channels to stay updated until hackathon kickoff!",
     },
     {
-      q: "Is registration free?",
-      a: "YES. Registration for HackNova 2.0 is completely free for all participants. There are zero hidden admission or platform fees.",
+      q: "Is registration free or is there an entry fee?",
+      a: "Registration for HackNova 2.0 is ₹199 per person. This pass grants you complete access to the 24-hour hackathon arena, official swags, food & beverages, mentorship sessions, and eligibility for all prizes.",
+    },
+    {
+      q: "What should I bring to the hackathon?",
+      a: "You must bring your laptop, charger, an extension cord / power strip (mandatory for your team workstation power supply), valid student or government ID, toiletries, and any specific hardware components you plan to build with.",
     },
     {
       q: "What is the team size requirement?",
@@ -325,16 +276,12 @@ export const HACKNOVA_DATA = {
       a: "NO. All project code and core logic must be developed exclusively within the 24-hour hackathon window. Using pre-existing projects or 'wrapped' old codebases is strictly prohibited and grounds for immediate disqualification. Standard open-source libraries and public APIs are permitted when declared in the README.",
     },
     {
-      q: "Are food, meals, and accommodation provided?",
-      a: "YES! We provide complimentary breakfast, lunch, dinner, midnight energy snacks, beverages, and campus resting arrangements for all registered participants throughout the 24-hour hackathon duration.",
+      q: "Are food and beverages provided during the hackathon?",
+      a: "YES. Food and beverages are provided for all registered candidates throughout the entire 24-hour hackathon duration at HBTU Kanpur.",
     },
     {
       q: "Who is eligible to participate?",
       a: "Open to all university students, researchers, and early-career developers globally. Inter-college, inter-branch, and cross-discipline teams are warmly welcomed.",
-    },
-    {
-      q: "What should I bring to the hackathon?",
-      a: "Bring your laptop, charger, power strip (optional), valid student/government ID, toiletries, and any specific hardware components/microcontrollers you plan to use for your project.",
     },
     {
       q: "Can beginners and first-time hackers participate?",
@@ -359,6 +306,7 @@ export const HACKNOVA_DATA = {
         { label: "Global Student Eligibility", detail: "Open to all university students, research scholars, and early-career developers globally." },
         { label: "Team Structure", detail: "Teams must consist of 2 to 4 members. Solo nodes are restricted from final prize contention." },
         { label: "Physical Presence Required", detail: "Offline in-person presence at Harcourt Butler Technical University (HBTU), Kanpur is mandatory for all team members." },
+        { label: "Workstation Equipment", detail: "Every team must bring their own extension cord / power strip to ensure all team laptops remain powered." },
       ],
     },
     {
