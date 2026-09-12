@@ -118,11 +118,11 @@ export function VoxelNavbar() {
             })}
           </nav>
 
-          {/* ZONE 3 (RIGHT - DESKTOP): COHESIVE BOXED HUD CLUSTER */}
+          {/* ZONE 3 (RIGHT - DESKTOP): COHESIVE BOXED HUD CLUSTER (LVL BADGE + SOUND TOGGLE) */}
           <div className="hidden lg:flex items-center gap-1.5 bg-[#0E0B1A]/90 border-2 border-[#262136] p-1 shadow-[inset_0_1px_3px_rgba(0,0,0,0.6)] rounded-none">
             {/* 1. Neutral Stone LVL Badge */}
             <div
-              className="px-2 py-1 bg-[#151222] border border-[#302B42] text-[9px] font-pixel-arcade text-[#D8D8E8] flex items-center gap-1.5 select-none"
+              className="px-2.5 py-1 bg-[#151222] border border-[#302B42] text-[9px] font-pixel-arcade text-[#D8D8E8] flex items-center gap-1.5 select-none"
               title={`Total Experience: ${totalXp} XP`}
             >
               <span className="w-1.5 h-1.5 bg-[#4FD9FF] inline-block" />
@@ -145,29 +145,25 @@ export function VoxelNavbar() {
             >
               {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
             </button>
-
-            {/* 3. Primary CTA Button: Rebuilt HackNova 2.0 with Diamond Cyan Bevel */}
-            <Link
-              href="/hacknova"
-              onClick={handleClick}
-              className="relative inline-flex items-center gap-1.5 px-3 py-1 font-pixel-arcade text-[10px] font-bold tracking-wider uppercase text-[#04121A] bg-[#00A6D6] hover:bg-[#12B7E8] border-t-2 border-l-2 border-[#7BE4FF] border-r-2 border-b-3 border-[#005570] shadow-[0_2px_0_#00384D,0_0_12px_rgba(79,217,255,0.35)] transition-all active:translate-y-0.5 active:border-b-2 active:shadow-none select-none rounded-none"
-            >
-              <Trophy className="w-3.5 h-3.5 text-[#04121A]" />
-              <span>HACKNOVA 2.0</span>
-            </Link>
           </div>
 
-          {/* ZONE 3 (RIGHT - MOBILE / TABLET): COMPACT CLEAN CLUSTER */}
+          {/* ZONE 3 (RIGHT - MOBILE / TABLET): COMPACT SOUND + HAMBURGER CONTROLS */}
           <div className="flex items-center gap-2 lg:hidden">
-            {/* Mobile HackNova CTA Button */}
-            <Link
-              href="/hacknova"
-              onClick={handleClick}
-              className="inline-flex items-center gap-1 px-2.5 py-1 font-pixel-arcade text-[9px] font-bold text-[#04121A] bg-[#00A6D6] border-t-2 border-l-2 border-[#7BE4FF] border-r-2 border-b-2 border-[#005570] shadow-[0_1px_0_#00384D] active:translate-y-0.5 rounded-none"
+            {/* Mobile Sound Toggle */}
+            <button
+              onClick={() => {
+                toggleSound();
+                soundFx.playClick();
+              }}
+              className={`w-8 h-8 flex items-center justify-center border transition-all rounded-none ${
+                isMuted
+                  ? "bg-[#140E20] border-[#2E2840] text-[#706B82]"
+                  : "bg-[#160E26] border-[#382F4E] text-[#4FD9FF]"
+              }`}
+              aria-label="Toggle Audio"
             >
-              <Trophy className="w-3 h-3" />
-              <span>HACKNOVA</span>
-            </Link>
+              {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+            </button>
 
             {/* Mobile Pixel Hamburger Toggle */}
             <button
